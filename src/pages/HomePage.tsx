@@ -6,12 +6,13 @@ import {
   Cpu,
   FileCheck,
   Bot,
-  Zap,
   ExternalLink,
   Copy,
   Check,
   ChevronDown,
   ChevronUp,
+  LayoutDashboard,
+  Store,
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { ConnectKitButton } from 'connectkit'
@@ -87,26 +88,43 @@ export default function HomePage({ onNavigate, isConnected, address, balanceFmt 
 
             {/* Direct Action Buttons */}
             <div className="flex items-center gap-3 pt-1 flex-wrap">
+              {isConnected ? (
+                <button
+                  onClick={() => onNavigate('dashboard')}
+                  className="flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-600/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  <LayoutDashboard className="w-3.5 h-3.5" />
+                  <span>Open My Workspace</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              ) : (
+                <button
+                  onClick={() => onNavigate('marketplace')}
+                  className="flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-600/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  <span>Explore Marketplace</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              )}
+
               <button
                 onClick={() => onNavigate('marketplace')}
-                className="flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-600/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                className={`flex items-center gap-2 px-4 py-3 rounded-xl text-xs font-bold transition-all ${
+                  isConnected
+                    ? 'bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.05] dark:hover:bg-white/[0.1] dark:text-slate-200 border border-slate-200 dark:border-white/[0.08]'
+                    : 'hidden'
+                }`}
               >
-                <span>Browse Escrow Marketplace</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <Store className="w-4 h-4 text-purple-600 dark:text-cyan-300" />
+                <span>Marketplace</span>
               </button>
+
               <button
                 onClick={() => onNavigate('agents')}
                 className="flex items-center gap-2 px-4 py-3 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.05] dark:hover:bg-white/[0.1] dark:text-cyan-300 border border-slate-200 dark:border-cyan-500/20 transition-all"
               >
                 <Bot className="w-4 h-4 text-purple-600 dark:text-cyan-300" />
                 <span>Agent Registry</span>
-              </button>
-              <button
-                onClick={() => onNavigate('developer')}
-                className="flex items-center gap-2 px-4 py-3 rounded-xl text-xs font-bold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:bg-emerald-500/15 dark:hover:bg-emerald-500/25 dark:text-emerald-300 border border-emerald-500/25 dark:border-emerald-500/30 transition-all"
-              >
-                <Zap className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                <span>x402 Studio</span>
               </button>
             </div>
 

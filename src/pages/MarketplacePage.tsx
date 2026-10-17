@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef, useEffect } from 'react'
 import {
   Search,
   Plus,
@@ -9,6 +9,8 @@ import {
   Shield,
   Bot,
   ExternalLink,
+  Zap,
+  ChevronDown,
 } from 'lucide-react'
 import EscrowCard from '../components/EscrowCard'
 import MilestoneJobCard from '../components/MilestoneJobCard'
@@ -55,6 +57,25 @@ export default function MarketplacePage({
   const [tabType, setTabType] = useState<'all' | 'single' | 'milestones'>('all')
   const [statusFilter, setStatusFilter] = useState<'all' | 'funded' | 'submitted' | 'completed' | 'disputed'>('all')
   const [searchQuery, setSearchQuery] = useState('')
+  const [createDropdownOpen, setCreateDropdownOpen] = useState(false)
+  const createRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (createRef.current && !createRef.current.contains(event.target as Node)) {
+        setCreateDropdownOpen(false)
+      }
+    }
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') setCreateDropdownOpen(false)
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
 
   const combinedEscrowIds = useMemo(() => {
     return [...new Set([...clientIds, ...workerIds])]
@@ -132,20 +153,74 @@ export default function MarketplacePage({
           >
             <RefreshCw className="w-4 h-4" />
           </button>
-          <button
-            onClick={onOpenCreateEscrow}
-            className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white shadow-md shadow-purple-600/25 transition-all hover:scale-[1.02]"
-          >
-            <Plus className="w-4 h-4" />
-            <span>New Escrow</span>
-          </button>
-          <button
-            onClick={onOpenCreateMilestone}
-            className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] dark:text-cyan-300 border border-slate-200 dark:border-cyan-500/30 transition-all hover:scale-[1.02]"
-          >
-            <Layers className="w-4 h-4" />
-            <span>Milestone Project</span>
-          </button>
+
+          <div className="relative" ref={createRef}>
+            <button
+              type="button"
+              onClick={() => setCreateDropdownOpen((prev) => !prev)}
+              className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-md shadow-purple-600/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
+              aria-haspopup="true"
+              aria-expanded={createDropdownOpen}
+            >
+              <Plus className="w-4 h-4" />
+              <span>Create Contract</span>
+              <ChevronDown
+                className={`w-3.5 h-3.5 opacity-75 transition-transform duration-200 ${
+                  createDropdownOpen ? 'rotate-180' : ''
+                }`}
+              />
+            </button>
+
+            {createDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-72 rounded-2xl p-1.5 bg-white dark:bg-[#070c1e] border border-slate-200 dark:border-white/[0.1] shadow-2xl z-50 animate-in fade-in slide-in-from-top-1 duration-150">
+                <button
+                  onClick={() => {
+                    onOpenCreateEscrow()
+                    setCreateDropdownOpen(false)
+                  }}
+                  className="w-full flex items-start gap-2.5 p-2.5 rounded-xl text-left hover:bg-purple-50 dark:hover:bg-white/[0.04] transition-colors group"
+                >
+                  <div className="p-2 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 group-hover:scale-105 transition-transform mt-0.5">
+                    <Zap className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                      <span>Single Escrow</span>
+                      <span className="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-purple-500/15 text-purple-600 dark:text-purple-300">
+                        v3
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-tight mt-0.5">
+                      Instant escrow with SHA-256 proof hash and auto-release timer.
+                    </p>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => {
+                    onOpenCreateMilestone()
+                    setCreateDropdownOpen(false)
+                  }}
+                  className="w-full flex items-start gap-2.5 p-2.5 rounded-xl text-left hover:bg-cyan-500/5 dark:hover:bg-white/[0.04] transition-colors group mt-1"
+                >
+                  <div className="p-2 rounded-lg bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 group-hover:scale-105 transition-transform mt-0.5">
+                    <Layers className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                      <span>Milestone Project</span>
+                      <span className="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-cyan-500/15 text-cyan-600 dark:text-cyan-300">
+                        v1
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-tight mt-0.5">
+                      Multi-phase job with staged milestone releases and granular payouts.
+                    </p>
+                  </div>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 

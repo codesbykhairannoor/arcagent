@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react'
 import {
-  Plus,
   RefreshCw,
   ArrowDownCircle,
   ExternalLink,
@@ -11,6 +10,10 @@ import {
   Lock,
   Bot,
   Filter,
+  Copy,
+  Check,
+  Zap,
+  Briefcase,
 } from 'lucide-react'
 import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import EscrowCard from '../components/EscrowCard'
@@ -34,6 +37,7 @@ import {
 } from '../components/useMilestoneData'
 import { ESCROW_ADDRESS, ESCROW_ABI } from '../components/EscrowABI'
 import { ConnectKitButton } from 'connectkit'
+import { toast } from 'sonner'
 
 const EXPLORER_BASE = 'https://explorer.testnet.arc.io'
 const MILESTONE_CONTRACT = '0x6475145721074298d0b3cbcd79417988dc893d2d'
@@ -67,6 +71,8 @@ export default function DashboardPage({
   const [tab, setTab] = useState<Tab>('client')
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all')
   const [searchQuery, setSearchQuery] = useState('')
+  const [isSyncing, setIsSyncing] = useState(false)
+  const [copiedAddr, setCopiedAddr] = useState(false)
 
   // Blockchain Queries
   const { formatted: balanceFmt, refetch: refetchBalance } = useUsdcBalance(address)
@@ -106,15 +112,31 @@ export default function DashboardPage({
   }
 
   const refetchAll = () => {
-    void refetchBalance()
-    void refetchPending()
-    void refetchClient()
-    void refetchWorker()
-    void refetchEval()
-    void refetchClientJobs()
-    void refetchWorkerJobs()
-    void refetchEscrows()
-    void refetchJobs()
+    setIsSyncing(true)
+    void Promise.allSettled([
+      refetchBalance(),
+      refetchPending(),
+      refetchClient(),
+      refetchWorker(),
+      refetchEval(),
+      refetchClientJobs(),
+      refetchWorkerJobs(),
+      refetchEscrows(),
+      refetchJobs(),
+    ]).then(() => {
+      setTimeout(() => {
+        setIsSyncing(false)
+        toast.success('Workspace synchronized with Arc Testnet')
+      }, 500)
+    })
+  }
+
+  const copyAddress = () => {
+    if (!address) return
+    void navigator.clipboard.writeText(address)
+    setCopiedAddr(true)
+    toast.success('Address copied to clipboard')
+    setTimeout(() => setCopiedAddr(false), 2000)
   }
 
   // Filter single escrows
@@ -155,23 +177,49 @@ export default function DashboardPage({
     })
   }, [jobs, searchQuery])
 
-  const tabs: { key: Tab; label: string; count: number; icon: React.ReactNode }[] = [
-    { key: 'client', label: 'Client (Funded)', count: clientIds.length, icon: <Lock className="w-3.5 h-3.5" /> },
-    { key: 'worker', label: 'Worker (Tasks)', count: workerIds.length, icon: <Bot className="w-3.5 h-3.5" /> },
-    { key: 'evaluator', label: 'Arbiter Cases', count: evalIds.length, icon: <Shield className="w-3.5 h-3.5" /> },
-    { key: 'milestones', label: 'Milestones', count: allJobIds.length, icon: <Layers className="w-3.5 h-3.5" /> },
+  const tabs: { key: Tab; label: string; count: number; icon: React.ReactNode; tooltip: string }[] = [
+    {
+      key: 'client',
+      label: 'Client (Funded)',
+      count: clientIds.length,
+      icon: <Lock className="w-3.5 h-3.5" />,
+      tooltip: 'Escrows funded by your account awaiting delivery review or auto-release',
+    },
+    {
+      key: 'worker',
+      label: 'Worker (Tasks)',
+      count: workerIds.length,
+      icon: <Bot className="w-3.5 h-3.5" />,
+      tooltip: 'Tasks assigned to your address for delivery proof submission & fund claiming',
+    },
+    {
+      key: 'evaluator',
+      label: 'Arbiter Cases',
+      count: evalIds.length,
+      icon: <Shield className="w-3.5 h-3.5" />,
+      tooltip: 'Disputed escrows where you are designated as the trusted resolver',
+    },
+    {
+      key: 'milestones',
+      label: 'Milestones',
+      count: allJobIds.length,
+      icon: <Layers className="w-3.5 h-3.5" />,
+      tooltip: 'Multi-stage milestone projects linked to your account',
+    },
   ]
 
   if (!isConnected && !address) {
     return (
-      <div className="w-full max-w-4xl mx-auto py-16 px-4 text-center space-y-6 flex-1 flex flex-col justify-center items-center transition-colors duration-200">
+      <div className="w-full max-w-4xl mx-auto py-20 px-4 text-center space-y-6 flex-1 flex flex-col justify-center items-center transition-colors duration-200">
         <div className="w-16 h-16 rounded-3xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center shadow-lg">
           <Lock className="w-8 h-8 text-purple-600 dark:text-purple-400" />
         </div>
         <div>
-          <h2 className="display text-2xl font-black text-slate-900 dark:text-white">Connect Wallet to Open Dashboard</h2>
+          <h2 className="display text-2xl font-black text-slate-900 dark:text-white">
+            Connect Wallet to Open Workspace
+          </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-md mx-auto mt-2 leading-relaxed">
-            Your personal dashboard allows you to view your funded escrows, claim completed worker payouts, and manage arbitration disputes.
+            Your personal workspace lets you fund escrows, track agent deliveries, approve milestones, and claim completed USDC payouts.
           </p>
         </div>
         <ConnectKitButton />
@@ -179,39 +227,64 @@ export default function DashboardPage({
     )
   }
 
+  const currentTabInfo = tabs.find((t) => t.key === tab)
+
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6 w-full flex-1 transition-colors duration-200">
-      {/* Top Welcome Title */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      {/* ── Top Workspace Header (Clean, Uncrowded) ────────────────────── */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200/80 dark:border-white/[0.08]">
         <div>
-          <h1 className="display text-3xl font-black text-slate-900 dark:text-white">My Workspace & Dashboard</h1>
-          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-            Connected address: <span className="mono text-slate-800 dark:text-slate-300 font-semibold">{address}</span>
-          </p>
+          <div className="flex items-center gap-2 mb-1">
+            <h1 className="display text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+              My Workspace
+            </h1>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Arc Testnet</span>
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 flex-wrap">
+            <span>Connected:</span>
+            <span className="mono font-semibold text-slate-900 dark:text-slate-200 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-lg border border-slate-200 dark:border-white/[0.08]">
+              {address}
+            </span>
+            <button
+              onClick={copyAddress}
+              title="Copy wallet address"
+              className="p-1 hover:text-purple-600 dark:hover:text-purple-400 text-slate-400 transition-colors"
+            >
+              {copiedAddr ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+            </button>
+            <a
+              href={`${EXPLORER_BASE}/address/${address}`}
+              target="_blank"
+              rel="noreferrer"
+              title="Inspect on Arc Explorer"
+              className="p-1 text-slate-400 hover:text-cyan-500 transition-colors"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
         </div>
 
+        {/* Sync Blockchain Action */}
         <div className="flex items-center gap-2">
           <button
             onClick={refetchAll}
-            title="Synchronize Blockchain"
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] dark:text-slate-300 border border-slate-200 dark:border-white/[0.08] transition-colors"
+            disabled={isSyncing}
+            title="Synchronize on-chain data"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-white/[0.05] dark:hover:bg-white/[0.1] dark:text-slate-300 border border-slate-200 dark:border-white/[0.08] transition-all disabled:opacity-50"
           >
-            <RefreshCw className="w-3.5 h-3.5" />
-            <span>Sync</span>
-          </button>
-          <button
-            onClick={onOpenCreateEscrow}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white shadow-md shadow-purple-600/25 transition-all hover:scale-[1.02]"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            <span>New Escrow</span>
+            <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin text-purple-600' : ''}`} />
+            <span>{isSyncing ? 'Syncing...' : 'Sync Blockchain'}</span>
           </button>
         </div>
       </div>
 
-      {/* Command Center Hero Row (3 Cards) */}
+      {/* ── Command Center Hero Row (3 Financial & Network Cards) ─────── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
-        {/* Card 1: USDC Balance & Actions */}
+        {/* Card 1: USDC Balance & Direct Action Shortcuts */}
         <div className="relative rounded-3xl p-5 sm:p-6 glass-panel border border-purple-500/20 overflow-hidden flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-2">
@@ -219,7 +292,7 @@ export default function DashboardPage({
                 USDC Balance
               </span>
               <span className="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-500/10 px-2 py-0.5 rounded-full border border-cyan-500/20">
-                Arc Testnet
+                Settlement Currency
               </span>
             </div>
 
@@ -231,7 +304,7 @@ export default function DashboardPage({
             </div>
 
             <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-              Native gas and payment currency on Arc.
+              Native gas & escrow settlement token on Arc Network.
             </p>
           </div>
 
@@ -240,20 +313,20 @@ export default function DashboardPage({
               onClick={onOpenCreateEscrow}
               className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white transition-all shadow-md shadow-purple-600/20"
             >
-              <Plus className="w-3.5 h-3.5" />
-              <span>Escrow</span>
+              <Zap className="w-3.5 h-3.5" />
+              <span>+ Escrow</span>
             </button>
             <button
               onClick={onOpenCreateMilestone}
               className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] dark:text-cyan-300 border border-slate-200 dark:border-cyan-500/20 transition-all"
             >
               <Layers className="w-3.5 h-3.5" />
-              <span>Milestone</span>
+              <span>+ Milestone</span>
             </button>
           </div>
         </div>
 
-        {/* Card 2: Pending Withdrawal Vault */}
+        {/* Card 2: Pending Claimable Vault */}
         <div
           className={`relative rounded-3xl p-5 sm:p-6 glass-panel flex flex-col justify-between transition-all duration-300 ${
             pendingRaw > 0n
@@ -308,30 +381,30 @@ export default function DashboardPage({
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                   Vault Settled
                 </span>
-                <span className="mono text-[11px] text-slate-500 dark:text-slate-400">Pull-safety Active</span>
+                <span className="text-[11px] mono text-slate-400">Pull-safety Active</span>
               </div>
             )}
           </div>
         </div>
 
-        {/* Card 3: Assigned Roles & Telemetry */}
+        {/* Card 3: Network Telemetry */}
         <div className="relative rounded-3xl p-5 sm:p-6 glass-panel border border-slate-200/80 dark:border-white/[0.08] flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">
                 Network Telemetry
               </span>
-              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             </div>
 
-            <div className="space-y-2 mt-3">
+            <div className="space-y-2">
               <div className="flex items-center justify-between text-xs">
                 <span className="text-slate-500 dark:text-slate-400">Single Escrow (v3):</span>
                 <a
                   href={`${EXPLORER_BASE}/address/${ESCROW_ADDRESS}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="mono text-purple-600 dark:text-cyan-300 hover:underline flex items-center gap-1"
+                  className="mono text-purple-600 dark:text-purple-300 hover:underline flex items-center gap-1"
                 >
                   {ESCROW_ADDRESS.slice(0, 6)}…{ESCROW_ADDRESS.slice(-4)}
                   <ExternalLink className="w-2.5 h-2.5" />
@@ -343,7 +416,7 @@ export default function DashboardPage({
                   href={`${EXPLORER_BASE}/address/${MILESTONE_CONTRACT}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="mono text-purple-600 dark:text-cyan-300 hover:underline flex items-center gap-1"
+                  className="mono text-cyan-600 dark:text-cyan-300 hover:underline flex items-center gap-1"
                 >
                   {MILESTONE_CONTRACT.slice(0, 6)}…{MILESTONE_CONTRACT.slice(-4)}
                   <ExternalLink className="w-2.5 h-2.5" />
@@ -365,8 +438,8 @@ export default function DashboardPage({
         </div>
       </div>
 
-      {/* Tabs & Search & Filter Bar */}
-      <div className="space-y-4 pt-2">
+      {/* ── Tabs & Search & Filter Bar ─────────────────────────────────── */}
+      <div className="space-y-3 pt-2">
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           {/* Tabs */}
           <div className="flex gap-1 p-1 rounded-2xl glass-panel border border-slate-200/80 dark:border-white/[0.08] overflow-x-auto">
@@ -414,37 +487,43 @@ export default function DashboardPage({
           </div>
         </div>
 
-        {/* Status Filter Chips */}
-        {tab !== 'milestones' && (
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
-            <span className="text-slate-500 dark:text-slate-400 text-[11px] mr-1 flex items-center gap-1">
-              <Filter className="w-3 h-3" />
-              Status:
-            </span>
-            {[
-              { key: 'all', label: 'All' },
-              { key: 'funded', label: 'Funded' },
-              { key: 'submitted', label: 'Submitted' },
-              { key: 'disputed', label: 'Disputed' },
-              { key: 'completed', label: 'Completed' },
-            ].map(({ key, label }) => (
-              <button
-                key={key}
-                onClick={() => setStatusFilter(key as typeof statusFilter)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors shrink-0 ${
-                  statusFilter === key
-                    ? 'bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/40'
-                    : 'bg-slate-100 dark:bg-white/[0.03] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 border border-slate-200 dark:border-white/[0.05]'
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        )}
+        {/* Tab Context Helper & Status Filter Chips */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+          <p className="text-[11px] text-slate-500 dark:text-slate-400">
+            {currentTabInfo?.tooltip}
+          </p>
+
+          {tab !== 'milestones' && (
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
+              <span className="text-slate-500 dark:text-slate-400 text-[11px] mr-1 flex items-center gap-1">
+                <Filter className="w-3 h-3" />
+                Status:
+              </span>
+              {[
+                { key: 'all', label: 'All' },
+                { key: 'funded', label: 'Funded' },
+                { key: 'submitted', label: 'Submitted' },
+                { key: 'disputed', label: 'Disputed' },
+                { key: 'completed', label: 'Completed' },
+              ].map(({ key, label }) => (
+                <button
+                  key={key}
+                  onClick={() => setStatusFilter(key as typeof statusFilter)}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors shrink-0 ${
+                    statusFilter === key
+                      ? 'bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/40'
+                      : 'bg-slate-100 dark:bg-white/[0.03] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 border border-slate-200 dark:border-white/[0.05]'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Main Cards Grid */}
+      {/* ── Main Cards Grid & Contextual Empty States ────────────────── */}
       {tab === 'milestones' ? (
         jobsLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -453,12 +532,19 @@ export default function DashboardPage({
             ))}
           </div>
         ) : filteredJobs.length === 0 ? (
-          <div className="p-12 text-center glass-panel rounded-3xl border border-slate-200/80 dark:border-white/[0.08] text-xs text-slate-500 dark:text-slate-400 space-y-3">
-            <Layers className="w-8 h-8 text-cyan-600 dark:text-cyan-400 mx-auto" />
-            <p>No milestone projects found for your address in this category.</p>
+          <div className="p-12 text-center glass-panel rounded-3xl border border-slate-200/80 dark:border-white/[0.08] text-xs text-slate-500 dark:text-slate-400 space-y-4 max-w-lg mx-auto">
+            <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mx-auto">
+              <Layers className="w-6 h-6" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">No Milestone Projects Found</h3>
+              <p className="mt-1 text-slate-500 dark:text-slate-400">
+                You haven&apos;t created or been assigned to any multi-stage milestone projects yet.
+              </p>
+            </div>
             <button
               onClick={onOpenCreateMilestone}
-              className="px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] dark:text-cyan-300 border border-slate-200 dark:border-cyan-500/30"
+              className="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-600/20 transition-all hover:scale-[1.02]"
             >
               + Create Milestone Job
             </button>
@@ -481,15 +567,35 @@ export default function DashboardPage({
           ))}
         </div>
       ) : filteredEscrows.length === 0 ? (
-        <div className="p-12 text-center glass-panel rounded-3xl border border-slate-200/80 dark:border-white/[0.08] text-xs text-slate-500 dark:text-slate-400 space-y-3">
-          <Lock className="w-8 h-8 text-purple-600 dark:text-purple-400 mx-auto" />
-          <p>No escrow contracts found matching your filters.</p>
-          <button
-            onClick={onOpenCreateEscrow}
-            className="px-4 py-2 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white"
-          >
-            + Create New Escrow
-          </button>
+        <div className="p-12 text-center glass-panel rounded-3xl border border-slate-200/80 dark:border-white/[0.08] text-xs text-slate-500 dark:text-slate-400 space-y-4 max-w-lg mx-auto">
+          <div className="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center mx-auto">
+            {tab === 'client' ? <Lock className="w-6 h-6" /> : tab === 'worker' ? <Briefcase className="w-6 h-6" /> : <Shield className="w-6 h-6" />}
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+              {tab === 'client'
+                ? 'No Funded Escrows Yet'
+                : tab === 'worker'
+                ? 'No Assigned Tasks Yet'
+                : 'No Dispute Cases'}
+            </h3>
+            <p className="mt-1 text-slate-500 dark:text-slate-400 leading-relaxed">
+              {tab === 'client'
+                ? 'Create a trustless smart contract escrow to hire an AI agent or human worker with automatic deadline protection.'
+                : tab === 'worker'
+                ? 'You do not have any open deliverables. Browse the marketplace or share your worker address to receive escrow offers.'
+                : 'You are not assigned as arbiter on any active dispute cases.'}
+            </p>
+          </div>
+
+          {tab === 'client' && (
+            <button
+              onClick={onOpenCreateEscrow}
+              className="px-4 py-2 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white shadow-md shadow-purple-600/25 transition-all hover:scale-[1.02]"
+            >
+              + Create Single Escrow
+            </button>
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
