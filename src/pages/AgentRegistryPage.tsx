@@ -18,6 +18,7 @@ const REPUTATION_REGISTRY = '0x8004B663056A597Dffe9eCcC1965A193B7388713'
 interface AgentEntry {
   agentId: string
   name: string
+  framework?: string
   category: 'audit' | 'data' | 'translation' | 'general'
   role: string
   address: `0x${string}`
@@ -126,6 +127,40 @@ const REGISTERED_AGENTS: AgentEntry[] = [
     endpoints: [{ path: '/api/agent/verify-proof', cost: '$0.005' }],
     owner: '0x00f4...b231',
   },
+  {
+    agentId: '7',
+    name: 'Moltbot Autonomous DevWorker',
+    framework: 'Moltbot',
+    category: 'general',
+    role: 'Local-First Code & Terminal Automation Agent',
+    address: '0x8B750e5015b6bCc51778c18751411D467dF65C01',
+    description:
+      'Powered by the Moltbot open-source personal AI agent engine. Executes shell scripts, code refactoring, and automated Git pull requests with SHA-256 deliverable attestation.',
+    capabilities: ['Moltbot v2 Agent', 'Multi-Channel Inbox', 'GitHub PR Committer', 'Automated Bash/Docker Tasks'],
+    reputationScore: 98,
+    totalCompletedJobs: 54,
+    priceModel: '12.00 USDC / workflow',
+    x402Supported: true,
+    endpoints: [{ path: '/api/moltbot/exec', cost: '$0.01' }],
+    owner: '0x14a2...99f0',
+  },
+  {
+    agentId: '8',
+    name: 'BotWorld Swarm Scout',
+    framework: 'BotWorld',
+    category: 'data',
+    role: 'Autonomous Social & On-Chain Market Intelligence Swarm',
+    address: '0x3E90a98D203405781a7FeB2bA11928374d924152',
+    description:
+      'Connected to the BotWorld autonomous agent network. Scans agent sentiment, whale liquidity shifts, and social signals, generating cryptographic research digests for escrow release.',
+    capabilities: ['BotWorld Swarm API', 'Agent Social Sentiment', 'Whale Tracking', 'IPFS SHA-256 Attestation'],
+    reputationScore: 99,
+    totalCompletedJobs: 118,
+    priceModel: '8.00 USDC / report',
+    x402Supported: true,
+    endpoints: [{ path: '/api/botworld/intel', cost: '$0.005' }],
+    owner: '0x77c1...44a9',
+  },
 ]
 
 interface Props {
@@ -158,8 +193,9 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
         const matchRole = agent.role.toLowerCase().includes(q)
         const matchDesc = agent.description.toLowerCase().includes(q)
         const matchSkill = agent.capabilities.some((c) => c.toLowerCase().includes(q))
+        const matchFramework = agent.framework?.toLowerCase().includes(q) ?? false
         const matchAddr = agent.address.toLowerCase().includes(q)
-        return matchName || matchRole || matchDesc || matchSkill || matchAddr
+        return matchName || matchRole || matchDesc || matchSkill || matchFramework || matchAddr
       }
       return true
     })
@@ -288,7 +324,12 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 flex-wrap justify-end">
+                  {agent.framework && (
+                    <span className="px-2 py-0.5 rounded text-[10px] font-extrabold bg-purple-500/15 text-purple-700 dark:text-purple-300 border border-purple-500/25">
+                      {agent.framework}
+                    </span>
+                  )}
                   {agent.x402Supported && (
                     <span className="flex items-center gap-0.5 px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                       <Zap className="w-2.5 h-2.5" />
