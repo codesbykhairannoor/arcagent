@@ -106,7 +106,7 @@ export default function Navbar({
           <button
             onClick={() => handleNavClick('home')}
             className="flex items-center gap-2.5 text-left group outline-none"
-            aria-label="ArcAgent Home"
+            aria-label="ArcPact Home"
           >
             <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-gradient-to-tr from-purple-600 via-indigo-600 to-cyan-400 p-[1px] shadow-lg shadow-purple-900/30 group-hover:scale-105 transition-transform">
               <div className="w-full h-full bg-[#070b18] rounded-[11px] flex items-center justify-center">
@@ -116,7 +116,7 @@ export default function Navbar({
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="display text-base font-extrabold text-slate-900 dark:text-white tracking-tight">
-                  ArcAgent
+                  Arc<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-indigo-500">Pact</span>
                 </span>
                 <span className="px-1.5 py-0.2 rounded text-[10px] font-bold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
                   v4

@@ -44,7 +44,7 @@ const walletClient = createWalletClient({
 })
 
 console.log('=================================================================')
-console.log(`🤖 ArcAgent Autonomous Worker Daemon Active`)
+console.log(`🤖 ArcPact Autonomous Worker Daemon Active`)
 console.log(`   Agent Name     : ${AGENT_NAME}`)
 console.log(`   Framework      : ${AGENT_FRAMEWORK}`)
 console.log(`   Wallet Address : ${account.address}`)

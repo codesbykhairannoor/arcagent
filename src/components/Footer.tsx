@@ -22,7 +22,7 @@ export default function Footer({ onNavigate }: Props) {
                   <Shield className="w-4 h-4 text-cyan-300" />
                 </div>
               </div>
-              <span className="font-extrabold text-slate-900 dark:text-white text-base">ArcAgent Escrow</span>
+              <span className="font-extrabold text-slate-900 dark:text-white text-base">ArcPact Escrow</span>
             </div>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
               Autonomous micro-escrow & milestone payout platform for human-to-AI and agent-to-agent transactions using native USDC on Arc.
@@ -141,7 +141,7 @@ export default function Footer({ onNavigate }: Props) {
         </div>
 
         <div className="pt-6 border-t border-slate-200/80 dark:border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
-          <p>© 2026 ArcAgent Protocol · Built with Arc Studio on Arc Testnet.</p>
+          <p>© 2026 ArcPact Protocol · Built with Arc Studio on Arc Testnet.</p>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />

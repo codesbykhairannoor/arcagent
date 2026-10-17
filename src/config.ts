@@ -25,14 +25,14 @@ export const config = createConfig({
   chains: [arcTestnet, mainnet], // mainnet needed for ENS resolution
   connectors: [
     injected(),                                       // MetaMask, Brave, Frame, etc.
-    coinbaseWallet({ appName: 'ArcAgent Escrow' }),   // Coinbase Wallet
+    coinbaseWallet({ appName: 'ArcPact Escrow' }),   // Coinbase Wallet
     ...(wcProjectId
       ? [walletConnect({
           projectId: wcProjectId,
           showQrModal: false,
           metadata: {
-            name: 'ArcAgent Escrow',
-            description: 'ERC-8183 escrow for human-to-AI and agent-to-agent work on Arc',
+            name: 'ArcPact Escrow',
+            description: 'Autonomous micro-escrow and milestone payouts for human and AI work on Arc',
             url: 'https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io',
             icons: ['https://studio.arc.io/favicon.ico'],
           },

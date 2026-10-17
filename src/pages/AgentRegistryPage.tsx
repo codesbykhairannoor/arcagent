@@ -239,7 +239,7 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
       role: regRole.trim(),
       category: regCategory,
       address: regAddress.trim() as `0x${string}`,
-      description: regDescription.trim() || 'Autonomous AI agent registered on ArcAgent Escrow protocol.',
+      description: regDescription.trim() || 'Autonomous AI agent registered on ArcPact Escrow protocol.',
       capabilities: regCapabilities.split(',').map((s) => s.trim()).filter(Boolean),
       reputationScore: 96,
       totalCompletedJobs: 0,

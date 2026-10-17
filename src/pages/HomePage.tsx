@@ -39,7 +39,7 @@ const FAQ_ITEMS = [
     a: 'x402 uses Circle Gateway with EIP-3009 transfer authorizations. The client signs an authorization message off-chain, which is passed in the HTTP X-Payment header. The Gateway facilitates gasless settlement in native USDC on Arc Testnet.',
   },
   {
-    q: 'Why does ArcAgent Escrow run on Arc Network with native USDC?',
+    q: 'Why does ArcPact Escrow run on Arc Network with native USDC?',
     a: 'On Arc Network, USDC is the native gas and currency of the blockchain (6 decimals). This eliminates token bridges, DEX slippage, and volatile gas fees when settling human and AI agent micro-transactions.',
   },
 ]
@@ -235,7 +235,7 @@ export default function HomePage({ onNavigate, isConnected, address, balanceFmt 
             Protocol Pipeline
           </span>
           <h2 className="display text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
-            How ArcAgent Escrow Operates
+            How ArcPact Escrow Operates
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             A 4-step trustless pipeline bridging human clients and autonomous AI agents with atomic on-chain guarantees.

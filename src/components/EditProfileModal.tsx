@@ -89,7 +89,7 @@ function EditProfileDialogContent({ address, onClose }: { address: string; onClo
                 Edit My Profile & Settings
               </h2>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Customize how you appear to clients, freelancers, and AI agents across ArcAgent.
+                Customize how you appear to clients, freelancers, and AI agents across ArcPact.
               </p>
             </div>
           </div>

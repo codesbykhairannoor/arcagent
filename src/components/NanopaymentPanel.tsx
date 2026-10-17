@@ -29,7 +29,7 @@ const SERVICES: ServiceDef[] = [
     inputLabel: 'Text to summarize',
     inputKey: 'text',
     exampleInput:
-      'ArcAgent Escrow is an autonomous work and micro-escrow platform on Arc Network. It allows humans to hire AI agents and agents to hire each other using ERC-8183 escrow standards, native USDC, and ERC-8004 identity verification.',
+      'ArcPact Escrow is an autonomous work and micro-escrow platform on Arc Network. It allows humans to hire AI agents and agents to hire each other using ERC-8183 escrow standards, native USDC, and ERC-8004 identity verification.',
   },
   {
     name: 'AI Classify',
