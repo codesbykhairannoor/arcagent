@@ -14,10 +14,13 @@ import {
   Check,
   Zap,
   Briefcase,
+  UserCog,
 } from 'lucide-react'
 import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import EscrowCard from '../components/EscrowCard'
 import MilestoneJobCard from '../components/MilestoneJobCard'
+import EditProfileModal from '../components/EditProfileModal'
+import { useUserProfile, PRESET_AVATARS } from '../components/useUserProfile'
 import {
   useUsdcBalance,
   usePendingWithdrawal,
@@ -50,6 +53,7 @@ interface Props {
   onSelectJob: (job: JobData) => void
   onOpenCreateEscrow: () => void
   onOpenCreateMilestone: () => void
+  onOpenEditProfile?: () => void
   address?: `0x${string}`
   isConnected: boolean
 }
@@ -65,6 +69,7 @@ export default function DashboardPage({
   onSelectJob,
   onOpenCreateEscrow,
   onOpenCreateMilestone,
+  onOpenEditProfile,
   address,
   isConnected,
 }: Props) {
@@ -73,6 +78,10 @@ export default function DashboardPage({
   const [searchQuery, setSearchQuery] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
   const [copiedAddr, setCopiedAddr] = useState(false)
+  const [internalEditProfile, setInternalEditProfile] = useState(false)
+
+  const { profile } = useUserProfile(address)
+  const handleOpenEdit = onOpenEditProfile ?? (() => setInternalEditProfile(true))
 
   // Blockchain Queries
   const { formatted: balanceFmt, refetch: refetchBalance } = useUsdcBalance(address)
@@ -231,45 +240,82 @@ export default function DashboardPage({
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6 w-full flex-1 transition-colors duration-200">
-      {/* ── Top Workspace Header (Clean, Uncrowded) ────────────────────── */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200/80 dark:border-white/[0.08]">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <h1 className="display text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-              My Workspace
-            </h1>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Arc Testnet</span>
-            </span>
+      {/* ── Top Workspace Header with User Profile Card ────────────────────── */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-3xl glass-panel border border-slate-200/80 dark:border-white/[0.08] shadow-sm">
+        <div className="flex items-center gap-4">
+          {/* Avatar with preset gradient & icon */}
+          <div className="relative shrink-0">
+            <div
+              className={`w-14 h-14 rounded-2xl bg-gradient-to-tr ${
+                PRESET_AVATARS.find((p) => p.id === profile.avatar)?.gradient ?? 'from-purple-600 to-indigo-600'
+              } flex items-center justify-center text-2xl shadow-md border-2 border-white dark:border-white/10`}
+            >
+              {PRESET_AVATARS.find((p) => p.id === profile.avatar)?.icon ?? '👤'}
+            </div>
+            <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-400 border-2 border-white dark:border-[#040714] animate-pulse" />
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 flex-wrap">
-            <span>Connected:</span>
-            <span className="mono font-semibold text-slate-900 dark:text-slate-200 bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-lg border border-slate-200 dark:border-white/[0.08]">
-              {address}
-            </span>
-            <button
-              onClick={copyAddress}
-              title="Copy wallet address"
-              className="p-1 hover:text-purple-600 dark:hover:text-purple-400 text-slate-400 transition-colors"
-            >
-              {copiedAddr ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-            </button>
-            <a
-              href={`${EXPLORER_BASE}/address/${address}`}
-              target="_blank"
-              rel="noreferrer"
-              title="Inspect on Arc Explorer"
-              className="p-1 text-slate-400 hover:text-cyan-500 transition-colors"
-            >
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h1 className="display text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+                {profile.displayName || `${address?.slice(0, 6)}…${address?.slice(-4)}`}
+              </h1>
+              {profile.handle && (
+                <span className="text-xs font-semibold text-purple-600 dark:text-purple-400">
+                  {profile.handle}
+                </span>
+              )}
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20">
+                {profile.primaryRole === 'client' ? '💼 Client Mode' : profile.primaryRole === 'worker' ? '⚡ Worker Mode' : '🔄 Dual Operator'}
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Arc Testnet</span>
+              </span>
+            </div>
+
+            <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-1 max-w-xl">
+              {profile.bio || 'Web3 escrow & AI agent operator on Arc Testnet.'}
+            </p>
+
+            <div className="flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400 flex-wrap pt-0.5">
+              <span>Address:</span>
+              <span className="mono bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200 dark:border-white/[0.08]">
+                {address}
+              </span>
+              <button
+                onClick={copyAddress}
+                title="Copy wallet address"
+                className="p-1 hover:text-purple-600 dark:hover:text-purple-400 text-slate-400 transition-colors"
+              >
+                {copiedAddr ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+              </button>
+              <a
+                href={`${EXPLORER_BASE}/address/${address}`}
+                target="_blank"
+                rel="noreferrer"
+                title="Inspect on Arc Explorer"
+                className="p-1 text-slate-400 hover:text-cyan-500 transition-colors"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+              {profile.xTwitter && (
+                <span className="text-purple-600 dark:text-purple-400 font-semibold">{profile.xTwitter}</span>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Sync Blockchain Action */}
-        <div className="flex items-center gap-2">
+        {/* Action buttons: Edit Profile & Sync */}
+        <div className="flex items-center gap-2 shrink-0 self-start md:self-center">
+          <button
+            onClick={handleOpenEdit}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] dark:text-slate-200 border border-slate-200 dark:border-white/[0.08] transition-all hover:scale-[1.02]"
+          >
+            <UserCog className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+            <span>Edit Profile</span>
+          </button>
+
           <button
             onClick={refetchAll}
             disabled={isSyncing}
@@ -277,7 +323,7 @@ export default function DashboardPage({
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-white/[0.05] dark:hover:bg-white/[0.1] dark:text-slate-300 border border-slate-200 dark:border-white/[0.08] transition-all disabled:opacity-50"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin text-purple-600' : ''}`} />
-            <span>{isSyncing ? 'Syncing...' : 'Sync Blockchain'}</span>
+            <span>{isSyncing ? 'Syncing...' : 'Sync'}</span>
           </button>
         </div>
       </div>
@@ -603,6 +649,15 @@ export default function DashboardPage({
             <EscrowCard key={e.id.toString()} escrow={e} onClick={() => onSelectEscrow(e)} />
           ))}
         </div>
+      )}
+
+      {/* Edit Profile Modal */}
+      {address && (
+        <EditProfileModal
+          address={address}
+          isOpen={internalEditProfile}
+          onClose={() => setInternalEditProfile(false)}
+        />
       )}
     </main>
   )

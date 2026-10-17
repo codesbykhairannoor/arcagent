@@ -20,10 +20,12 @@ import {
   Store,
   Bot,
   HelpCircle,
+  UserCog,
 } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { useTheme } from './ThemeProvider'
 import { useCircleWallet } from './CircleWalletLogin'
+import { useUserProfile, PRESET_AVATARS } from './useUserProfile'
 import { toast } from 'sonner'
 
 export type NavRoute = 'home' | 'marketplace' | 'agents' | 'dashboard' | 'developer' | 'verifier'
@@ -33,6 +35,8 @@ interface Props {
   onRouteChange: (route: NavRoute) => void
   onOpenCreateEscrow: () => void
   onOpenCreateMilestone: () => void
+  onOpenEditProfile?: () => void
+  address?: string
   isConnected: boolean
   totalUserContracts: number
 }
@@ -44,9 +48,12 @@ export default function Navbar({
   onRouteChange,
   onOpenCreateEscrow,
   onOpenCreateMilestone,
+  onOpenEditProfile,
+  address,
   isConnected,
   totalUserContracts,
 }: Props) {
+  const { profile } = useUserProfile(address)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false)
   const [createDropdownOpen, setCreateDropdownOpen] = useState(false)
@@ -386,6 +393,28 @@ export default function Navbar({
             </button>
           </div>
 
+          {/* User Profile Pill with Avatar & Name */}
+          {isConnected && address && onOpenEditProfile && (
+            <button
+              type="button"
+              onClick={onOpenEditProfile}
+              title={`Edit Profile (${profile.displayName || address})`}
+              className="hidden md:flex items-center gap-1.5 p-1 pr-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] dark:text-slate-200 border border-slate-200 dark:border-white/[0.08] transition-all hover:scale-[1.02]"
+            >
+              <div
+                className={`w-6 h-6 rounded-lg bg-gradient-to-tr ${
+                  PRESET_AVATARS.find((p) => p.id === profile.avatar)?.gradient ?? 'from-purple-600 to-indigo-600'
+                } flex items-center justify-center text-xs shadow-sm`}
+              >
+                {PRESET_AVATARS.find((p) => p.id === profile.avatar)?.icon ?? '👤'}
+              </div>
+              <span className="text-xs font-bold max-w-[90px] truncate">
+                {profile.displayName || `${address.slice(0, 6)}…`}
+              </span>
+              <UserCog className="w-3 h-3 text-slate-400" />
+            </button>
+          )}
+
           {/* Wallet Connection Display */}
           {circleAddress ? (
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-500/10 border border-purple-500/30 text-xs shadow-sm">
@@ -511,6 +540,24 @@ export default function Navbar({
               <span>x402 Studio (API)</span>
             </span>
           </button>
+
+          {isConnected && onOpenEditProfile && (
+            <button
+              onClick={() => {
+                onOpenEditProfile()
+                setMobileMenuOpen(false)
+              }}
+              className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-800 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/[0.04]"
+            >
+              <span className="flex items-center gap-2">
+                <UserCog className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                <span>Edit My Profile & Persona</span>
+              </span>
+              <span className="text-[10px] font-bold text-purple-600 dark:text-purple-300">
+                {profile.displayName || `${address?.slice(0, 6)}…`}
+              </span>
+            </button>
+          )}
 
           {isConnected && (
             <div className="pt-2 flex gap-2 border-t border-slate-200/80 dark:border-white/[0.08] mt-2">

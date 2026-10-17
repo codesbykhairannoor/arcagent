@@ -12,6 +12,7 @@ import CreateEscrowModal from './components/CreateEscrowModal'
 import EscrowDetailModal from './components/EscrowDetailModal'
 import CreateMilestoneJobModal from './components/CreateMilestoneJobModal'
 import MilestoneJobDetailModal from './components/MilestoneJobDetailModal'
+import EditProfileModal from './components/EditProfileModal'
 import {
   useUsdcBalance,
   usePendingWithdrawal,
@@ -53,6 +54,7 @@ export default function App() {
   const [showCreate, setShowCreate] = useState(false)
   const [prefilledWorker, setPrefilledWorker] = useState<string | undefined>(undefined)
   const [showCreateMilestone, setShowCreateMilestone] = useState(false)
+  const [showEditProfile, setShowEditProfile] = useState(false)
   const [selectedEscrow, setSelectedEscrow] = useState<EscrowData | null>(null)
   const [selectedJob, setSelectedJob] = useState<JobData | null>(null)
 
@@ -127,6 +129,8 @@ export default function App() {
         onRouteChange={handleNavigate}
         onOpenCreateEscrow={handleOpenCreateEscrow}
         onOpenCreateMilestone={() => setShowCreateMilestone(true)}
+        onOpenEditProfile={() => setShowEditProfile(true)}
+        address={address}
         isConnected={!!(isConnected || circleAddress)}
         totalUserContracts={totalUserContracts}
       />
@@ -167,6 +171,7 @@ export default function App() {
           onSelectJob={(job) => setSelectedJob(job)}
           onOpenCreateEscrow={handleOpenCreateEscrow}
           onOpenCreateMilestone={() => setShowCreateMilestone(true)}
+          onOpenEditProfile={() => setShowEditProfile(true)}
           address={address}
           isConnected={!!(isConnected || circleAddress)}
         />
@@ -219,6 +224,15 @@ export default function App() {
             void refetchBalance()
             void refetchJobs()
           }}
+        />
+      )}
+
+      {/* Global Edit Profile Modal */}
+      {address && (
+        <EditProfileModal
+          address={address}
+          isOpen={showEditProfile}
+          onClose={() => setShowEditProfile(false)}
         />
       )}
     </div>
