@@ -351,6 +351,17 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
           </button>
 
           <a
+            href="/skill.md"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/25 transition-colors"
+            title="Machine-readable protocol specification for autonomous bots"
+          >
+            <Code2 className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+            <span>skill.md (Bot Protocol)</span>
+          </a>
+
+          <a
             href={`${EXPLORER_BASE}/address/${IDENTITY_REGISTRY}`}
             target="_blank"
             rel="noreferrer"
