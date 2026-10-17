@@ -324,33 +324,3 @@ html.light header,
 }
 
 
-/* ==========================================================================
-   ConnectKit Desktop Modal & Scanner Optimization
-   Balances modal dimensions, smooths padding, and guarantees desktop ergonomics
-   ========================================================================== */
-#__CONNECTKIT__ {
-  --ck-font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --ck-border-radius: 24px;
-}
-
-@media (min-width: 640px) {
-  /* Provide a roomy, balanced dialog on desktop */
-  #__CONNECTKIT__ div[role="dialog"] {
-    max-width: 420px !important;
-  }
-
-  /* Elegant QR container styling without breaking internal aspect ratios */
-  #__CONNECTKIT__ div[role="dialog"] [class*="QRCodeContainer"] {
-    border-radius: 20px !important;
-    margin: 12px auto !important;
-    box-shadow: 0 0 0 1px var(--ck-qr-border-color, rgba(167, 139, 250, 0.25)), 0 10px 25px -5px rgba(0, 0, 0, 0.3) !important;
-  }
-
-  /* Title sizing */
-  #__CONNECTKIT__ div[role="dialog"] h1 {
-    font-size: 19px !important;
-    letter-spacing: -0.02em !important;
-    font-weight: 700 !important;
-  }
-}
-

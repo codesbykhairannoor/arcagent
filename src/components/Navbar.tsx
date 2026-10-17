@@ -3,7 +3,6 @@ import { Shield, Plus, Layers, Menu, X, Sun, Moon, LogOut, Copy, Check } from 'l
 import { useState } from 'react'
 import { useTheme } from './ThemeProvider'
 import { useCircleWallet } from './CircleWalletLogin'
-import UnifiedWalletModal, { GoogleIcon } from './UnifiedWalletModal'
 import { toast } from 'sonner'
 
 export type NavRoute = 'home' | 'marketplace' | 'agents' | 'dashboard' | 'developer' | 'verifier'
@@ -26,10 +25,10 @@ export default function Navbar({
   totalUserContracts,
 }: Props) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [walletModalOpen, setWalletModalOpen] = useState(false)
   const [copiedAddr, setCopiedAddr] = useState(false)
   const { resolvedTheme, setTheme } = useTheme()
   const { address: circleAddress, logout: circleLogout } = useCircleWallet()
+
 
 
   const navItems: { key: NavRoute; label: string; badge?: string }[] = [
@@ -162,7 +161,6 @@ export default function Navbar({
           {/* Wallet Connection Display */}
           {circleAddress ? (
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-500/10 border border-purple-500/30 text-xs shadow-sm">
-              <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
               <span className="mono font-bold text-purple-700 dark:text-purple-300">
                 {circleAddress.slice(0, 6)}…{circleAddress.slice(-4)}
               </span>
@@ -182,23 +180,14 @@ export default function Navbar({
               <button
                 type="button"
                 onClick={circleLogout}
-                title="Sign out from Google Smart Account"
+                title="Sign out from Smart Account"
                 className="p-1 text-slate-400 hover:text-rose-500 transition-colors"
               >
                 <LogOut className="w-3 h-3" />
               </button>
             </div>
-          ) : isConnected ? (
-            <ConnectKitButton />
           ) : (
-            <button
-              type="button"
-              onClick={() => setWalletModalOpen(true)}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white shadow-md shadow-purple-900/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
-              <span>Connect Wallet</span>
-            </button>
+            <ConnectKitButton />
           )}
 
           {/* Mobile hamburger menu toggle */}
@@ -239,17 +228,7 @@ export default function Navbar({
 
           {!isConnected && !circleAddress && (
             <div className="pt-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false)
-                  setWalletModalOpen(true)
-                }}
-                className="w-full py-2.5 rounded-xl text-xs font-bold bg-purple-600 text-white flex items-center justify-center gap-2 shadow-md"
-              >
-                <GoogleIcon className="w-4 h-4" />
-                <span>Connect with Google / Web3</span>
-              </button>
+              <ConnectKitButton />
             </div>
           )}
 
@@ -277,12 +256,6 @@ export default function Navbar({
           )}
         </div>
       )}
-
-      {/* Unified Wallet & Google Modal */}
-      <UnifiedWalletModal
-        isOpen={walletModalOpen}
-        onClose={() => setWalletModalOpen(false)}
-      />
     </header>
   )
 }
