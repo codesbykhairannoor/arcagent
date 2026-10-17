@@ -1,0 +1,403 @@
+{"level":"debug","message":"[vite] connected.","timestamp":1792221360490}
+{"level":"error","message":"[vite] ","timestamp":1792221429460}
+{"level":"error","message":"[vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792221429460}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792221429460}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221429460}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792221445384}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221445384}
+{"level":"error","message":"[vite] ","timestamp":1792221446732}
+{"level":"error","message":"[vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792221446732}
+{"level":"error","message":"[vite] ","timestamp":1792221446735}
+{"level":"error","message":"[vite] Failed to reload /src/index.css. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792221446735}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221446736}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792221446736}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792221476723}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221476723}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792221479628}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221479629}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221481076}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792221481077}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792221481077}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowCard.tsx","timestamp":1792221481077}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792221481077}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792221481079}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221481079}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792221481080}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221481081}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792221481664}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221481664}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792221482138}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221482138}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792221482848}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221482848}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792221484397}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221484397}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792221484958}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221484958}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792221512623}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221512623}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792221514005}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221514006}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowCard.tsx","timestamp":1792221531262}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221531262}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowCard.tsx","timestamp":1792221532878}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221532879}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792221534625}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221534625}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792221536228}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221536229}
+{"level":"error","message":"[vite] ","timestamp":1792221543334}
+{"level":"error","message":"[vite] Failed to reload /src/components/CreateEscrowModal.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792221543335}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792221543335}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221543335}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792221544985}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221544985}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792221549588}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221549588}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792221550771}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221550772}
+{"level":"error","message":"[vite] ","timestamp":1792221556926}
+{"level":"error","message":"[vite] Failed to reload /src/components/EscrowDetailModal.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792221556926}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792221557623}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221557623}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792221583148}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792221583148}
+{"level":"debug","message":"[vite] connected.","timestamp":1792221737593}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792221889534}
+{"level":"debug","message":"[vite] connected.","timestamp":1792221904189}
+{"level":"debug","message":"[vite] connected.","timestamp":1792221915606}
+{"level":"debug","message":"[vite] connected.","timestamp":1792222520942}
+{"level":"debug","message":"[vite] connected.","timestamp":1792222563410}
+{"level":"debug","message":"[vite] connected.","timestamp":1792222626434}
+{"level":"debug","message":"[vite] connected.","timestamp":1792223175841}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792223212356}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792223212356}
+{"level":"error","message":"TypeError: can't access property \"client\", escrow is null","timestamp":1792223212375,"source":"https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/src/components/EscrowDetailModal.tsx?t=1792223209047:40:47","stack":"EscrowDetailModal@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/src/components/EscrowDetailModal.tsx?t=1792223209047:40:47\nrenderWithHooks@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:18474:35\nmountIndeterminateComponent@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:21852:21\nbeginWork@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:22840:22\ncallCallback2@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:10558:22\ninvokeGuardedCallbackDev@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:10583:24\ninvokeGuardedCallback@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:10617:39\nbeginWork$1@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26696:36\nperformUnitOfWork@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26129:20\nworkLoopSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26068:30\nrenderRootSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26047:15\nperformSyncWorkOnRoot@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:25805:42\nflushSyncCallbacks@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:16044:30\nflushSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:25890:15\nscheduleRefresh@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26935:22\nperformReactRefresh/<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/@react-refresh:228:17\nperformReactRefresh@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/@react-refresh:217:26\nenqueueUpdate<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/@react-refresh:608:3\n"}
+{"level":"error","message":"TypeError: can't access property \"client\", escrow is null","timestamp":1792223212380,"source":"https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/src/components/EscrowDetailModal.tsx?t=1792223209047:40:47","stack":"EscrowDetailModal@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/src/components/EscrowDetailModal.tsx?t=1792223209047:40:47\nrenderWithHooks@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:18474:35\nmountIndeterminateComponent@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:21852:21\nbeginWork@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:22840:22\ncallCallback2@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:10558:22\ninvokeGuardedCallbackDev@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:10583:24\ninvokeGuardedCallback@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:10617:39\nbeginWork$1@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26696:36\nperformUnitOfWork@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26129:20\nworkLoopSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26068:30\nrenderRootSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26047:15\nrecoverFromConcurrentError@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:25664:42\nperformSyncWorkOnRoot@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:25810:28\nflushSyncCallbacks@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:16044:30\nflushSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:25890:15\nscheduleRefresh@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26935:22\nperformReactRefresh/<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/@react-refresh:228:17\nperformReactRefresh@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/@react-refresh:217:26\nenqueueUpdate<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/@react-refresh:608:3\n"}
+{"level":"error","message":"The above error occurred in the <EscrowDetailModal> component:\n\nEscrowDetailModal@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/src/components/EscrowDetailModal.tsx?t=1792223209047:34:42\ndiv\nApp@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/src/App.tsx?t=1792223142334:46:45\nLe@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/connectkit.js?v=a6fe27c6:18793:42\nWeb3ContextProvider@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/connectkit.js?v=a6fe27c6:34420:27\nConnectKitProvider@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/connectkit.js?v=a6fe27c6:37910:26\nQueryClientProvider@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-WZEH4STI.js?v=a6fe27c6:39:27\nHydrate@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-HXZPKCAO.js?v=a6fe27c6:392:71\nWagmiProvider@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-HXZPKCAO.js?v=a6fe27c6:414:32\n\nConsider adding an error boundary to your tree to customize error handling behavior.\nVisit https://reactjs.org/link/error-boundaries to learn more about error boundaries.","timestamp":1792223212384}
+{"level":"error","message":"Unhandled promise rejection: EscrowDetailModal@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/src/components/EscrowDetailModal.tsx?t=1792223209047:40:47\nrenderWithHooks@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:18474:35\nmountIndeterminateComponent@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:21852:21\nbeginWork@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:22840:22\nbeginWork$1@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26684:22\nperformUnitOfWork@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26129:20\nworkLoopSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26068:30\nrenderRootSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26047:15\nrecoverFromConcurrentError@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:25664:42\nperformSyncWorkOnRoot@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:25810:28\nflushSyncCallbacks@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:16044:30\nflushSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:25890:15\nscheduleRefresh@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26935:22\nperformReactRefresh/<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/@react-refresh:228:17\nperformReactRefresh@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/@react-refresh:217:26\nenqueueUpdate<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/@react-refresh:608:3\n","timestamp":1792223212389,"stack":"EscrowDetailModal@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/src/components/EscrowDetailModal.tsx?t=1792223209047:40:47\nrenderWithHooks@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:18474:35\nmountIndeterminateComponent@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:21852:21\nbeginWork@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:22840:22\nbeginWork$1@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26684:22\nperformUnitOfWork@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26129:20\nworkLoopSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26068:30\nrenderRootSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26047:15\nrecoverFromConcurrentError@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:25664:42\nperformSyncWorkOnRoot@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:25810:28\nflushSyncCallbacks@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:16044:30\nflushSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:25890:15\nscheduleRefresh@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=a6fe27c6:26935:22\nperformReactRefresh/<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/@react-refresh:228:17\nperformReactRefresh@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/@react-refresh:217:26\nenqueueUpdate<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/@react-refresh:608:3\n"}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792223246512}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792223246514}
+{"level":"debug","message":"(previous line repeated 1× more)","timestamp":1792223266566}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792223266566}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792223266567}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowCard.tsx","timestamp":1792223266567}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792223266568}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792223268319}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792223268320}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792223298641}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792223298642}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792223300151}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792223300152}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792223310853}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792223310853}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792223314830}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792223314830}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792223324048}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792223324048}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792223509456}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792223509456}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowCard.tsx","timestamp":1792223543325}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792223543325}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792223570458}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792223570458}
+{"level":"debug","message":"(previous line repeated 1× more)","timestamp":1792223654326}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792223654326}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792223654327}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowCard.tsx","timestamp":1792223654327}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792223654327}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792223655797}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792223655798}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792223662102}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792223662102}
+{"level":"debug","message":"[vite] connected.","timestamp":1792223779829}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792223974381}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792223974382}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792223991109}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792223991109}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792224004735}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792224004735}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792224008334}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792224008335}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792224009865}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792224009866}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792224021507}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792224021507}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateEscrowModal.tsx","timestamp":1792224033927}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792224033927}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792224057339}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792224057340}
+{"level":"debug","message":"[vite] hot updated: /src/components/ReputationPanel.tsx","timestamp":1792224058902}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792224058902}
+{"level":"debug","message":"[vite] hot updated: /src/components/ReputationPanel.tsx","timestamp":1792224069300}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792224069300}
+{"level":"debug","message":"[vite] hot updated: /src/components/ReputationPanel.tsx","timestamp":1792224075873}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792224075873}
+{"level":"debug","message":"[vite] connected.","timestamp":1792224845198}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792224864623}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792224864624}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792224864720}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792224864720}
+{"level":"error","message":"[vite] failed to connect to websocket.\nyour current setup:\n  (browser) i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/ <--[HTTP]--> localhost:5173/ (server)\n  (browser) i3cv3uqqwcz9ctkturkah.preview.studio.arc.io:/ <--[WebSocket (failing)]--> localhost:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr .","timestamp":1792224867286}
+{"level":"error","message":"[vite] ","timestamp":1792224916889}
+{"level":"error","message":"[vite] Failed to reload /src/components/EscrowDetailModal.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792224916890}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792224916890}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792224916890}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792224922903}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792224922903}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792224956488}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792225456596}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792225456597}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792225461223}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792225461223}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792225475286}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792225475287}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792225479090}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792225479090}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792225490341}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792225490343}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792225491758}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792225491759}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792225509492}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792225509493}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792225510048}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792225510048}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792225525035}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792225525035}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792225525840}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792225525840}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792225538434}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792225538434}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792225550859}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792225550859}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792225571880}
+{"level":"error","message":"[vite] failed to connect to websocket.\nyour current setup:\n  (browser) i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/ <--[HTTP]--> localhost:5173/ (server)\n  (browser) i3cv3uqqwcz9ctkturkah.preview.studio.arc.io:/ <--[WebSocket (failing)]--> localhost:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr .","timestamp":1792225616633}
+{"level":"debug","message":"[vite] connected.","timestamp":1792225638323}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792226013046}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226013047}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792226013645}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226013645}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateMilestoneJobModal.tsx","timestamp":1792226110713}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226110713}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateMilestoneJobModal.tsx","timestamp":1792226111163}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226111163}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateMilestoneJobModal.tsx","timestamp":1792226133336}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226133336}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateMilestoneJobModal.tsx","timestamp":1792226133713}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226133713}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792226436347}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226436348}
+{"level":"debug","message":"[vite] hot updated: /src/components/MilestoneJobDetailModal.tsx","timestamp":1792226443321}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226443321}
+{"level":"debug","message":"(previous line repeated 1× more)","timestamp":1792226445781}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792226445781}
+{"level":"debug","message":"[vite] hot updated: /src/components/MilestoneJobCard.tsx","timestamp":1792226445781}
+{"level":"debug","message":"[vite] hot updated: /src/components/MilestoneJobDetailModal.tsx","timestamp":1792226445784}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateMilestoneJobModal.tsx","timestamp":1792226450697}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226450697}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792226474071}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792226533378}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226533378}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792226533735}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226533735}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateMilestoneJobModal.tsx","timestamp":1792226534913}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226534913}
+{"level":"debug","message":"[vite] hot updated: /src/components/CreateMilestoneJobModal.tsx","timestamp":1792226534917}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226534917}
+{"level":"debug","message":"[vite] hot updated: /src/components/MilestoneJobCard.tsx","timestamp":1792226536647}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226536647}
+{"level":"debug","message":"[vite] hot updated: /src/components/MilestoneJobCard.tsx","timestamp":1792226536648}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226536648}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792226567787}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226567788}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792226568172}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226568172}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792226571231}
+{"level":"debug","message":"[vite] connected.","timestamp":1792226674683}
+{"level":"debug","message":"[vite] hot updated: /src/components/AgentBadge.tsx","timestamp":1792226863202}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226863202}
+{"level":"debug","message":"[vite] hot updated: /src/components/AgentBadge.tsx","timestamp":1792226863486}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226863487}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792226864622}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226864622}
+{"level":"debug","message":"[vite] hot updated: /src/components/EscrowDetailModal.tsx","timestamp":1792226865640}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226865641}
+{"level":"debug","message":"[vite] hot updated: /src/components/MilestoneJobDetailModal.tsx","timestamp":1792226991075}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792226991075}
+{"level":"error","message":"[vite] ","timestamp":1792227007728}
+{"level":"error","message":"[vite] Failed to reload /src/components/MilestoneJobDetailModal.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792227007728}
+{"level":"debug","message":"[vite] hot updated: /src/components/MilestoneJobDetailModal.tsx","timestamp":1792227007728}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227007728}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792227049129}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792227091100}
+{"level":"debug","message":"[vite] connected.","timestamp":1792227154125}
+{"level":"debug","message":"[vite] connected.","timestamp":1792227155301}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792227190846}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792227331952}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227331953}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792227342067}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227342067}
+{"level":"debug","message":"[vite] hot updated: /src/components/NanopaymentPanel.tsx","timestamp":1792227427654}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227427655}
+{"level":"debug","message":"[vite] hot updated: /src/components/NanopaymentPanel.tsx","timestamp":1792227431107}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227431107}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792227431854}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227431854}
+{"level":"debug","message":"[vite] hot updated: /src/components/MilestoneJobDetailModal.tsx","timestamp":1792227433788}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227433789}
+{"level":"debug","message":"[vite] hot updated: /src/components/MilestoneJobDetailModal.tsx","timestamp":1792227438735}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227438735}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792227451363}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227451363}
+{"level":"debug","message":"[vite] hot updated: /src/components/MilestoneJobDetailModal.tsx","timestamp":1792227451829}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227451830}
+{"level":"debug","message":"[vite] hot updated: /src/components/MilestoneJobDetailModal.tsx","timestamp":1792227456643}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227456643}
+{"level":"debug","message":"[vite] hot updated: /src/components/MilestoneJobDetailModal.tsx","timestamp":1792227456728}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227456729}
+{"level":"debug","message":"[vite] hot updated: /src/components/MilestoneJobDetailModal.tsx","timestamp":1792227457336}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227457336}
+{"level":"debug","message":"[vite] hot updated: /src/components/MilestoneJobDetailModal.tsx","timestamp":1792227463210}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227463210}
+{"level":"debug","message":"[vite] hot updated: /src/components/MilestoneJobDetailModal.tsx","timestamp":1792227463211}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227463211}
+{"level":"debug","message":"[vite] hot updated: /src/components/NanopaymentPanel.tsx","timestamp":1792227487040}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227487040}
+{"level":"debug","message":"[vite] hot updated: /src/components/NanopaymentPanel.tsx","timestamp":1792227487318}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227487318}
+{"level":"debug","message":"[vite] hot updated: /src/components/NanopaymentPanel.tsx","timestamp":1792227488612}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227488612}
+{"level":"debug","message":"[vite] hot updated: /src/components/NanopaymentPanel.tsx","timestamp":1792227488614}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227488614}
+{"level":"debug","message":"(previous line repeated 1× more)","timestamp":1792227538984}
+{"level":"debug","message":"[vite] hot updated: /src/components/AgentBadge.tsx","timestamp":1792227538984}
+{"level":"error","message":"[vite] ","timestamp":1792227539363}
+{"level":"error","message":"[vite] Failed to reload /src/index.css. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792227539363}
+{"level":"error","message":"[vite] ","timestamp":1792227539364}
+{"level":"error","message":"[vite] Failed to reload /src/components/AgentBadge.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792227539364}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227539364}
+{"level":"debug","message":"[vite] hot updated: /src/components/AgentBadge.tsx","timestamp":1792227539364}
+{"level":"debug","message":"(previous line repeated 1× more)","timestamp":1792227545989}
+{"level":"debug","message":"[vite] hot updated: /src/components/AgentBadge.tsx","timestamp":1792227545989}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227547015}
+{"level":"debug","message":"[vite] hot updated: /src/components/AgentBadge.tsx","timestamp":1792227547016}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227591033}
+{"level":"debug","message":"[vite] hot updated: /src/components/AgentBadge.tsx","timestamp":1792227591034}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792227591407}
+{"level":"debug","message":"[vite] hot updated: /src/components/AgentBadge.tsx","timestamp":1792227591407}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792227943111}
+{"level":"debug","message":"[vite] connected.","timestamp":1792228004656}
+{"level":"debug","message":"[vite] connected.","timestamp":1792228084335}
+{"level":"error","message":"Warning: You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it.","timestamp":1792228137249}
+{"level":"debug","message":"[vite] invalidate /src/main.tsx: Could not Fast Refresh (\"true\" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports","timestamp":1792228137251}
+{"level":"debug","message":"[vite] hot updated: /src/main.tsx","timestamp":1792228137251}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792228137251}
+{"level":"debug","message":"(previous line repeated 1× more)","timestamp":1792228163297}
+{"level":"error","message":"Warning: You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it.","timestamp":1792228163296}
+{"level":"debug","message":"[vite] invalidate /src/main.tsx: Could not Fast Refresh (\"true\" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports","timestamp":1792228163297}
+{"level":"debug","message":"[vite] hot updated: /src/main.tsx","timestamp":1792228163297}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792228163297}
+{"level":"error","message":"Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:\n1. You might have mismatching versions of React and the renderer (such as React DOM)\n2. You might be breaking the Rules of Hooks\n3. You might have more than one copy of React in the same app\nSee https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.","timestamp":1792228163305}
+{"level":"error","message":"(previous line repeated 1× more)","timestamp":1792228163306}
+{"level":"error","message":"TypeError: can't access property \"useState\", dispatcher is null","timestamp":1792228163306,"source":"https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-TWJ6NINL.js?v=faeaf746:1351:11","stack":"useState@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-TWJ6NINL.js?v=faeaf746:1351:11\nCircleWalletProvider@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/src/components/CircleWalletLogin.tsx:52:41\nrenderWithHooks@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:18474:35\nmountIndeterminateComponent@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:21852:21\nbeginWork@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:22840:22\ncallCallback2@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:10558:22\ninvokeGuardedCallbackDev@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:10583:24\ninvokeGuardedCallback@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:10617:39\nbeginWork$1@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:26696:36\nperformUnitOfWork@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:26129:20\nworkLoopSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:26068:30\nrenderRootSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:26047:15\nperformConcurrentWorkOnRoot@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:25606:83\nworkLoop@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:462:50\nflushWork@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:441:22\nperformWorkUntilDeadline@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:649:29\n"}
+{"level":"error","message":"(previous line repeated 2× more)","timestamp":1792228163310}
+{"level":"error","message":"TypeError: can't access property \"useState\", dispatcher is null","timestamp":1792228163310,"source":"https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-TWJ6NINL.js?v=faeaf746:1351:11","stack":"useState@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-TWJ6NINL.js?v=faeaf746:1351:11\nCircleWalletProvider@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/src/components/CircleWalletLogin.tsx:52:41\nrenderWithHooks@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:18474:35\nmountIndeterminateComponent@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:21852:21\nbeginWork@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:22840:22\ncallCallback2@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:10558:22\ninvokeGuardedCallbackDev@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:10583:24\ninvokeGuardedCallback@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:10617:39\nbeginWork$1@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:26696:36\nperformUnitOfWork@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:26129:20\nworkLoopSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:26068:30\nrenderRootSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:26047:15\nrecoverFromConcurrentError@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:25664:42\nperformConcurrentWorkOnRoot@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:25612:30\nworkLoop@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:462:50\nflushWork@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:441:22\nperformWorkUntilDeadline@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:649:29\n"}
+{"level":"error","message":"The above error occurred in the <CircleWalletProvider> component:\n\nCircleWalletProvider@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/src/components/CircleWalletLogin.tsx:50:37\nLe@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/connectkit.js?v=0f930f78:18795:42\nWeb3ContextProvider@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/connectkit.js?v=0f930f78:34422:27\nConnectKitProvider@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/connectkit.js?v=0f930f78:37912:26\nQueryClientProvider@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-WZEH4STI.js?v=0f930f78:39:27\nHydrate@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-D5P4UY7H.js?v=0f930f78:392:71\nWagmiProvider@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-D5P4UY7H.js?v=0f930f78:414:32\n\nConsider adding an error boundary to your tree to customize error handling behavior.\nVisit https://reactjs.org/link/error-boundaries to learn more about error boundaries.","timestamp":1792228163313}
+{"level":"error","message":"TypeError: can't access property \"useState\", dispatcher is null","timestamp":1792228163313,"source":"https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-TWJ6NINL.js?v=faeaf746:1351:11","stack":"useState@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-TWJ6NINL.js?v=faeaf746:1351:11\nCircleWalletProvider@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/src/components/CircleWalletLogin.tsx:52:41\nrenderWithHooks@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:18474:35\nmountIndeterminateComponent@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:21852:21\nbeginWork@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:22840:22\nbeginWork$1@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:26684:22\nperformUnitOfWork@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:26129:20\nworkLoopSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:26068:30\nrenderRootSync@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:26047:15\nrecoverFromConcurrentError@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:25664:42\nperformConcurrentWorkOnRoot@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:25612:30\nworkLoop@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:462:50\nflushWork@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:441:22\nperformWorkUntilDeadline@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=0f930f78:649:29\n"}
+{"level":"log","message":"[vite] server connection lost. Polling for restart...","timestamp":1792228225855}
+{"level":"debug","message":"[vite] invalidate /src/components/CircleWalletLogin.tsx: Could not Fast Refresh (\"useCircleWallet\" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports","timestamp":1792228283023}
+{"level":"debug","message":"[vite] hot updated: /src/components/CircleWalletLogin.tsx","timestamp":1792228283024}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792228283024}
+{"level":"error","message":"Warning: You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it.","timestamp":1792228284329}
+{"level":"debug","message":"[vite] invalidate /src/main.tsx: Could not Fast Refresh (\"true\" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports","timestamp":1792228284331}
+{"level":"debug","message":"[vite] hot updated: /src/main.tsx","timestamp":1792228284331}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792228284331}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792228284332}
+{"level":"error","message":"NotFoundError: Node.removeChild: The node to be removed is not a child of this node","timestamp":1792228284426,"source":"https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:15387:23","stack":"removeChildFromContainer@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:15387:23\ncommitDeletionEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24436:45\nrecursivelyTraverseDeletionEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24413:41\ncommitDeletionEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24505:49\nrecursivelyTraverseDeletionEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24413:41\ncommitDeletionEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24538:49\ncommitDeletionEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24404:41\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24602:38\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24627:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24824:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24627:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24824:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24627:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24824:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24627:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24824:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24627:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24824:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studi… [truncated]"}
+{"level":"error","message":"The above error occurred in the <Context.Provider> component:\n\nCircleWalletProvider@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/src/components/CircleWalletLogin.tsx:50:37\nLe@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/connectkit.js?v=faeaf746:18799:42\nWeb3ContextProvider@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/connectkit.js?v=faeaf746:34426:27\nConnectKitProvider@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/connectkit.js?v=faeaf746:37916:26\nQueryClientProvider@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-WZEH4STI.js?v=faeaf746:39:27\nHydrate@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-M7HE4DN4.js?v=faeaf746:392:71\nWagmiProvider@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-M7HE4DN4.js?v=faeaf746:414:32\n\nConsider adding an error boundary to your tree to customize error handling behavior.\nVisit https://reactjs.org/link/error-boundaries to learn more about error boundaries.","timestamp":1792228284431}
+{"level":"error","message":"Unhandled promise rejection: removeChildFromContainer@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:15387:23\ncommitDeletionEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24436:45\nrecursivelyTraverseDeletionEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24413:41\ncommitDeletionEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24505:49\nrecursivelyTraverseDeletionEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24413:41\ncommitDeletionEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24538:49\ncommitDeletionEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24404:41\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24602:38\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24627:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24824:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24627:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24824:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24627:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24824:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24627:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24824:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24627:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24824:49\nrecursivelyTraverseMutationEffects@https://i3cv3u… [truncated]","timestamp":1792228284437,"stack":"removeChildFromContainer@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:15387:23\ncommitDeletionEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24436:45\nrecursivelyTraverseDeletionEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24413:41\ncommitDeletionEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24505:49\nrecursivelyTraverseDeletionEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24413:41\ncommitDeletionEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24538:49\ncommitDeletionEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24404:41\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24602:38\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24627:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24824:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24627:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24824:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24627:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24824:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24627:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24824:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24627:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24613:43\ncommitMutationEffectsOnFiber@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-YI6NTZAD.js?v=faeaf746:24824:49\nrecursivelyTraverseMutationEffects@https://i3cv3uqqwcz9ctkturkah.preview.studi… [truncated]"}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792228284682}
+{"level":"debug","message":"[vite] invalidate /src/components/CircleWalletLogin.tsx: Could not Fast Refresh (\"useCircleWallet\" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports","timestamp":1792228392409}
+{"level":"debug","message":"[vite] hot updated: /src/components/CircleWalletLogin.tsx","timestamp":1792228392410}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792228392410}
+{"level":"debug","message":"[vite] hot updated: /src/components/CircleWalletLogin.tsx","timestamp":1792228418206}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792228418206}
+{"level":"debug","message":"[vite] hot updated: /src/components/CircleWalletLogin.tsx","timestamp":1792228419848}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792228419848}
+{"level":"debug","message":"[vite] invalidate /src/components/CircleWalletLogin.tsx: Could not Fast Refresh (\"useCircleWallet\" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports","timestamp":1792228457202}
+{"level":"debug","message":"[vite] hot updated: /src/components/CircleWalletLogin.tsx","timestamp":1792228457202}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792228457202}
+{"level":"error","message":"[vite] ","timestamp":1792228457725}
+{"level":"error","message":"[vite] Failed to reload /src/components/CircleWalletLogin.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792228457725}
+{"level":"debug","message":"[vite] hot updated: /src/components/CircleWalletLogin.tsx","timestamp":1792228458656}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792228458656}
+{"level":"error","message":"[vite] ","timestamp":1792228459820}
+{"level":"error","message":"[vite] Failed to reload /src/main.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792228459820}
+{"level":"error","message":"[vite] ","timestamp":1792228466646}
+{"level":"error","message":"[vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792228466646}
+{"level":"debug","message":"[vite] hot updated: /src/main.tsx","timestamp":1792228466647}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792228466647}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792228466647}
+{"level":"error","message":"[vite] ","timestamp":1792228468711}
+{"level":"error","message":"[vite] Failed to reload /src/components/CircleWalletLogin.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792228468711}
+{"level":"error","message":"[vite] ","timestamp":1792228469565}
+{"level":"error","message":"[vite] Failed to reload /src/index.css. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792228469565}
+{"level":"debug","message":"[vite] hot updated: /src/components/CircleWalletLogin.tsx","timestamp":1792228469565}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792228469565}
+{"level":"warn","message":"The configured WalletConnect 'metadata.url':https://studio.arc.io differs from the actual page url:https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io. This is probably unintended and can lead to issues.","timestamp":1792229541536}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792229546504}
+{"level":"warn","message":"The configured WalletConnect 'metadata.url':https://studio.arc.io differs from the actual page url:https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io. This is probably unintended and can lead to issues.","timestamp":1792229782259}
+{"level":"error","message":"Warning: You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it.","timestamp":1792229788939}
+{"level":"debug","message":"[vite] invalidate /src/main.tsx: Could not Fast Refresh (\"true\" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports","timestamp":1792229788941}
+{"level":"debug","message":"[vite] hot updated: /src/main.tsx","timestamp":1792229788941}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792229788941}
+{"level":"warn","message":"WalletConnect Core is already initialized. This is probably a mistake and can lead to unexpected behavior. Init() was called 2 times.","timestamp":1792229788943}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792229790451}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792229795523}
+{"level":"warn","message":"Element w3m-connecting-wc-qrcode scheduled an update (generally because a property was set) after an update completed, causing a new update to be scheduled. This is inefficient and should be avoided unless the next update can only be scheduled as a side effect of the previous update. See https://lit.dev/msg/change-in-update for more information.","timestamp":1792230047055}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792230066483}
+{"level":"warn","message":"Element w3m-connecting-wc-qrcode scheduled an update (generally because a property was set) after an update completed, causing a new update to be scheduled. This is inefficient and should be avoided unless the next update can only be scheduled as a side effect of the previous update. See https://lit.dev/msg/change-in-update for more information.","timestamp":1792230086617}
+{"level":"error","message":"connect/a2</<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/index.es-44OB5WQV.js?v=a0bae7c0:7480:86\nsubscribe/<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-T2MVX253.js?v=a0bae7c0:4361:45\nsubscribe/listener/promise<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-T2MVX253.js?v=a0bae7c0:2744:19\n","timestamp":1792230094380,"stack":"connect/a2</<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/index.es-44OB5WQV.js?v=a0bae7c0:7480:86\nsubscribe/<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-T2MVX253.js?v=a0bae7c0:4361:45\nsubscribe/listener/promise<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-T2MVX253.js?v=a0bae7c0:2744:19\n"}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792237607184}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792237630664}
+{"level":"warn","message":"Element w3m-connecting-wc-qrcode scheduled an update (generally because a property was set) after an update completed, causing a new update to be scheduled. This is inefficient and should be avoided unless the next update can only be scheduled as a side effect of the previous update. See https://lit.dev/msg/change-in-update for more information.","timestamp":1792237701389}
+{"level":"error","message":"connect/a2</<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/index.es-44OB5WQV.js?v=a0bae7c0:7480:86\nsubscribe/<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-T2MVX253.js?v=a0bae7c0:4361:45\nsubscribe/listener/promise<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-T2MVX253.js?v=a0bae7c0:2744:19\n","timestamp":1792237703959,"stack":"connect/a2</<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/index.es-44OB5WQV.js?v=a0bae7c0:7480:86\nsubscribe/<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-T2MVX253.js?v=a0bae7c0:4361:45\nsubscribe/listener/promise<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-T2MVX253.js?v=a0bae7c0:2744:19\n"}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792237719926}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792237758541}
+{"level":"error","message":"(previous line repeated 3× more)","timestamp":1792237791235}
+{"level":"error","message":"[vite] ","timestamp":1792237791235}
+{"level":"error","message":"[vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792237791235}
+{"level":"error","message":"[vite] ","timestamp":1792237791968}
+{"level":"error","message":"[vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792237791968}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792237792117}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792237792117}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792237792119}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792237792119}
+{"level":"error","message":"[vite] ","timestamp":1792237828419}
+{"level":"error","message":"[vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)","timestamp":1792237828420}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792237829204}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792237829204}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792237848923}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792237848923}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792237918044}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792237948681}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792238033794}
+{"level":"debug","message":"[vite] connected.","timestamp":1792238034503}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792238202440}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792238218170}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792238383859}
+{"level":"warn","message":"Element w3m-connecting-wc-qrcode scheduled an update (generally because a property was set) after an update completed, causing a new update to be scheduled. This is inefficient and should be avoided unless the next update can only be scheduled as a side effect of the previous update. See https://lit.dev/msg/change-in-update for more information.","timestamp":1792238391862}
+{"level":"error","message":"connect/a2</<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/index.es-44OB5WQV.js?v=a0bae7c0:7480:86\nsubscribe/<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-T2MVX253.js?v=a0bae7c0:4361:45\nsubscribe/listener/promise<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-T2MVX253.js?v=a0bae7c0:2744:19\n","timestamp":1792238394439,"stack":"connect/a2</<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/index.es-44OB5WQV.js?v=a0bae7c0:7480:86\nsubscribe/<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-T2MVX253.js?v=a0bae7c0:4361:45\nsubscribe/listener/promise<@https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io/node_modules/.vite/deps/chunk-T2MVX253.js?v=a0bae7c0:2744:19\n"}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792238437939}
+{"level":"error","message":"(previous line repeated 8× more)","timestamp":1792238533881}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792238533881}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792238533881}
+{"level":"debug","message":"[vite] hot updated: /src/App.tsx","timestamp":1792238551092}
+{"level":"debug","message":"[vite] hot updated: /src/index.css","timestamp":1792238551092}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792238568981}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792238607785}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792238628062}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792238949185}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792238998525}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792239147055}
+{"level":"warn","message":"Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.","timestamp":1792239331214}
