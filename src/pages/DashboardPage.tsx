@@ -33,7 +33,7 @@ import {
   type JobData,
 } from '../components/useMilestoneData'
 import { ESCROW_ADDRESS, ESCROW_ABI } from '../components/EscrowABI'
-import { ConnectKitButton } from 'connectkit'
+import UnifiedWalletModal, { GoogleIcon } from '../components/UnifiedWalletModal'
 
 const EXPLORER_BASE = 'https://explorer.testnet.arc.io'
 const MILESTONE_CONTRACT = '0x6475145721074298d0b3cbcd79417988dc893d2d'
@@ -162,6 +162,8 @@ export default function DashboardPage({
     { key: 'milestones', label: 'Milestones', count: allJobIds.length, icon: <Layers className="w-3.5 h-3.5" /> },
   ]
 
+  const [walletModalOpen, setWalletModalOpen] = useState(false)
+
   if (!isConnected && !address) {
     return (
       <div className="w-full max-w-4xl mx-auto py-16 px-4 text-center space-y-6 flex-1 flex flex-col justify-center items-center transition-colors duration-200">
@@ -174,7 +176,15 @@ export default function DashboardPage({
             Your personal dashboard allows you to view your funded escrows, claim completed worker payouts, and manage arbitration disputes.
           </p>
         </div>
-        <ConnectKitButton />
+        <button
+          type="button"
+          onClick={() => setWalletModalOpen(true)}
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white shadow-md shadow-purple-900/25 transition-all hover:scale-[1.02]"
+        >
+          <GoogleIcon className="w-4 h-4 shrink-0" />
+          <span>Connect Wallet / Google</span>
+        </button>
+        <UnifiedWalletModal isOpen={walletModalOpen} onClose={() => setWalletModalOpen(false)} />
       </div>
     )
   }
