@@ -1,7 +1,10 @@
 import { ConnectKitButton } from 'connectkit'
-import { Shield, Plus, Layers, Menu, X, Sun, Moon } from 'lucide-react'
+import { Shield, Plus, Layers, Menu, X, Sun, Moon, LogOut, Copy, Check } from 'lucide-react'
 import { useState } from 'react'
 import { useTheme } from './ThemeProvider'
+import { useCircleWallet } from './CircleWalletLogin'
+import UnifiedWalletModal, { GoogleIcon } from './UnifiedWalletModal'
+import { toast } from 'sonner'
 
 export type NavRoute = 'home' | 'marketplace' | 'agents' | 'dashboard' | 'developer' | 'verifier'
 
@@ -23,7 +26,11 @@ export default function Navbar({
   totalUserContracts,
 }: Props) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [walletModalOpen, setWalletModalOpen] = useState(false)
+  const [copiedAddr, setCopiedAddr] = useState(false)
   const { resolvedTheme, setTheme } = useTheme()
+  const { address: circleAddress, logout: circleLogout } = useCircleWallet()
+
 
   const navItems: { key: NavRoute; label: string; badge?: string }[] = [
     { key: 'home', label: 'Protocol' },
@@ -152,7 +159,47 @@ export default function Navbar({
             </button>
           </div>
 
-          <ConnectKitButton />
+          {/* Wallet Connection Display */}
+          {circleAddress ? (
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-500/10 border border-purple-500/30 text-xs shadow-sm">
+              <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
+              <span className="mono font-bold text-purple-700 dark:text-purple-300">
+                {circleAddress.slice(0, 6)}…{circleAddress.slice(-4)}
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  void navigator.clipboard.writeText(circleAddress)
+                  setCopiedAddr(true)
+                  toast.success('Smart Account address copied')
+                  setTimeout(() => setCopiedAddr(false), 2000)
+                }}
+                title="Copy Smart Account address"
+                className="p-1 hover:text-purple-600 dark:hover:text-purple-300 transition-colors"
+              >
+                {copiedAddr ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3 text-slate-400" />}
+              </button>
+              <button
+                type="button"
+                onClick={circleLogout}
+                title="Sign out from Google Smart Account"
+                className="p-1 text-slate-400 hover:text-rose-500 transition-colors"
+              >
+                <LogOut className="w-3 h-3" />
+              </button>
+            </div>
+          ) : isConnected ? (
+            <ConnectKitButton />
+          ) : (
+            <button
+              type="button"
+              onClick={() => setWalletModalOpen(true)}
+              className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white shadow-md shadow-purple-900/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
+              <span>Connect Wallet</span>
+            </button>
+          )}
 
           {/* Mobile hamburger menu toggle */}
           <button
@@ -190,7 +237,23 @@ export default function Navbar({
             )
           })}
 
-          {isConnected && (
+          {!isConnected && !circleAddress && (
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false)
+                  setWalletModalOpen(true)
+                }}
+                className="w-full py-2.5 rounded-xl text-xs font-bold bg-purple-600 text-white flex items-center justify-center gap-2 shadow-md"
+              >
+                <GoogleIcon className="w-4 h-4" />
+                <span>Connect with Google / Web3</span>
+              </button>
+            </div>
+          )}
+
+          {(isConnected || circleAddress) && (
             <div className="pt-2 flex gap-2">
               <button
                 onClick={() => {
@@ -214,6 +277,12 @@ export default function Navbar({
           )}
         </div>
       )}
+
+      {/* Unified Wallet & Google Modal */}
+      <UnifiedWalletModal
+        isOpen={walletModalOpen}
+        onClose={() => setWalletModalOpen(false)}
+      />
     </header>
   )
 }

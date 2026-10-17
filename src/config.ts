@@ -29,6 +29,7 @@ export const config = createConfig({
     ...(wcProjectId
       ? [walletConnect({
           projectId: wcProjectId,
+          showQrModal: false,
           metadata: {
             name: 'ArcAgent Escrow',
             description: 'ERC-8183 escrow for human-to-AI and agent-to-agent work on Arc',

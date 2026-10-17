@@ -25,6 +25,14 @@ import { useClientJobs, useWorkerJobs, useJobs, type JobData } from './component
 import { useCircleWallet } from './components/CircleWalletLogin'
 
 function getInitialRoute(): NavRoute {
+  // Support both clean pathname (/verifier) and legacy hash (#/verifier)
+  const path = window.location.pathname.replace(/^\//, '').toLowerCase()
+  if (path === 'marketplace') return 'marketplace'
+  if (path === 'agents' || path === 'registry') return 'agents'
+  if (path === 'dashboard' || path === 'workspace') return 'dashboard'
+  if (path === 'developer' || path === 'playground' || path === 'studio') return 'developer'
+  if (path === 'verifier') return 'verifier'
+
   const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase()
   if (hash === 'marketplace') return 'marketplace'
   if (hash === 'agents' || hash === 'registry') return 'agents'
@@ -48,18 +56,25 @@ export default function App() {
   const [selectedEscrow, setSelectedEscrow] = useState<EscrowData | null>(null)
   const [selectedJob, setSelectedJob] = useState<JobData | null>(null)
 
-  // Listen to hash changes in browser URL
+  // Listen to browser navigation (back/forward)
   useEffect(() => {
-    const onHashChange = () => {
+    const onLocationChange = () => {
       setCurrentRoute(getInitialRoute())
     }
-    window.addEventListener('hashchange', onHashChange)
-    return () => window.removeEventListener('hashchange', onHashChange)
+    window.addEventListener('popstate', onLocationChange)
+    window.addEventListener('hashchange', onLocationChange)
+    return () => {
+      window.removeEventListener('popstate', onLocationChange)
+      window.removeEventListener('hashchange', onLocationChange)
+    }
   }, [])
 
   const handleNavigate = (route: NavRoute) => {
     setCurrentRoute(route)
-    window.location.hash = `#/${route === 'home' ? '' : route}`
+    const targetPath = route === 'home' ? '/' : `/${route}`
+    if (window.location.pathname !== targetPath || window.location.hash) {
+      window.history.pushState(null, '', targetPath)
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
