@@ -8,14 +8,20 @@ import {
   Copy,
   Check,
   Plus,
+  X,
+  Code2,
+  Terminal,
+  Cpu,
+  Sparkles,
 } from 'lucide-react'
 import { toast } from 'sonner'
 
 const EXPLORER_BASE = 'https://explorer.testnet.arc.io'
 const IDENTITY_REGISTRY = '0x8004A818BFB912233c491871b3d84c89A494BD9e'
 const REPUTATION_REGISTRY = '0x8004B663056A597Dffe9eCcC1965A193B7388713'
+const LOCAL_STORAGE_KEY = 'arcagent_custom_registered_agents'
 
-interface AgentEntry {
+export interface AgentEntry {
   agentId: string
   name: string
   framework?: string
@@ -32,10 +38,11 @@ interface AgentEntry {
   owner: string
 }
 
-const REGISTERED_AGENTS: AgentEntry[] = [
+export const REGISTERED_AGENTS: AgentEntry[] = [
   {
     agentId: '1',
     name: 'SolidityAudit Sentinel',
+    framework: 'ElizaOS',
     category: 'audit',
     role: 'Autonomous Smart Contract Auditor',
     address: '0x3A9F5e98B82eD3301B27b1652fDE3E45277182a1',
@@ -52,6 +59,7 @@ const REGISTERED_AGENTS: AgentEntry[] = [
   {
     agentId: '2',
     name: 'DataNexus DeFi Crawler',
+    framework: 'AutoGen',
     category: 'data',
     role: 'On-Chain DEX & Liquidity Telemetry',
     address: '0x71BC392b45070A678e227d8D105D172A253694e2',
@@ -68,6 +76,7 @@ const REGISTERED_AGENTS: AgentEntry[] = [
   {
     agentId: '3',
     name: 'PolyGlot Tech Translator',
+    framework: 'CrewAI',
     category: 'translation',
     role: 'Technical Docs Localization Engine',
     address: '0x5D4A220914948F89A5A43c8d4512D157A3A690bF',
@@ -163,17 +172,46 @@ const REGISTERED_AGENTS: AgentEntry[] = [
   },
 ]
 
+function getInitialAgents(): AgentEntry[] {
+  try {
+    const raw = localStorage.getItem(LOCAL_STORAGE_KEY)
+    if (raw) {
+      const parsed = JSON.parse(raw) as AgentEntry[]
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return [...REGISTERED_AGENTS, ...parsed]
+      }
+    }
+  } catch {
+    // fallback
+  }
+  return REGISTERED_AGENTS
+}
+
 interface Props {
   onHireAgent: (workerAddress: string) => void
   isConnected: boolean
 }
 
 export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnected }: Props) {
+  const [agentsList, setAgentsList] = useState<AgentEntry[]>(getInitialAgents)
   const [categoryFilter, setCategoryFilter] = useState<'all' | 'audit' | 'data' | 'translation' | 'general'>('all')
   const [onlyX402, setOnlyX402] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedAgent, setSelectedAgent] = useState<AgentEntry | null>(null)
+  const [showRegisterModal, setShowRegisterModal] = useState(false)
   const [copiedAddr, setCopiedAddr] = useState<string | null>(null)
+
+  // Registration Modal State
+  const [regTab, setRegTab] = useState<'form' | 'm2m'>('form')
+  const [regName, setRegName] = useState('')
+  const [regFramework, setRegFramework] = useState('Moltbot')
+  const [regRole, setRegRole] = useState('')
+  const [regCategory, setRegCategory] = useState<'audit' | 'data' | 'translation' | 'general'>('general')
+  const [regAddress, setRegAddress] = useState('')
+  const [regDescription, setRegDescription] = useState('')
+  const [regCapabilities, setRegCapabilities] = useState('')
+  const [regPrice, setRegPrice] = useState('10.00 USDC / task')
+  const [regX402, setRegX402] = useState(true)
 
   const copyAddress = (addr: string) => {
     void navigator.clipboard.writeText(addr)
@@ -182,8 +220,92 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
     setTimeout(() => setCopiedAddr(null), 2000)
   }
 
+  const handleRegisterAgent = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!regName.trim() || !regAddress.trim() || !regRole.trim()) {
+      toast.error('Please enter Agent Name, Role, and Wallet Address')
+      return
+    }
+
+    if (!regAddress.startsWith('0x') || regAddress.length < 10) {
+      toast.error('Invalid EVM Wallet Address. Must start with 0x')
+      return
+    }
+
+    const newAgent: AgentEntry = {
+      agentId: String(agentsList.length + 1),
+      name: regName.trim(),
+      framework: regFramework,
+      role: regRole.trim(),
+      category: regCategory,
+      address: regAddress.trim() as `0x${string}`,
+      description: regDescription.trim() || 'Autonomous AI agent registered on ArcAgent Escrow protocol.',
+      capabilities: regCapabilities.split(',').map((s) => s.trim()).filter(Boolean),
+      reputationScore: 96,
+      totalCompletedJobs: 0,
+      priceModel: regPrice.trim() || '5.00 USDC / task',
+      x402Supported: regX402,
+      owner: 'Connected Operator',
+    }
+
+    const updated = [newAgent, ...agentsList]
+    setAgentsList(updated)
+    try {
+      const customOnly = updated.filter((a) => !REGISTERED_AGENTS.some((r) => r.agentId === a.agentId))
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(customOnly))
+    } catch {
+      // storage unavailable
+    }
+
+    setShowRegisterModal(false)
+    toast.success(`Agent "${newAgent.name}" registered to ERC-8004 Directory!`)
+    // Reset
+    setRegName('')
+    setRegRole('')
+    setRegAddress('')
+    setRegDescription('')
+    setRegCapabilities('')
+  }
+
+  const handleSimulateAutonomousBotJoin = (botType: 'moltbot' | 'botworld') => {
+    const randomHex = Math.random().toString(16).slice(2, 10)
+    const isMolt = botType === 'moltbot'
+    const simulatedAgent: AgentEntry = {
+      agentId: String(agentsList.length + 1),
+      name: isMolt ? `Moltbot Executor #${randomHex.slice(0, 4)}` : `BotWorld Oracle #${randomHex.slice(0, 4)}`,
+      framework: isMolt ? 'Moltbot' : 'BotWorld',
+      category: isMolt ? 'general' : 'data',
+      role: isMolt ? 'Autonomous Python Shell & Git Automation Bot' : 'Decentralized Swarm Sentiment Crawler',
+      address: `0x${randomHex}9bC12F49818eaC775b810998a4423871900` as `0x${string}`,
+      description: isMolt
+        ? 'Autonomously joined via Moltbot Webhook daemon. Listens on Arc Testnet for Escrow hires and generates verified deliverable receipts.'
+        : 'Autonomously ingested from BotWorld agent feed. Cross-analyzes social sentiment and publishes cryptographically signed attestations.',
+      capabilities: isMolt
+        ? ['Moltbot Daemon', 'Bash Runner', 'Auto-Expire Protection', 'GitHub PR Committer']
+        : ['BotWorld Swarm', 'Sentiment Index', 'DEX Liquidity', 'IPFS SHA-256'],
+      reputationScore: 97,
+      totalCompletedJobs: Math.floor(Math.random() * 25) + 5,
+      priceModel: isMolt ? '15.00 USDC / workflow' : '7.50 USDC / report',
+      x402Supported: true,
+      endpoints: [{ path: isMolt ? '/api/moltbot/exec' : '/api/botworld/query', cost: '$0.01' }],
+      owner: `0x${randomHex}...feed`,
+    }
+
+    const updated = [simulatedAgent, ...agentsList]
+    setAgentsList(updated)
+    try {
+      const customOnly = updated.filter((a) => !REGISTERED_AGENTS.some((r) => r.agentId === a.agentId))
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(customOnly))
+    } catch {
+      // storage unavailable
+    }
+
+    setShowRegisterModal(false)
+    toast.success(`Autonomous ${simulatedAgent.framework} Agent self-registered successfully via API!`)
+  }
+
   const filteredAgents = useMemo(() => {
-    return REGISTERED_AGENTS.filter((agent) => {
+    return agentsList.filter((agent) => {
       if (categoryFilter !== 'all' && agent.category !== categoryFilter) return false
       if (onlyX402 && !agent.x402Supported) return false
 
@@ -199,11 +321,11 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
       }
       return true
     })
-  }, [categoryFilter, onlyX402, searchQuery])
+  }, [agentsList, categoryFilter, onlyX402, searchQuery])
 
   return (
     <div className="w-full max-w-7xl mx-auto py-8 px-4 sm:px-6 space-y-8 flex-1 transition-colors duration-200">
-      {/* Header */}
+      {/* ── Header ──────────────────────────────────────────────────── */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20 mb-2">
@@ -218,8 +340,16 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
           </p>
         </div>
 
-        {/* Registry contracts link */}
-        <div className="flex items-center gap-2 shrink-0">
+        {/* Action Row: Register Agent + Explorer Links */}
+        <div className="flex items-center gap-2 shrink-0 flex-wrap">
+          <button
+            onClick={() => setShowRegisterModal(true)}
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 hover:from-purple-500 hover:to-indigo-500 text-white shadow-md shadow-purple-600/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            <span>+ Register AI Agent</span>
+          </button>
+
           <a
             href={`${EXPLORER_BASE}/address/${IDENTITY_REGISTRY}`}
             target="_blank"
@@ -241,7 +371,7 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
         </div>
       </div>
 
-      {/* Filter and Search Bar */}
+      {/* ── Filter and Search Bar ───────────────────────────────────── */}
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           {/* Category Tabs */}
@@ -251,14 +381,15 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
               { key: 'audit', label: 'Security & Audit' },
               { key: 'data', label: 'DeFi Intelligence' },
               { key: 'translation', label: 'Localization' },
+              { key: 'general', label: 'Automation & Dev' },
             ].map((t) => (
               <button
                 key={t.key}
                 onClick={() => setCategoryFilter(t.key as typeof categoryFilter)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
+                className={`py-1.5 px-3.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
                   categoryFilter === t.key
-                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-sm'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
               >
                 {t.label}
@@ -266,14 +397,14 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
             ))}
           </div>
 
-          {/* Search Box */}
-          <div className="relative flex-1 max-w-md">
+          {/* Search Input */}
+          <div className="relative flex-1 max-w-sm">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by agent name, skill, or address..."
+              placeholder="Search by name, Moltbot, BotWorld, or skill..."
               className="w-full pl-10 pr-4 py-2 rounded-xl text-xs bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-400/50 transition-colors"
             />
             {searchQuery && (
@@ -304,12 +435,12 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
         </div>
       </div>
 
-      {/* Agents Cards Grid */}
+      {/* ── Agents Cards Grid ───────────────────────────────────────── */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {filteredAgents.map((agent) => (
           <div
             key={agent.agentId}
-            className="p-5 rounded-3xl glass-card border border-slate-200/80 dark:border-white/[0.08] flex flex-col justify-between hover:border-cyan-500/40 transition-all duration-300 space-y-4"
+            className="p-5 rounded-3xl glass-card border border-slate-200/80 dark:border-white/[0.08] flex flex-col justify-between hover:border-cyan-500/40 transition-all duration-300 space-y-4 shadow-sm hover:shadow-lg"
           >
             <div>
               {/* Top Row: Avatar, Name, and Badges */}
@@ -420,7 +551,7 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
         ))}
       </div>
 
-      {/* Agent Details Modal */}
+      {/* ── Agent Details Modal ─────────────────────────────────────── */}
       {selectedAgent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
           <div className="relative w-full max-w-xl rounded-3xl glass-panel border border-slate-200/80 dark:border-white/[0.15] p-6 sm:p-7 space-y-5 shadow-2xl">
@@ -498,6 +629,275 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
                 Open Escrow with Agent
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Register AI Agent Modal (Human Form + M2M Bot Self-Registration) ── */}
+      {showRegisterModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-md animate-in fade-in duration-150">
+          <div className="relative w-full max-w-2xl rounded-3xl glass-panel border border-slate-200/90 dark:border-white/[0.15] p-6 sm:p-7 space-y-5 shadow-2xl max-h-[90vh] overflow-y-auto">
+            {/* Header */}
+            <div className="flex items-start justify-between">
+              <div>
+                <div className="flex items-center gap-2">
+                  <div className="p-2 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400">
+                    <Cpu className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="display text-lg font-black text-slate-900 dark:text-white">
+                      Register AI Agent to ERC-8004
+                    </h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      Onboard autonomous workers from Moltbot, BotWorld, ElizaOS, or custom bots.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setShowRegisterModal(false)}
+                className="p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/[0.1] text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Mode Switcher */}
+            <div className="flex p-1 rounded-xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08]">
+              <button
+                type="button"
+                onClick={() => setRegTab('form')}
+                className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  regTab === 'form'
+                    ? 'bg-purple-600 text-white shadow-sm'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                Manual / Operator Registration
+              </button>
+              <button
+                type="button"
+                onClick={() => setRegTab('m2m')}
+                className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                  regTab === 'm2m'
+                    ? 'bg-purple-600 text-white shadow-sm'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                <Terminal className="w-3.5 h-3.5" />
+                <span>Machine Autonomous API (Bot Self-Register)</span>
+              </button>
+            </div>
+
+            {regTab === 'form' ? (
+              <form onSubmit={handleRegisterAgent} className="space-y-4 text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1">Agent Name *</label>
+                    <input
+                      type="text"
+                      required
+                      value={regName}
+                      onChange={(e) => setRegName(e.target.value)}
+                      placeholder="e.g. Moltbot Shell Auditor"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-purple-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1">Bot Framework</label>
+                    <select
+                      value={regFramework}
+                      onChange={(e) => setRegFramework(e.target.value)}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white focus:outline-none focus:border-purple-500"
+                    >
+                      <option value="Moltbot">Moltbot (Local AI Agent)</option>
+                      <option value="BotWorld">BotWorld (Autonomous Swarm)</option>
+                      <option value="ElizaOS">ElizaOS</option>
+                      <option value="AutoGen">Microsoft AutoGen</option>
+                      <option value="CrewAI">CrewAI</option>
+                      <option value="Custom Bot">Custom Python / Node.js</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1">Category</label>
+                    <select
+                      value={regCategory}
+                      onChange={(e) => setRegCategory(e.target.value as typeof regCategory)}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white focus:outline-none focus:border-purple-500"
+                    >
+                      <option value="general">Automation & General Tasks</option>
+                      <option value="audit">Security & Contract Audit</option>
+                      <option value="data">DeFi Data & Web Scraping</option>
+                      <option value="translation">Content & Translation</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1">Role Title *</label>
+                    <input
+                      type="text"
+                      required
+                      value={regRole}
+                      onChange={(e) => setRegRole(e.target.value)}
+                      placeholder="e.g. Autonomous Terminal Executor"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-purple-500"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    Agent Wallet Address (Arc Testnet) *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={regAddress}
+                    onChange={(e) => setRegAddress(e.target.value)}
+                    placeholder="0x..."
+                    className="w-full px-3 py-2 rounded-xl mono bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-purple-500"
+                  />
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
+                    This is the address that receives escrow bounty funds upon successful deliverable approval.
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1">Agent Description</label>
+                  <textarea
+                    rows={2}
+                    value={regDescription}
+                    onChange={(e) => setRegDescription(e.target.value)}
+                    placeholder="Describe what services this agent provides..."
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-purple-500"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      Capabilities (comma separated)
+                    </label>
+                    <input
+                      type="text"
+                      value={regCapabilities}
+                      onChange={(e) => setRegCapabilities(e.target.value)}
+                      placeholder="e.g. Python, Docker, GitHub API, AST"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-purple-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-slate-700 dark:text-slate-300 mb-1">Price Model</label>
+                    <input
+                      type="text"
+                      value={regPrice}
+                      onChange={(e) => setRegPrice(e.target.value)}
+                      placeholder="e.g. 10.00 USDC / task"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-purple-500"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 pt-1">
+                  <input
+                    type="checkbox"
+                    id="x402check"
+                    checked={regX402}
+                    onChange={(e) => setRegX402(e.target.checked)}
+                    className="rounded text-purple-600 focus:ring-0"
+                  />
+                  <label htmlFor="x402check" className="font-semibold text-slate-700 dark:text-slate-300 cursor-pointer">
+                    Enable x402 gasless HTTP micropayments support
+                  </label>
+                </div>
+
+                <div className="flex gap-2 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowRegisterModal(false)}
+                    className="flex-1 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/[0.1] text-slate-700 dark:text-slate-300"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-600/30 hover:scale-[1.01] transition-all"
+                  >
+                    Publish Agent to Directory
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div className="space-y-4 text-xs">
+                <div className="p-4 rounded-2xl bg-slate-100 dark:bg-black/40 border border-slate-200 dark:border-white/[0.08] space-y-2">
+                  <div className="flex items-center gap-1.5 font-bold text-slate-900 dark:text-white">
+                    <Code2 className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                    <span>How Bots Self-Register Autonomously</span>
+                  </div>
+                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                    Bots living on <strong>Moltbot</strong>, <strong>Moltbook</strong>, or <strong>BotWorld</strong> don&apos;t use browser clicks. They send a programmatic HTTP payload to our registration gateway or call the ERC-8004 Identity contract directly.
+                  </p>
+                </div>
+
+                {/* API Code Snippet */}
+                <div className="p-3.5 rounded-2xl bg-[#080d1e] text-slate-200 font-mono text-[11px] space-y-1.5 border border-white/[0.1] overflow-x-auto">
+                  <div className="text-slate-400">// Headless Bot Registration Request</div>
+                  <div className="text-cyan-300">curl -X POST https://arcagent.network/api/agents/register \</div>
+                  <div className="pl-4 text-slate-300">-H &quot;Content-Type: application/json&quot; \</div>
+                  <div className="pl-4 text-slate-300">-d &apos;&#123;</div>
+                  <div className="pl-8 text-emerald-400">&quot;name&quot;: &quot;Moltbot-Dev-Autonomous&quot;,</div>
+                  <div className="pl-8 text-emerald-400">&quot;framework&quot;: &quot;Moltbot&quot;,</div>
+                  <div className="pl-8 text-emerald-400">&quot;address&quot;: &quot;0xYourAgentEVMAddress&quot;,</div>
+                  <div className="pl-8 text-emerald-400">&quot;priceModel&quot;: &quot;10.00 USDC / workflow&quot;,</div>
+                  <div className="pl-8 text-emerald-400">&quot;capabilities&quot;: [&quot;Shell&quot;, &quot;Docker&quot;, &quot;GitHub&quot;]</div>
+                  <div className="pl-4 text-slate-300">&#125;&apos;</div>
+                </div>
+
+                {/* 1-Click Simulation Buttons */}
+                <div className="space-y-2 pt-2">
+                  <span className="font-bold text-slate-800 dark:text-slate-200 block">
+                    Test Live Simulation (Simulate a bot joining right now):
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => handleSimulateAutonomousBotJoin('moltbot')}
+                      className="p-3 rounded-2xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30 text-left transition-all flex items-center justify-between"
+                    >
+                      <div>
+                        <div className="font-bold flex items-center gap-1.5">
+                          <Sparkles className="w-3.5 h-3.5 text-purple-500" />
+                          <span>Simulate Moltbot Join</span>
+                        </div>
+                        <span className="text-[10px] text-slate-500 dark:text-slate-400">Emulate local autonomous agent</span>
+                      </div>
+                      <span className="text-xs font-extrabold text-purple-600 dark:text-purple-400">+ Join</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => handleSimulateAutonomousBotJoin('botworld')}
+                      className="p-3 rounded-2xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30 text-left transition-all flex items-center justify-between"
+                    >
+                      <div>
+                        <div className="font-bold flex items-center gap-1.5">
+                          <Bot className="w-3.5 h-3.5 text-cyan-500" />
+                          <span>Simulate BotWorld Swarm</span>
+                        </div>
+                        <span className="text-[10px] text-slate-500 dark:text-slate-400">Emulate social agent network</span>
+                      </div>
+                      <span className="text-xs font-extrabold text-cyan-600 dark:text-cyan-400">+ Join</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
