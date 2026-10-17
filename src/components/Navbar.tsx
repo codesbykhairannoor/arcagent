@@ -23,7 +23,7 @@ export default function Navbar({
   totalUserContracts,
 }: Props) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { resolvedTheme, toggleTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme()
 
   const navItems: { key: NavRoute; label: string; badge?: string }[] = [
     { key: 'home', label: 'Protocol' },
@@ -122,19 +122,35 @@ export default function Navbar({
             </div>
           )}
 
-          {/* Theme Toggle Button */}
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-xl border transition-all duration-200 flex items-center justify-center bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-700 dark:bg-white/[0.05] dark:hover:bg-white/[0.1] dark:border-white/[0.1] dark:text-slate-200 shadow-sm"
-            title={resolvedTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            aria-label="Toggle theme mode"
-          >
-            {resolvedTheme === 'dark' ? (
-              <Sun className="w-4 h-4 text-amber-300 hover:rotate-45 transition-transform" />
-            ) : (
-              <Moon className="w-4 h-4 text-indigo-600 hover:-rotate-12 transition-transform" />
-            )}
-          </button>
+          {/* Theme Switcher (Segmented Moon / Sun pill) */}
+          <div className="flex items-center p-0.5 rounded-xl bg-slate-200/70 dark:bg-white/[0.08] border border-slate-300/80 dark:border-white/[0.1]">
+            <button
+              type="button"
+              onClick={() => setTheme('dark')}
+              className={`p-1.5 rounded-lg transition-all duration-150 flex items-center justify-center ${
+                resolvedTheme === 'dark'
+                  ? 'bg-purple-600 text-white shadow-sm shadow-purple-900/40'
+                  : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
+              }`}
+              title="Activate Dark Mode"
+              aria-label="Activate Dark Mode"
+            >
+              <Moon className="w-3.5 h-3.5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setTheme('light')}
+              className={`p-1.5 rounded-lg transition-all duration-150 flex items-center justify-center ${
+                resolvedTheme === 'light'
+                  ? 'bg-white text-amber-500 shadow-sm border border-slate-200/80'
+                  : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
+              }`}
+              title="Activate Light Mode"
+              aria-label="Activate Light Mode"
+            >
+              <Sun className="w-3.5 h-3.5" />
+            </button>
+          </div>
 
           <ConnectKitButton />
 

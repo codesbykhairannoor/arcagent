@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
+// ArcAgent Escrow Vite Configuration (Refreshed for Theme & PostCSS)
 export default defineConfig({
   plugins: [react(), nodePolyfills()],
   resolve: {

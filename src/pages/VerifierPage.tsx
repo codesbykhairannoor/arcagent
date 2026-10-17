@@ -98,7 +98,7 @@ export default function VerifierPage() {
               <Search className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
               <span>Step 1: On-Chain Escrow Query (Optional)</span>
             </h3>
-            <p className="text-xs text-slate-600 dark:text-slate-400">
+            <p className="text-xs text-slate-600 dark:text-slate-300">
               Fetch the committed deliveryHash directly from ArcAgentEscrow contract on Arc Testnet.
             </p>
 
@@ -108,19 +108,19 @@ export default function VerifierPage() {
                 value={escrowIdQuery}
                 onChange={(e) => setEscrowIdQuery(e.target.value)}
                 placeholder="Enter Escrow ID (e.g. 1)"
-                className="flex-1 px-3.5 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-white focus:outline-none focus:border-cyan-400/50"
+                className="flex-1 px-3.5 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-white/[0.05] border border-slate-200/80 dark:border-white/[0.1] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-cyan-400/50"
               />
               <button
                 type="submit"
                 disabled={escrowLoading}
-                className="px-4 py-2.5 rounded-xl text-xs font-bold bg-cyan-600 hover:bg-cyan-500 text-white shadow-md transition-all"
+                className="px-4 py-2.5 rounded-xl text-xs font-bold bg-cyan-600 hover:bg-cyan-500 text-white shadow-md transition-all shrink-0"
               >
                 {escrowLoading ? 'Querying...' : 'Query Contract'}
               </button>
             </form>
 
             {escrowData && (
-              <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.06] space-y-2 text-xs">
+              <div className="p-3.5 rounded-2xl bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] space-y-2 text-xs">
                 <div className="flex justify-between">
                   <span className="text-slate-500 dark:text-slate-400">Escrow Title:</span>
                   <span className="font-semibold text-slate-900 dark:text-white">{escrowData.title}</span>
@@ -133,7 +133,7 @@ export default function VerifierPage() {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-slate-500 dark:text-slate-400">Onchain Commitment:</span>
-                  <span className="mono font-bold text-cyan-700 dark:text-cyan-300 break-all text-[11px]">
+                  <span className="mono font-bold text-cyan-600 dark:text-cyan-300 break-all text-[11px]">
                     {escrowData.deliveryHash === ZERO_HASH ? 'No proof submitted yet' : escrowData.deliveryHash}
                   </span>
                 </div>
@@ -157,7 +157,7 @@ export default function VerifierPage() {
                 value={manualHash}
                 onChange={(e) => setManualHash(e.target.value)}
                 placeholder="0x..."
-                className="w-full px-3.5 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-white mono focus:outline-none focus:border-cyan-400/50"
+                className="w-full px-3.5 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-white/[0.05] border border-slate-200/80 dark:border-white/[0.1] text-slate-900 dark:text-white mono placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-cyan-400/50"
               />
             </div>
           )}
@@ -168,7 +168,7 @@ export default function VerifierPage() {
               <Hash className="w-4 h-4 text-purple-600 dark:text-purple-400" />
               <span>Step 2: Deliverable Content Verification</span>
             </h3>
-            <p className="text-xs text-slate-600 dark:text-slate-400">
+            <p className="text-xs text-slate-600 dark:text-slate-300">
               Paste the exact deliverable text, code artifact, or IPFS CID. The browser will compute its keccak256 hash locally.
             </p>
 
@@ -177,23 +177,23 @@ export default function VerifierPage() {
               onChange={(e) => setDeliverableText(e.target.value)}
               rows={5}
               placeholder="Paste raw deliverable output (e.g. audit report markdown, IPFS CID bafy..., or JSON data payload)..."
-              className="w-full px-4 py-3 rounded-2xl text-xs mono bg-slate-950 text-slate-100 border border-slate-300 dark:border-white/[0.1] focus:outline-none focus:border-purple-400/50 resize-none leading-relaxed"
+              className="w-full px-4 py-3 rounded-2xl text-xs mono bg-slate-900/90 dark:bg-[#020510] text-slate-100 border border-slate-300 dark:border-white/[0.12] placeholder:text-slate-500 focus:outline-none focus:border-purple-400/50 resize-none leading-relaxed"
             />
 
             {/* Computed Local Hash Display */}
             {computedHash && (
-              <div className="p-3.5 rounded-2xl bg-slate-900 dark:bg-[#020510] border border-slate-200/80 dark:border-white/[0.06] space-y-1.5">
+              <div className="p-3.5 rounded-2xl bg-slate-100 dark:bg-[#020510] border border-slate-200/80 dark:border-white/[0.08] space-y-1.5">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-slate-400">Locally Computed keccak256:</span>
+                  <span className="text-slate-600 dark:text-slate-400">Locally Computed keccak256:</span>
                   <button
                     onClick={handleCopyComputed}
-                    className="flex items-center gap-1 text-[11px] text-cyan-400 hover:underline"
+                    className="flex items-center gap-1 text-[11px] text-cyan-600 dark:text-cyan-400 hover:underline"
                   >
-                    {copiedHash ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                    {copiedHash ? <Check className="w-3 h-3 text-emerald-500 dark:text-emerald-400" /> : <Copy className="w-3 h-3" />}
                     <span>{copiedHash ? 'Copied' : 'Copy'}</span>
                   </button>
                 </div>
-                <div className="mono text-xs text-slate-200 break-all select-all font-semibold">
+                <div className="mono text-xs text-slate-900 dark:text-slate-200 break-all select-all font-semibold">
                   {computedHash}
                 </div>
               </div>
@@ -239,23 +239,23 @@ export default function VerifierPage() {
             </p>
 
             <div className="space-y-3 pt-2 text-xs">
-              <div className="p-3 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.05] space-y-1">
+              <div className="p-3.5 rounded-2xl bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.06] space-y-1">
                 <span className="font-bold text-slate-900 dark:text-white block">1. Off-Chain Execution</span>
-                <span className="text-slate-500 dark:text-slate-400">
+                <span className="text-slate-600 dark:text-slate-400">
                   Worker generates deliverable (code, dataset, document) and computes `keccak256(deliverable)`.
                 </span>
               </div>
 
-              <div className="p-3 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.05] space-y-1">
+              <div className="p-3.5 rounded-2xl bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.06] space-y-1">
                 <span className="font-bold text-slate-900 dark:text-white block">2. Immutable Commitment</span>
-                <span className="text-slate-500 dark:text-slate-400">
+                <span className="text-slate-600 dark:text-slate-400">
                   The hash is permanently stored in the escrow struct on Arc Testnet, locking the proof in time.
                 </span>
               </div>
 
-              <div className="p-3 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.05] space-y-1">
+              <div className="p-3.5 rounded-2xl bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.06] space-y-1">
                 <span className="font-bold text-slate-900 dark:text-white block">3. Zero-Trust Verification</span>
-                <span className="text-slate-500 dark:text-slate-400">
+                <span className="text-slate-600 dark:text-slate-400">
                   Anyone can verify deliverable integrity without trusting the worker or a centralized server.
                 </span>
               </div>
