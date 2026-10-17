@@ -1,0 +1,256 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Dark Mode Tokens (Default) ─────────────────────────────────────────── */
+:root,
+:root.dark,
+[data-theme='dark'] {
+  --bg: #040714;
+  --bg-secondary: #080d1e;
+  --bg-gradient: radial-gradient(circle at 50% 0%, #15103a 0%, #070c1b 50%, #040714 100%);
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-hover: rgba(255, 255, 255, 0.07);
+  --surface-strong: rgba(255, 255, 255, 0.09);
+  --surface-muted: #0d1527;
+  --ink: #f8fafc;
+  --ink-2: #e2e8f0;
+  --muted: #94a3b8;
+  --subtle: #64748b;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --border-glow: rgba(167, 139, 250, 0.35);
+  --accent: #38bdf8;
+  --accent-hover: #7dd3fc;
+  --accent-vivid: #0284c7;
+  --violet: #a78bfa;
+  --violet-glow: rgba(167, 139, 250, 0.4);
+  --violet-muted: rgba(167, 139, 250, 0.12);
+  --cyan: #06b6d4;
+  --cyan-glow: rgba(6, 182, 212, 0.4);
+  --success: #10b981;
+  --success-glow: rgba(16, 185, 129, 0.35);
+  --danger: #f43f5e;
+  --warning: #f59e0b;
+}
+
+/* ── Light Mode Tokens ──────────────────────────────────────────────────── */
+:root.light,
+[data-theme='light'] {
+  --bg: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-gradient: radial-gradient(circle at 50% 0%, #ede9fe 0%, #f1f5f9 50%, #f8fafc 100%);
+  --surface: rgba(255, 255, 255, 0.85);
+  --surface-hover: rgba(241, 245, 249, 0.95);
+  --surface-strong: #ffffff;
+  --surface-muted: #f1f5f9;
+  --ink: #0f172a;
+  --ink-2: #1e293b;
+  --muted: #475569;
+  --subtle: #64748b;
+  --border: rgba(15, 23, 42, 0.08);
+  --border-strong: rgba(15, 23, 42, 0.15);
+  --border-glow: rgba(124, 58, 237, 0.25);
+  --accent: #0284c7;
+  --accent-hover: #0369a1;
+  --accent-vivid: #0284c7;
+  --violet: #7c3aed;
+  --violet-glow: rgba(124, 58, 237, 0.25);
+  --violet-muted: rgba(124, 58, 237, 0.08);
+  --cyan: #0891b2;
+  --cyan-glow: rgba(8, 145, 178, 0.25);
+  --success: #059669;
+  --success-glow: rgba(5, 150, 105, 0.25);
+  --danger: #e11d48;
+  --warning: #d97706;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100dvh;
+  background-color: var(--bg);
+  background-attachment: fixed;
+  color: var(--ink);
+  overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Dark mode ambient wallpaper */
+html:not(.light) body {
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 25%, rgba(6, 182, 212, 0.07) 0%, transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
+    radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 28px 28px;
+}
+
+/* Light mode ambient wallpaper */
+html.light body {
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(124, 58, 237, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 85% 25%, rgba(6, 182, 212, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(16, 185, 129, 0.04) 0%, transparent 50%),
+    radial-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 28px 28px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(167, 139, 250, 0.5);
+}
+
+.display {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', Menlo, monospace;
+}
+
+/* ── Glassmorphism Panels & Cards ────────────────────────────────────────── */
+.glass-panel {
+  background: rgba(13, 21, 39, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+}
+
+html.light .glass-panel {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.06);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.light .glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 14px -3px rgba(15, 23, 42, 0.04);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.055);
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px -5px rgba(167, 139, 250, 0.15);
+}
+
+html.light .glass-card:hover {
+  background: #ffffff;
+  border-color: rgba(124, 58, 237, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -8px rgba(15, 23, 42, 0.08), 0 0 16px -4px rgba(124, 58, 237, 0.12);
+}
+
+.glow-violet {
+  box-shadow: 0 0 25px -4px rgba(167, 139, 250, 0.3);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 25px -4px rgba(6, 182, 212, 0.3);
+}
+
+.glow-emerald {
+  box-shadow: 0 0 25px -4px rgba(16, 185, 129, 0.3);
+}
+
+/* ── Animations ─────────────────────────────────────────────────────────── */
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.97); }
+}
+
+.pulse-subtle {
+  animation: pulseSubtle 3s ease-in-out infinite;
+}
+
+@keyframes beacon {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.4); opacity: 0; }
+  100% { transform: scale(0.9); opacity: 0; }
+}
+
+.animate-beacon {
+  animation: beacon 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* ==========================================================================
+   ConnectKit Desktop Modal & Scanner Optimization
+   Enlarges scanner view, balances padding, and guarantees desktop ergonomics
+   ========================================================================== */
+#__CONNECTKIT__ {
+  --ck-font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --ck-border-radius: 22px;
+}
+
+@media (min-width: 640px) {
+  /* Expand modal width container on desktop */
+  #__CONNECTKIT__ div[role="dialog"] div[style*="--width"] {
+    min-width: 440px !important;
+  }
+
+  /* Expand PageContent inside ConnectKit dialog on desktop (overriding default 295px) */
+  #__CONNECTKIT__ div[role="dialog"] div[style*="--width"] > div > div > div > div {
+    width: 380px !important;
+    max-width: 100% !important;
+    padding-top: 50px !important;
+  }
+
+  /* Enlarge the QR Code scanner container */
+  #__CONNECTKIT__ div[role="dialog"] div[style*="padding-bottom: 100%"],
+  #__CONNECTKIT__ div[role="dialog"] [class*="QRCodeContainer"] {
+    width: 330px !important;
+    height: 330px !important;
+    margin: 14px auto 16px auto !important;
+    padding-bottom: 0 !important;
+    border-radius: 24px !important;
+    box-shadow: 0 0 0 1px var(--ck-qr-border-color, rgba(167, 139, 250, 0.3)), 0 12px 30px -10px rgba(0, 0, 0, 0.35) !important;
+  }
+
+  #__CONNECTKIT__ div[role="dialog"] [class*="QRCodeContent"] {
+    inset: 16px !important;
+  }
+
+  #__CONNECTKIT__ div[role="dialog"] svg[viewBox] {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Scan with Phone heading */
+  #__CONNECTKIT__ div[role="dialog"] h1 {
+    font-size: 20px !important;
+    letter-spacing: -0.02em !important;
+    font-weight: 700 !important;
+  }
+}

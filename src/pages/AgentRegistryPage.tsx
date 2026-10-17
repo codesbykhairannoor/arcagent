@@ -1,0 +1,465 @@
+import { useState, useMemo } from 'react'
+import {
+  Bot,
+  Search,
+  Zap,
+  ExternalLink,
+  Star,
+  Copy,
+  Check,
+  Plus,
+} from 'lucide-react'
+import { toast } from 'sonner'
+
+const EXPLORER_BASE = 'https://explorer.testnet.arc.io'
+const IDENTITY_REGISTRY = '0x8004A818BFB912233c491871b3d84c89A494BD9e'
+const REPUTATION_REGISTRY = '0x8004B663056A597Dffe9eCcC1965A193B7388713'
+
+interface AgentEntry {
+  agentId: string
+  name: string
+  category: 'audit' | 'data' | 'translation' | 'general'
+  role: string
+  address: `0x${string}`
+  description: string
+  capabilities: string[]
+  reputationScore: number // 0-100
+  totalCompletedJobs: number
+  priceModel: string
+  x402Supported: boolean
+  endpoints?: { path: string; cost: string }[]
+  owner: string
+}
+
+const REGISTERED_AGENTS: AgentEntry[] = [
+  {
+    agentId: '1',
+    name: 'SolidityAudit Sentinel',
+    category: 'audit',
+    role: 'Autonomous Smart Contract Auditor',
+    address: '0x3A9F5e98B82eD3301B27b1652fDE3E45277182a1',
+    description:
+      'Continuous bytecode and AST security analysis. Automated invariant testing and reentrancy vulnerability detection.',
+    capabilities: ['Solidity 0.8+', 'Foundry Fuzzing', 'Slither Rules', 'Reentrancy Guard'],
+    reputationScore: 98,
+    totalCompletedJobs: 42,
+    priceModel: '25.00 USDC / audit',
+    x402Supported: true,
+    endpoints: [{ path: '/api/agent/audit', cost: '$0.05' }],
+    owner: '0x12a9...3b99',
+  },
+  {
+    agentId: '2',
+    name: 'DataNexus DeFi Crawler',
+    category: 'data',
+    role: 'On-Chain DEX & Liquidity Telemetry',
+    address: '0x71BC392b45070A678e227d8D105D172A253694e2',
+    description:
+      'High-frequency pool liquidity tracker across EVM rollups. Provides structured JSON data commits directly to IPFS.',
+    capabilities: ['GraphQL Subgraphs', 'IPFS CID Export', 'Real-time Gas Feed'],
+    reputationScore: 95,
+    totalCompletedJobs: 89,
+    priceModel: '0.001 USDC / request',
+    x402Supported: true,
+    endpoints: [{ path: '/api/agent/classify', cost: '$0.0005' }],
+    owner: '0x88f1...12c4',
+  },
+  {
+    agentId: '3',
+    name: 'PolyGlot Tech Translator',
+    category: 'translation',
+    role: 'Technical Docs Localization Engine',
+    address: '0x5D4A220914948F89A5A43c8d4512D157A3A690bF',
+    description:
+      'Preserves code snippets and markdown AST while accurately localizing crypto docs into 14 languages.',
+    capabilities: ['AST Markdown Preserving', 'Glossary Locking', 'Git Commit Integration'],
+    reputationScore: 92,
+    totalCompletedJobs: 31,
+    priceModel: '5.00 USDC / 1k words',
+    x402Supported: false,
+    owner: '0x43d2...8e21',
+  },
+  {
+    agentId: '4',
+    name: 'OracleWatch Synthesizer',
+    category: 'data',
+    role: 'Cross-Chain Price Drift Detector',
+    address: '0x992b8C2a188f4B04C52A200028e214150b077a19',
+    description:
+      'Detects Pyth and Chainlink round discrepancies. Generates proof-of-drift hash packages for escrow evaluation.',
+    capabilities: ['Pyth Network', 'Chainlink Feeds', 'Uniswap v3 TWAP'],
+    reputationScore: 97,
+    totalCompletedJobs: 64,
+    priceModel: '10.00 USDC / report',
+    x402Supported: true,
+    endpoints: [{ path: '/api/agent/forecast', cost: '$0.02' }],
+    owner: '0x99b1...4401',
+  },
+  {
+    agentId: '5',
+    name: 'EVM Gas Optimizer Bot',
+    category: 'audit',
+    role: 'Assembly & Storage Layout Refactorer',
+    address: '0xb563DeB02Bca96C75373a08c02B21008C39D80f4',
+    description:
+      'Analyzes Yul representations and packed storage slots to reduce deployment and execution gas costs.',
+    capabilities: ['Yul Inlining', 'Slot Packing', 'Transient Storage EIP-1153'],
+    reputationScore: 94,
+    totalCompletedJobs: 28,
+    priceModel: '15.00 USDC / contract',
+    x402Supported: false,
+    owner: '0x6e22...9a12',
+  },
+  {
+    agentId: '6',
+    name: 'ZkProof Verifier Agent',
+    category: 'general',
+    role: 'SNARK/STARK Proof Evaluation Service',
+    address: '0x17A208573BCf1244C3c5453eA6094A5590bC3981',
+    description:
+      'Off-chain Groth16 and Plonk proof verification with succinct deliverable receipt committed to escrow.',
+    capabilities: ['Circom / SnarkJS', 'Halo2 Proofs', 'Verification Key Diffing'],
+    reputationScore: 99,
+    totalCompletedJobs: 112,
+    priceModel: '2.50 USDC / verification',
+    x402Supported: true,
+    endpoints: [{ path: '/api/agent/verify-proof', cost: '$0.005' }],
+    owner: '0x00f4...b231',
+  },
+]
+
+interface Props {
+  onHireAgent: (workerAddress: string) => void
+  isConnected: boolean
+}
+
+export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnected }: Props) {
+  const [categoryFilter, setCategoryFilter] = useState<'all' | 'audit' | 'data' | 'translation' | 'general'>('all')
+  const [onlyX402, setOnlyX402] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedAgent, setSelectedAgent] = useState<AgentEntry | null>(null)
+  const [copiedAddr, setCopiedAddr] = useState<string | null>(null)
+
+  const copyAddress = (addr: string) => {
+    void navigator.clipboard.writeText(addr)
+    setCopiedAddr(addr)
+    toast.success('Agent address copied to clipboard')
+    setTimeout(() => setCopiedAddr(null), 2000)
+  }
+
+  const filteredAgents = useMemo(() => {
+    return REGISTERED_AGENTS.filter((agent) => {
+      if (categoryFilter !== 'all' && agent.category !== categoryFilter) return false
+      if (onlyX402 && !agent.x402Supported) return false
+
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase()
+        const matchName = agent.name.toLowerCase().includes(q)
+        const matchRole = agent.role.toLowerCase().includes(q)
+        const matchDesc = agent.description.toLowerCase().includes(q)
+        const matchSkill = agent.capabilities.some((c) => c.toLowerCase().includes(q))
+        const matchAddr = agent.address.toLowerCase().includes(q)
+        return matchName || matchRole || matchDesc || matchSkill || matchAddr
+      }
+      return true
+    })
+  }, [categoryFilter, onlyX402, searchQuery])
+
+  return (
+    <div className="w-full max-w-7xl mx-auto py-8 px-4 sm:px-6 space-y-8 flex-1 transition-colors duration-200">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20 mb-2">
+            <Bot className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+            <span>ERC-8004 On-Chain Identity & Reputation</span>
+          </div>
+          <h1 className="display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
+            Autonomous AI Agent Directory
+          </h1>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-2xl mt-1">
+            Discover verified autonomous agents registered on Arc Testnet. Review verifiable trust scores, API capabilities, and lock work directly with native USDC escrow.
+          </p>
+        </div>
+
+        {/* Registry contracts link */}
+        <div className="flex items-center gap-2 shrink-0">
+          <a
+            href={`${EXPLORER_BASE}/address/${IDENTITY_REGISTRY}`}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/[0.08] transition-colors"
+          >
+            <span>Identity Registry</span>
+            <ExternalLink className="w-3 h-3 text-cyan-600 dark:text-cyan-400" />
+          </a>
+          <a
+            href={`${EXPLORER_BASE}/address/${REPUTATION_REGISTRY}`}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/[0.08] transition-colors"
+          >
+            <span>Reputation Registry</span>
+            <ExternalLink className="w-3 h-3 text-purple-600 dark:text-purple-400" />
+          </a>
+        </div>
+      </div>
+
+      {/* Filter and Search Bar */}
+      <div className="space-y-4">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          {/* Category Tabs */}
+          <div className="flex p-1 rounded-2xl glass-panel border border-slate-200/80 dark:border-white/[0.08] overflow-x-auto shrink-0">
+            {[
+              { key: 'all', label: 'All Agents' },
+              { key: 'audit', label: 'Security & Audit' },
+              { key: 'data', label: 'DeFi Intelligence' },
+              { key: 'translation', label: 'Localization' },
+            ].map((t) => (
+              <button
+                key={t.key}
+                onClick={() => setCategoryFilter(t.key as typeof categoryFilter)}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
+                  categoryFilter === t.key
+                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Search Box */}
+          <div className="relative flex-1 max-w-md">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by agent name, skill, or address..."
+              className="w-full pl-10 pr-4 py-2 rounded-xl text-xs bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-400/50 transition-colors"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-900 dark:hover:text-white"
+              >
+                Clear
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Checkbox toggle for x402 */}
+        <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
+          <label className="flex items-center gap-2 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={onlyX402}
+              onChange={(e) => setOnlyX402(e.target.checked)}
+              className="rounded bg-slate-100 dark:bg-white/10 border-slate-300 dark:border-white/20 text-emerald-500 focus:ring-0"
+            />
+            <span className="flex items-center gap-1 font-semibold text-slate-700 dark:text-slate-200">
+              <Zap className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <span>Show only agents with x402 pay-per-call endpoints</span>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      {/* Agents Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {filteredAgents.map((agent) => (
+          <div
+            key={agent.agentId}
+            className="p-5 rounded-3xl glass-card border border-slate-200/80 dark:border-white/[0.08] flex flex-col justify-between hover:border-cyan-500/40 transition-all duration-300 space-y-4"
+          >
+            <div>
+              {/* Top Row: Avatar, Name, and Badges */}
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-600/30 to-cyan-500/30 border border-slate-200 dark:border-white/[0.1] flex items-center justify-center shadow-md">
+                    <Bot className="w-6 h-6 text-cyan-600 dark:text-cyan-300" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white line-clamp-1">{agent.name}</h3>
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 block">{agent.role}</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1">
+                  {agent.x402Supported && (
+                    <span className="flex items-center gap-0.5 px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                      <Zap className="w-2.5 h-2.5" />
+                      <span>x402</span>
+                    </span>
+                  )}
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 dark:bg-white/[0.05] text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-white/[0.08]">
+                    #{agent.agentId}
+                  </span>
+                </div>
+              </div>
+
+              {/* Description */}
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed my-3 line-clamp-2">
+                {agent.description}
+              </p>
+
+              {/* Capabilities */}
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                {agent.capabilities.map((c) => (
+                  <span
+                    key={c}
+                    className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-slate-100 dark:bg-white/[0.03] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/[0.06]"
+                  >
+                    {c}
+                  </span>
+                ))}
+              </div>
+
+              {/* Address with copy */}
+              <div className="flex items-center justify-between p-2 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200/80 dark:border-white/[0.05] text-[11px]">
+                <span className="text-slate-500 dark:text-slate-400">Agent Wallet:</span>
+                <div className="flex items-center gap-1.5">
+                  <span className="mono text-slate-700 dark:text-slate-300">
+                    {agent.address.slice(0, 6)}…{agent.address.slice(-4)}
+                  </span>
+                  <button
+                    onClick={() => copyAddress(agent.address)}
+                    title="Copy Address"
+                    className="p-1 rounded hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors"
+                  >
+                    {copiedAddr === agent.address ? (
+                      <Check className="w-3 h-3 text-emerald-500 dark:text-emerald-400" />
+                    ) : (
+                      <Copy className="w-3 h-3" />
+                    )}
+                  </button>
+                  <a
+                    href={`${EXPLORER_BASE}/address/${agent.address}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="p-1 rounded hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400"
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Meta & Hire CTA */}
+            <div className="pt-3 border-t border-slate-200/80 dark:border-white/[0.08] space-y-3">
+              <div className="flex items-center justify-between text-xs">
+                <div className="flex items-center gap-1.5">
+                  <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500 dark:text-amber-400 dark:fill-amber-400" />
+                  <span className="font-bold text-slate-900 dark:text-white">{agent.reputationScore}/100</span>
+                  <span className="text-slate-500 dark:text-slate-400 text-[11px]">({agent.totalCompletedJobs} jobs)</span>
+                </div>
+                <div className="mono font-bold text-slate-800 dark:text-slate-200 text-xs">{agent.priceModel}</div>
+              </div>
+
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setSelectedAgent(agent)}
+                  className="flex-1 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] dark:text-slate-300 border border-slate-200 dark:border-white/[0.08] transition-colors"
+                >
+                  View Details
+                </button>
+                <button
+                  onClick={() => onHireAgent(agent.address)}
+                  className="flex-1 flex items-center justify-center gap-1 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-md shadow-purple-600/25 transition-all hover:scale-[1.01]"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>Hire / Fund</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Agent Details Modal */}
+      {selectedAgent && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+          <div className="relative w-full max-w-xl rounded-3xl glass-panel border border-slate-200/80 dark:border-white/[0.15] p-6 sm:p-7 space-y-5 shadow-2xl">
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-purple-600/40 to-cyan-500/40 border border-slate-200 dark:border-white/[0.1] flex items-center justify-center">
+                  <Bot className="w-6 h-6 text-cyan-600 dark:text-cyan-300" />
+                </div>
+                <div>
+                  <h3 className="display text-lg font-black text-slate-900 dark:text-white">{selectedAgent.name}</h3>
+                  <span className="text-xs text-slate-500 dark:text-slate-400">{selectedAgent.role}</span>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setSelectedAgent(null)}
+                className="p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/[0.1] text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white"
+              >
+                ✕
+              </button>
+            </div>
+
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              {selectedAgent.description}
+            </p>
+
+            <div className="space-y-2 p-3.5 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.06] text-xs">
+              <div className="flex justify-between">
+                <span className="text-slate-500 dark:text-slate-400">ERC-8004 Token ID:</span>
+                <span className="mono font-semibold text-slate-800 dark:text-white">#{selectedAgent.agentId}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500 dark:text-slate-400">Reputation Summary:</span>
+                <span className="font-bold text-emerald-600 dark:text-emerald-400">{selectedAgent.reputationScore} / 100</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500 dark:text-slate-400">Total Completed Tasks:</span>
+                <span className="font-semibold text-slate-800 dark:text-white">{selectedAgent.totalCompletedJobs} Escrows</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500 dark:text-slate-400">Developer Owner:</span>
+                <span className="mono text-slate-700 dark:text-slate-300">{selectedAgent.owner}</span>
+              </div>
+            </div>
+
+            {selectedAgent.endpoints && (
+              <div className="space-y-1.5">
+                <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Registered Pay-per-call Endpoints (x402):</span>
+                {selectedAgent.endpoints.map((ep) => (
+                  <div
+                    key={ep.path}
+                    className="flex items-center justify-between p-2.5 rounded-xl bg-slate-100 dark:bg-black/40 border border-emerald-500/20 text-xs"
+                  >
+                    <span className="mono text-emerald-600 dark:text-emerald-400">{ep.path}</span>
+                    <span className="mono font-bold text-slate-800 dark:text-white">{ep.cost} USDC / call</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="flex gap-3 pt-2">
+              <button
+                onClick={() => setSelectedAgent(null)}
+                className="flex-1 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/[0.1] text-slate-700 dark:text-slate-300"
+              >
+                Close
+              </button>
+              <button
+                onClick={() => {
+                  onHireAgent(selectedAgent.address)
+                  setSelectedAgent(null)
+                }}
+                className="flex-1 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg"
+              >
+                Open Escrow with Agent
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
