@@ -1,5 +1,6 @@
 import { Shield, Code2, ExternalLink, Zap } from 'lucide-react'
 import { ESCROW_ADDRESS } from './EscrowABI'
+import { BrandLogo } from './BrandLogo'
 import type { NavRoute } from './Navbar'
 
 const EXPLORER_BASE = 'https://explorer.testnet.arc.io'
@@ -17,11 +18,7 @@ export default function Footer({ onNavigate }: Props) {
           {/* Brand info */}
           <div className="space-y-3 md:col-span-1">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-purple-600 to-cyan-500 p-[1px] flex items-center justify-center">
-                <div className="w-full h-full bg-[#070b18] rounded-[10px] flex items-center justify-center">
-                  <Shield className="w-4 h-4 text-cyan-300" />
-                </div>
-              </div>
+              <BrandLogo className="w-7 h-7 shrink-0" />
               <span className="font-extrabold text-slate-900 dark:text-white text-base">ArcPact Escrow</span>
             </div>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">

@@ -1,36 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
-  <!-- Solid Pure Obsidian Squircle (No gradients, no blur, 100% flat vector) -->
-  <rect width="512" height="512" rx="120" fill="#070A12" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none">
+  <!-- Crisp High-Contrast Squircle Base for Browser Tabs (Infinite DPI) -->
+  <rect width="256" height="256" rx="56" fill="#070A12" />
 
-  <!-- The Interlocking Arc Pact: Solid Client (Blue) & Agent (White) Agreement -->
-  <g stroke-linecap="round" stroke-linejoin="round">
-    <!-- Bottom Under-Pass Segment of Blue Ring -->
-    <path
-      d="M 170 300 C 130 260, 130 196, 170 156 C 210 116, 274 116, 314 156"
-      stroke="#0052FF"
-      stroke-width="44"
-    />
+  <!-- Option 2: Swiss Arc Vault Monogram "A" (Tight 90% Viewport Scale) -->
+  <path
+    fill-rule="evenodd"
+    clip-rule="evenodd"
+    d="M 28 226 L 114 26 C 120 12, 136 12, 142 26 L 228 226 C 233 238, 222 246, 210 246 L 176 246 C 166 246, 158 239, 154 230 L 138 190 L 118 190 L 102 230 C 98 239, 90 246, 80 246 L 46 246 C 34 246, 23 238, 28 226 Z M 128 78 L 154 148 L 102 148 Z"
+    fill="#FFFFFF"
+  />
 
-    <!-- White Ring (Continuous Arc) -->
-    <path
-      d="M 342 156 C 382 196, 382 260, 342 300 C 302 340, 238 340, 198 300 C 182 284, 174 266, 172 248"
-      stroke="#FFFFFF"
-      stroke-width="44"
-    />
+  <!-- Solid Electric Arc Blue Settlement Crossbar (The Pact) -->
+  <rect
+    x="64"
+    y="156"
+    width="128"
+    height="28"
+    rx="14"
+    fill="#0052FF"
+  />
 
-    <!-- Top Over-Pass Segment of Blue Ring -->
-    <path
-      d="M 314 156 C 322 164, 328 174, 332 186"
-      stroke="#0052FF"
-      stroke-width="44"
-    />
-    <path
-      d="M 170 300 C 210 340, 274 340, 314 300"
-      stroke="#0052FF"
-      stroke-width="44"
-    />
-
-    <!-- Central Escrow Settlement Node (Solid Flat Emerald Dot) -->
-    <circle cx="256" cy="228" r="16" fill="#00D26A" />
-  </g>
+  <!-- Cryptographic Escrow Node -->
+  <circle
+    cx="128"
+    cy="110"
+    r="11"
+    fill="#0052FF"
+  />
 </svg>

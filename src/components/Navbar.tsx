@@ -27,6 +27,7 @@ import { useTheme } from './ThemeProvider'
 import { useCircleWallet } from './CircleWalletLogin'
 import { useUserProfile, PRESET_AVATARS } from './useUserProfile'
 import { toast } from 'sonner'
+import { BrandLogo } from './BrandLogo'
 
 export type NavRoute = 'home' | 'marketplace' | 'agents' | 'dashboard' | 'developer' | 'verifier'
 
@@ -105,12 +106,10 @@ export default function Navbar({
         <div className="flex items-center gap-6">
           <button
             onClick={() => handleNavClick('home')}
-            className="flex items-center gap-2.5 text-left group outline-none"
+            className="flex items-center gap-3 text-left group outline-none"
             aria-label="ArcPact Home"
           >
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-slate-900 border border-slate-800 dark:border-white/15 p-1 shadow-sm group-hover:scale-105 transition-transform overflow-hidden">
-              <img src="/favicon.svg" alt="ArcPact" className="w-full h-full object-contain" />
-            </div>
+            <BrandLogo className="w-9 h-9 sm:w-10 sm:h-10 shrink-0 group-hover:scale-105 transition-transform" />
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="display text-base font-extrabold text-slate-900 dark:text-white tracking-tight">
