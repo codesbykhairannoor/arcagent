@@ -112,11 +112,11 @@ export function CircleWalletProvider({ children }: { children: ReactNode }) {
       setCredential(cred)
       setAccount(smartAccount)
       setAddress(smartAccount.address)
-      toast.success('Passkey registered — smart account ready')
+      toast.success('Passkey registered: smart account ready')
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err)
       if (msg.includes('InvalidStateError')) {
-        toast.error('Passkey already registered for this device — try Login instead')
+        toast.error('Passkey already registered for this device. Try Login instead')
       } else if (msg.includes('NotAllowedError')) {
         toast.error('Passkey cancelled')
       } else {

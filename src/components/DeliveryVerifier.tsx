@@ -87,7 +87,7 @@ export default function DeliveryVerifier({ onchainHash }: Props) {
             <div>
               <p className="text-sm font-semibold" style={{ color: 'var(--success)' }}>Verified</p>
               <p className="text-xs" style={{ color: 'var(--muted)' }}>
-                Content matches the onchain commitment — this proof is cryptographically verified.
+                Content matches the onchain commitment: this proof is cryptographically verified.
               </p>
             </div>
           </div>
@@ -108,7 +108,7 @@ export default function DeliveryVerifier({ onchainHash }: Props) {
 
         {!computed && (
           <p className="text-xs" style={{ color: 'var(--subtle)' }}>
-            keccak256 is computed locally in your browser — nothing is sent to any server.
+            keccak256 is computed locally in your browser; nothing is sent to any server.
           </p>
         )}
       </div>

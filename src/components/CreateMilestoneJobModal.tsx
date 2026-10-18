@@ -186,7 +186,7 @@ export default function CreateMilestoneJobModal({ onClose, onCreated }: Props) {
               <div>
                 <label className="text-xs font-semibold mb-1.5 block" style={{ color: 'var(--muted)' }}>Job Title</label>
                 <input value={jobTitle} onChange={(e) => setJobTitle(e.target.value)}
-                  placeholder="e.g. Full DeFi protocol audit — 3 phases"
+                  placeholder="e.g. Full DeFi protocol audit: 3 phases"
                   className="w-full px-3 py-2.5 rounded-xl text-sm outline-none"
                   style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--ink)' }} />
               </div>
@@ -327,7 +327,7 @@ export default function CreateMilestoneJobModal({ onClose, onCreated }: Props) {
 
               {/* Balance info */}
               <p className="text-xs tabular-nums" style={{ color: overBalance ? 'var(--danger)' : 'var(--subtle)' }}>
-                {overBalance ? 'Total exceeds balance' : `Wallet: ${balanceFmt ?? '—'} USDC`}
+                {overBalance ? 'Total exceeds balance' : `Wallet: ${balanceFmt ?? '0.00'} USDC`}
               </p>
 
               {/* Step indicator + action */}
@@ -363,7 +363,7 @@ export default function CreateMilestoneJobModal({ onClose, onCreated }: Props) {
                   <button onClick={() => setStep('create')} disabled={!formValid}
                     className="w-full rounded-2xl py-3.5 text-sm font-semibold transition-all hover:scale-[1.01] disabled:opacity-40"
                     style={{ background: 'var(--accent)', color: '#0d1b2f' }}>
-                    Already Approved — Continue
+                    Already Approved (Continue)
                   </button>
                 )
               ) : (

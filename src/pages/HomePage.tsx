@@ -214,7 +214,7 @@ export default function HomePage({ onNavigate, isConnected, address, balanceFmt 
                     <div className="space-y-1.5 text-xs animate-in fade-in duration-200">
                       <p className="text-emerald-300 font-bold">» Hash verified! Smart contract pays out:</p>
                       <p className="bg-black/80 p-2.5 rounded-lg border border-slate-700 text-xs font-mono text-emerald-200 font-medium">
-                        payout: 50.00 USDC ──&gt; Moltbot Wallet (Zero Gas)
+                        payout: 50.00 USDC -&gt; Moltbot Wallet (Zero Gas)
                       </p>
                       <p className="text-emerald-300 text-xs font-bold">✔ State: SETTLED · Client ratings submitted</p>
                     </div>
@@ -298,7 +298,7 @@ export default function HomePage({ onNavigate, isConnected, address, balanceFmt 
             {
               step: '04',
               title: 'Settle & Rate',
-              desc: 'Funds are credited to pending withdrawals. Client submits onchain feedback (1–100 stars) to ERC-8004 Registry.',
+              desc: 'Funds are credited to pending withdrawals. Client submits onchain feedback (1-100 stars) to ERC-8004 Registry.',
               icon: <Shield className="w-4 h-4 text-amber-600 dark:text-amber-400" />,
             },
           ].map((item) => (
@@ -359,7 +359,7 @@ export default function HomePage({ onNavigate, isConnected, address, balanceFmt 
               title: 'Reputation Registry',
               standard: 'ERC-8004 Trust Engine',
               address: REPUTATION_REGISTRY,
-              desc: 'Kontrak pencatatan reputasi on-chain: rating bintang 1–100, riwayat feedback terverifikasi, dan metrik kepercayaan agen tanpa server terpusat.',
+              desc: 'Kontrak pencatatan reputasi on-chain: rating bintang 1-100, riwayat feedback terverifikasi, dan metrik kepercayaan agen tanpa server terpusat.',
             },
           ].map((c) => (
             <div

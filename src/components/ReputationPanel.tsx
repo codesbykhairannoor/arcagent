@@ -228,7 +228,7 @@ export default function ReputationPanel({ escrowTitle, outcomeTag, chainId }: Pr
               )}
 
               <p className="text-xs" style={{ color: 'var(--subtle)' }}>
-                Score is written to Arc's ERC-8004 Reputation Registry — portable across all platforms.
+                Score is written to Arc's ERC-8004 Reputation Registry (portable across all platforms).
                 <br />Note: you cannot rate your own agent wallet.
               </p>
             </div>

@@ -108,10 +108,8 @@ export default function Navbar({
             className="flex items-center gap-2.5 text-left group outline-none"
             aria-label="ArcPact Home"
           >
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-gradient-to-tr from-purple-600 via-indigo-600 to-cyan-400 p-[1px] shadow-lg shadow-purple-900/30 group-hover:scale-105 transition-transform">
-              <div className="w-full h-full bg-[#070b18] rounded-[11px] flex items-center justify-center">
-                <Shield className="w-4 h-4 text-cyan-300" />
-              </div>
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-gradient-to-tr from-purple-600 via-indigo-600 to-cyan-400 p-[1.5px] shadow-lg shadow-purple-900/30 group-hover:scale-105 transition-transform overflow-hidden">
+              <img src="/favicon.svg" alt="ArcPact" className="w-full h-full object-cover rounded-[10px]" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">

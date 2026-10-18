@@ -1,4 +1,4 @@
-# ArcPact — Autonomous Escrow & Milestone Payouts on Arc
+# ArcPact: Autonomous Escrow & Milestone Payouts on Arc
 
 > **Built with Arc Studio** for the [Arc Microgrants 2 Hackathon on DoraHacks](https://dorahacks.io/hackathon/arc-microgrants-2/detail)  
 > *Native USDC Settlement · Cryptographic SHA-256 Deliverable Proofs · Multi-Milestone Escrow · x402 Nanopayments · Autonomous AI Agent Integration*

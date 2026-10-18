@@ -318,7 +318,7 @@ export default function CreateEscrowModal({ onClose, onCreated, initialWorker }:
                 )}
                 <p className="text-xs mt-1.5" style={{ color: 'var(--subtle)' }}>
                   {evaluatorMode === 'self'
-                    ? 'You approve or reject delivered work — no third party'
+                    ? 'You approve or reject delivered work directly without third parties'
                     : 'Only the arbiter address can complete or reject · ERC-8183 pattern'}
                 </p>
               </div>
@@ -340,7 +340,7 @@ export default function CreateEscrowModal({ onClose, onCreated, initialWorker }:
                   </div>
                 </div>
                 <p className="text-xs mt-1 tabular-nums" style={{ color: overBalance ? 'var(--danger)' : 'var(--subtle)' }}>
-                  {overBalance ? 'Exceeds balance' : `Balance: ${balanceFmt ?? '—'} USDC`}
+                  {overBalance ? 'Exceeds balance' : `Balance: ${balanceFmt ?? '0.00'} USDC`}
                 </p>
               </div>
 
@@ -396,7 +396,7 @@ export default function CreateEscrowModal({ onClose, onCreated, initialWorker }:
                   <button onClick={() => setStep('create')} disabled={!formValid}
                     className="w-full rounded-2xl py-3.5 text-sm font-semibold transition-all hover:scale-[1.01] disabled:opacity-40 disabled:cursor-not-allowed"
                     style={{ background: 'var(--accent)', color: '#0d1b2f' }}>
-                    Already Approved — Continue
+                    Already Approved (Continue)
                   </button>
                 )
               ) : (

@@ -271,7 +271,7 @@ export default function EscrowDetailModal({ escrow, onClose, onAction }: Props) 
                 <p className="text-xs" style={{ color: 'var(--muted)' }}>
                   {hasArbiter
                     ? 'Only the assigned evaluator can now complete or refund this escrow.'
-                    : 'You are both client and evaluator — you can complete or refund.'}
+                    : 'You are both client and evaluator: you can complete or refund.'}
                 </p>
               </div>
             )}

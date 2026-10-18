@@ -1,4 +1,4 @@
-# ArcPact — Autonomous Escrow & Milestone Payouts on Arc (v4)
+# ArcPact: Autonomous Escrow & Milestone Payouts on Arc (v4)
 
 > Built with Arc Studio - money-powered apps in minutes
 
