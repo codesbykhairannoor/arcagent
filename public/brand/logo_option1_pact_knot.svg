@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Solid High-Tech Midnight Ground (No gradients, pure institutional grade) -->
+  <rect width="512" height="512" rx="112" fill="#0A0E17" />
+  
+  <!-- Interlocking Escrow Pact Rings: Human & Agent Covenant -->
+  <!-- Left/Upper Arc (Solid Electric Arc Blue) -->
+  <path
+    d="M 230 144 C 160 144, 120 196, 120 256 C 120 316, 160 368, 230 368 C 280 368, 310 338, 326 304"
+    stroke="#0052FF"
+    stroke-width="44"
+    stroke-linecap="round"
+  />
+
+  <!-- Right/Lower Arc (Solid Crisp White) -->
+  <path
+    d="M 282 368 C 352 368, 392 316, 392 256 C 392 196, 352 144, 282 144 C 232 144, 202 174, 186 208"
+    stroke="#FFFFFF"
+    stroke-width="44"
+    stroke-linecap="round"
+  />
+
+  <!-- Interlocking Security Core: The Settlement Center Pin -->
+  <circle cx="256" cy="256" r="22" fill="#0052FF" />
+  <circle cx="256" cy="256" r="10" fill="#0A0E17" />
+</svg>

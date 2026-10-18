@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Solid High-Tech Midnight Ground -->
+  <rect width="512" height="512" rx="112" fill="#080C16" />
+
+  <!-- Two-Tone Faceted Escrow Shield (Zero Gradients, Pure Geometric Precision) -->
+  <!-- Left Facet (Electric Arc Blue) -->
+  <path
+    d="M 252 116 L 152 164 C 152 284, 212 364, 252 396 L 252 116 Z"
+    fill="#0052FF"
+  />
+
+  <!-- Right Facet (Crisp Solid White) -->
+  <path
+    d="M 260 116 L 360 164 C 360 284, 300 364, 260 396 L 260 116 Z"
+    fill="#FFFFFF"
+  />
+
+  <!-- Central Vault Lock Cutout (Negative Space) -->
+  <!-- Upper Circle -->
+  <circle cx="256" cy="236" r="28" fill="#080C16" />
+  <!-- Lower Keyway Slot -->
+  <polygon points="244,244 268,244 274,292 238,292" fill="#080C16" />
+  <!-- Center Settlement Pin -->
+  <circle cx="256" cy="236" r="10" fill="#00D26A" />
+</svg>

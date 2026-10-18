@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Solid High-Tech Midnight Ground -->
+  <rect width="512" height="512" rx="112" fill="#0B0F19" />
+
+  <!-- Solid Architectural Monogram "A" (Arc + Vault) -->
+  <!-- Outer Arch Legs & Peak -->
+  <path
+    d="M 136 372 L 234 140 C 242 120, 270 120, 278 140 L 376 372 C 382 386, 368 400, 352 400 L 314 400 C 304 400, 296 394, 292 384 L 274 340 L 238 340 L 220 384 C 216 394, 208 400, 198 400 L 160 400 C 144 400, 130 386, 136 372 Z"
+    fill="#FFFFFF"
+  />
+
+  <!-- Negative Space Inner Apex (Vault Chamber) -->
+  <polygon
+    points="256,200 286,288 226,288"
+    fill="#0B0F19"
+  />
+
+  <!-- The Horizontal Settlement Crossbar (Electric Arc Blue) -->
+  <rect x="180" y="304" width="152" height="36" rx="18" fill="#0052FF" />
+
+  <!-- Cryptographic Escrow Node / Keyhole in Negative Space -->
+  <circle cx="256" cy="244" r="14" fill="#0052FF" />
+</svg>
