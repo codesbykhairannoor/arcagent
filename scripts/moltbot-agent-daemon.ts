@@ -114,7 +114,33 @@ async function processAssignedJob(escrowId: bigint, client: string, amount: bigi
  * Event Listener on Arc Testnet
  */
 async function startDaemon() {
-  console.log(`👀 Polling & listening for EscrowCreated events on Arc Testnet...`)
+  console.log(`👀 Checking existing pending escrows for ${account.address}...`)
+  try {
+    const existingIds = (await publicClient.readContract({
+      address: ESCROW_ADDRESS,
+      abi: ESCROW_ABI,
+      functionName: 'getWorkerEscrows',
+      args: [account.address],
+    })) as bigint[]
+
+    for (const id of existingIds) {
+      const escrow = (await publicClient.readContract({
+        address: ESCROW_ADDRESS,
+        abi: ESCROW_ABI,
+        functionName: 'getEscrow',
+        args: [id],
+      })) as { id: bigint; client: string; worker: string; amount: bigint; status: number }
+
+      if (escrow.status === 0) {
+        console.log(`🔎 Found pending funded escrow #${id} awaiting agent work!`)
+        await processAssignedJob(id, escrow.client, escrow.amount)
+      }
+    }
+  } catch (err) {
+    console.error('Error scanning existing escrows:', err)
+  }
+
+  console.log(`👀 Polling & listening for new EscrowCreated events on Arc Testnet...`)
 
   // Watch on-chain contract events
   publicClient.watchEvent({
@@ -143,3 +169,4 @@ async function startDaemon() {
 
 // Run the daemon
 void startDaemon()
+

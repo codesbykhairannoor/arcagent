@@ -19,8 +19,8 @@ import {
 import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import EscrowCard from '../components/EscrowCard'
 import MilestoneJobCard from '../components/MilestoneJobCard'
-import EditProfileModal from '../components/EditProfileModal'
 import { useUserProfile, PRESET_AVATARS } from '../components/useUserProfile'
+import type { NavRoute } from '../components/Navbar'
 import {
   useUsdcBalance,
   usePendingWithdrawal,
@@ -54,6 +54,7 @@ interface Props {
   onOpenCreateEscrow: () => void
   onOpenCreateMilestone: () => void
   onOpenEditProfile?: () => void
+  onNavigate?: (route: NavRoute) => void
   address?: `0x${string}`
   isConnected: boolean
 }
@@ -70,6 +71,7 @@ export default function DashboardPage({
   onOpenCreateEscrow,
   onOpenCreateMilestone,
   onOpenEditProfile,
+  onNavigate,
   address,
   isConnected,
 }: Props) {
@@ -78,10 +80,15 @@ export default function DashboardPage({
   const [searchQuery, setSearchQuery] = useState('')
   const [isSyncing, setIsSyncing] = useState(false)
   const [copiedAddr, setCopiedAddr] = useState(false)
-  const [internalEditProfile, setInternalEditProfile] = useState(false)
 
   const { profile } = useUserProfile(address)
-  const handleOpenEdit = onOpenEditProfile ?? (() => setInternalEditProfile(true))
+  const handleOpenEdit = () => {
+    if (onNavigate) {
+      onNavigate('profile')
+    } else if (onOpenEditProfile) {
+      onOpenEditProfile()
+    }
+  }
 
   // Blockchain Queries
   const { formatted: balanceFmt, refetch: refetchBalance } = useUsdcBalance(address)
@@ -306,14 +313,14 @@ export default function DashboardPage({
           </div>
         </div>
 
-        {/* Action buttons: Edit Profile & Sync */}
+        {/* Action buttons: Manage Profile & Sync */}
         <div className="flex items-center gap-2 shrink-0 self-start md:self-center">
           <button
-            onClick={handleOpenEdit}
+            onClick={() => onNavigate ? onNavigate('profile') : onOpenEditProfile?.()}
             className="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl text-xs font-black bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] dark:text-slate-200 border border-slate-200 dark:border-white/[0.08] transition-all hover:scale-[1.02]"
           >
             <UserCog className="w-3.5 h-3.5 text-purple-600 dark:text-cyan-400" />
-            <span>Edit Profile</span>
+            <span>Manage Profile & Identity</span>
           </button>
 
           <button
@@ -649,15 +656,6 @@ export default function DashboardPage({
             <EscrowCard key={e.id.toString()} escrow={e} onClick={() => onSelectEscrow(e)} />
           ))}
         </div>
-      )}
-
-      {/* Edit Profile Modal */}
-      {address && (
-        <EditProfileModal
-          address={address}
-          isOpen={internalEditProfile}
-          onClose={() => setInternalEditProfile(false)}
-        />
       )}
     </main>
   )

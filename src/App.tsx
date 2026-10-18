@@ -8,11 +8,11 @@ import AgentRegistryPage from './pages/AgentRegistryPage'
 import DashboardPage from './pages/DashboardPage'
 import DeveloperStudioPage from './pages/DeveloperStudioPage'
 import VerifierPage from './pages/VerifierPage'
+import ProfilePage from './pages/ProfilePage'
 import CreateEscrowModal from './components/CreateEscrowModal'
 import EscrowDetailModal from './components/EscrowDetailModal'
 import CreateMilestoneJobModal from './components/CreateMilestoneJobModal'
 import MilestoneJobDetailModal from './components/MilestoneJobDetailModal'
-import EditProfileModal from './components/EditProfileModal'
 import NetworkTicker from './components/NetworkTicker'
 import {
   useUsdcBalance,
@@ -27,13 +27,14 @@ import { useClientJobs, useWorkerJobs, useJobs, type JobData } from './component
 import { useCircleWallet } from './components/CircleWalletLogin'
 
 function getInitialRoute(): NavRoute {
-  // Support both clean pathname (/verifier) and legacy hash (#/verifier)
+  // Support both clean pathname (/verifier, /profile) and legacy hash (#/verifier, #/profile)
   const path = window.location.pathname.replace(/^\//, '').toLowerCase()
   if (path === 'marketplace') return 'marketplace'
   if (path === 'agents' || path === 'registry') return 'agents'
   if (path === 'dashboard' || path === 'workspace') return 'dashboard'
   if (path === 'developer' || path === 'playground' || path === 'studio') return 'developer'
   if (path === 'verifier') return 'verifier'
+  if (path === 'profile' || path === 'account' || path === 'settings') return 'profile'
 
   const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase()
   if (hash === 'marketplace') return 'marketplace'
@@ -41,6 +42,7 @@ function getInitialRoute(): NavRoute {
   if (hash === 'dashboard' || hash === 'workspace') return 'dashboard'
   if (hash === 'developer' || hash === 'playground' || hash === 'studio') return 'developer'
   if (hash === 'verifier') return 'verifier'
+  if (hash === 'profile' || hash === 'account' || hash === 'settings') return 'profile'
   return 'home'
 }
 
@@ -55,7 +57,6 @@ export default function App() {
   const [showCreate, setShowCreate] = useState(false)
   const [prefilledWorker, setPrefilledWorker] = useState<string | undefined>(undefined)
   const [showCreateMilestone, setShowCreateMilestone] = useState(false)
-  const [showEditProfile, setShowEditProfile] = useState(false)
   const [selectedEscrow, setSelectedEscrow] = useState<EscrowData | null>(null)
   const [selectedJob, setSelectedJob] = useState<JobData | null>(null)
 
@@ -131,7 +132,7 @@ export default function App() {
           onRouteChange={handleNavigate}
           onOpenCreateEscrow={handleOpenCreateEscrow}
           onOpenCreateMilestone={() => setShowCreateMilestone(true)}
-          onOpenEditProfile={() => setShowEditProfile(true)}
+          onOpenEditProfile={() => handleNavigate('profile')}
           address={address}
           isConnected={!!(isConnected || circleAddress)}
           totalUserContracts={totalUserContracts}
@@ -175,9 +176,18 @@ export default function App() {
           onSelectJob={(job) => setSelectedJob(job)}
           onOpenCreateEscrow={handleOpenCreateEscrow}
           onOpenCreateMilestone={() => setShowCreateMilestone(true)}
-          onOpenEditProfile={() => setShowEditProfile(true)}
+          onNavigate={handleNavigate}
           address={address}
           isConnected={!!(isConnected || circleAddress)}
+        />
+      )}
+
+      {currentRoute === 'profile' && (
+        <ProfilePage
+          address={address}
+          isConnected={!!(isConnected || circleAddress)}
+          onNavigate={handleNavigate}
+          onOpenCreateEscrow={handleOpenCreateEscrow}
         />
       )}
 
@@ -228,15 +238,6 @@ export default function App() {
             void refetchBalance()
             void refetchJobs()
           }}
-        />
-      )}
-
-      {/* Global Edit Profile Modal */}
-      {address && (
-        <EditProfileModal
-          address={address}
-          isOpen={showEditProfile}
-          onClose={() => setShowEditProfile(false)}
         />
       )}
     </div>

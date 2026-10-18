@@ -155,3 +155,22 @@ export function useUsdcAllowance(owner: `0x${string}` | undefined) {
   })
   return { allowance: data ?? 0n, refetch }
 }
+
+export function useEscrowStats(address: string | undefined) {
+  const addr = address as `0x${string}` | undefined
+  const { ids: clientIds, refetch: refetchClient } = useClientEscrows(addr)
+  const { ids: workerIds, refetch: refetchWorker } = useWorkerEscrows(addr)
+  const { ids: evalIds, refetch: refetchEval } = useEvaluatorEscrows(addr)
+
+  const activeCount = clientIds.length + workerIds.length + evalIds.length
+  const clientCount = clientIds.length
+  const workerCount = workerIds.length
+
+  const refetchAll = () => {
+    void refetchClient()
+    void refetchWorker()
+    void refetchEval()
+  }
+
+  return { activeCount, clientCount, workerCount, refetchAll }
+}

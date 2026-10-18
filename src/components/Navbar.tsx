@@ -1,4 +1,5 @@
 import { ConnectKitButton } from 'connectkit'
+import { useDisconnect } from 'wagmi'
 import {
   Shield,
   Plus,
@@ -21,6 +22,7 @@ import {
   Bot,
   HelpCircle,
   UserCog,
+  Wallet,
 } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { useTheme } from './ThemeProvider'
@@ -29,7 +31,7 @@ import { useUserProfile, PRESET_AVATARS } from './useUserProfile'
 import { toast } from 'sonner'
 import { BrandLogo } from './BrandLogo'
 
-export type NavRoute = 'home' | 'marketplace' | 'agents' | 'dashboard' | 'developer' | 'verifier'
+export type NavRoute = 'home' | 'marketplace' | 'agents' | 'dashboard' | 'developer' | 'verifier' | 'profile'
 
 interface Props {
   currentRoute: NavRoute
@@ -58,13 +60,18 @@ export default function Navbar({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false)
   const [createDropdownOpen, setCreateDropdownOpen] = useState(false)
+  const [userMenuOpen, setUserMenuOpen] = useState(false)
   const [copiedAddr, setCopiedAddr] = useState(false)
 
   const toolsRef = useRef<HTMLDivElement>(null)
   const createRef = useRef<HTMLDivElement>(null)
+  const userMenuRef = useRef<HTMLDivElement>(null)
 
   const { resolvedTheme, setTheme } = useTheme()
   const { address: circleAddress, logout: circleLogout } = useCircleWallet()
+  const { disconnect } = useDisconnect()
+
+  const activeAddress = address || circleAddress
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -75,11 +82,15 @@ export default function Navbar({
       if (createRef.current && !createRef.current.contains(event.target as Node)) {
         setCreateDropdownOpen(false)
       }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setUserMenuOpen(false)
+      }
     }
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape') {
         setToolsDropdownOpen(false)
         setCreateDropdownOpen(false)
+        setUserMenuOpen(false)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
@@ -95,6 +106,7 @@ export default function Navbar({
     setMobileMenuOpen(false)
     setToolsDropdownOpen(false)
     setCreateDropdownOpen(false)
+    setUserMenuOpen(false)
   }
 
   const isToolsActive = currentRoute === 'verifier' || currentRoute === 'developer'
@@ -132,7 +144,7 @@ export default function Navbar({
             {isConnected && (
               <button
                 onClick={() => handleNavClick('dashboard')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                   currentRoute === 'dashboard'
                     ? 'bg-purple-600 text-white shadow-md shadow-purple-600/30'
                     : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/[0.04]'
@@ -157,7 +169,7 @@ export default function Navbar({
             {/* Marketplace */}
             <button
               onClick={() => handleNavClick('marketplace')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
                 currentRoute === 'marketplace'
                   ? 'bg-purple-100 text-purple-900 border border-purple-300 dark:bg-white/[0.08] dark:text-white dark:border-white/[0.12] shadow-sm'
                   : 'text-slate-800 hover:text-slate-950 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/[0.04]'
@@ -170,7 +182,7 @@ export default function Navbar({
             {/* Agent Registry */}
             <button
               onClick={() => handleNavClick('agents')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
                 currentRoute === 'agents'
                   ? 'bg-purple-100 text-purple-900 border border-purple-300 dark:bg-white/[0.08] dark:text-white dark:border-white/[0.12] shadow-sm'
                   : 'text-slate-800 hover:text-slate-950 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/[0.04]'
@@ -178,7 +190,7 @@ export default function Navbar({
             >
               <Bot className="w-3.5 h-3.5" />
               <span>Agent Registry</span>
-              <span className="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-cyan-500/15 text-cyan-800 dark:text-cyan-300 border border-cyan-500/30">
+              <span className="hidden xl:inline-block px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-cyan-500/15 text-cyan-800 dark:text-cyan-300 border border-cyan-500/30">
                 ERC-8004
               </span>
             </button>
@@ -360,85 +372,183 @@ export default function Navbar({
             </div>
           )}
 
-          {/* Theme Switcher (Segmented Moon / Sun pill) */}
-          <div className="flex items-center p-0.5 rounded-xl bg-slate-200/70 dark:bg-white/[0.08] border border-slate-300/80 dark:border-white/[0.1]">
-            <button
-              type="button"
-              onClick={() => setTheme('dark')}
-              className={`p-1.5 rounded-lg transition-all duration-150 flex items-center justify-center ${
-                resolvedTheme === 'dark'
-                  ? 'bg-purple-600 text-white shadow-sm shadow-purple-900/40'
-                  : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
-              }`}
-              title="Activate Dark Mode"
-              aria-label="Activate Dark Mode"
-            >
-              <Moon className="w-3.5 h-3.5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => setTheme('light')}
-              className={`p-1.5 rounded-lg transition-all duration-150 flex items-center justify-center ${
-                resolvedTheme === 'light'
-                  ? 'bg-white text-amber-500 shadow-sm border border-slate-200/80'
-                  : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
-              }`}
-              title="Activate Light Mode"
-              aria-label="Activate Light Mode"
-            >
-              <Sun className="w-3.5 h-3.5" />
-            </button>
-          </div>
+          {/* Theme Toggle (Sleek single button) */}
+          <button
+            type="button"
+            onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+            className="p-2 rounded-xl text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 bg-slate-100/90 hover:bg-slate-200 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] border border-slate-200 dark:border-white/[0.08] transition-all shrink-0"
+            title={resolvedTheme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            aria-label="Toggle Theme"
+          >
+            {resolvedTheme === 'dark' ? (
+              <Sun className="w-4 h-4 text-amber-400" />
+            ) : (
+              <Moon className="w-4 h-4 text-slate-600" />
+            )}
+          </button>
 
-          {/* User Profile Pill with Avatar & Name */}
-          {isConnected && address && onOpenEditProfile && (
-            <button
-              type="button"
-              onClick={onOpenEditProfile}
-              title={`Edit Profile (${profile.displayName || address})`}
-              className="hidden md:flex items-center gap-1.5 p-1 pr-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] dark:text-slate-200 border border-slate-200 dark:border-white/[0.08] transition-all hover:scale-[1.02]"
-            >
-              <div
-                className={`w-6 h-6 rounded-lg bg-gradient-to-tr ${
-                  PRESET_AVATARS.find((p) => p.id === profile.avatar)?.gradient ?? 'from-purple-600 to-indigo-600'
-                } flex items-center justify-center text-xs shadow-sm`}
-              >
-                {PRESET_AVATARS.find((p) => p.id === profile.avatar)?.icon ?? '👤'}
-              </div>
-              <span className="text-xs font-bold max-w-[90px] truncate">
-                {profile.displayName || `${address.slice(0, 6)}…`}
-              </span>
-              <UserCog className="w-3 h-3 text-slate-400" />
-            </button>
-          )}
-
-          {/* Wallet Connection Display */}
-          {circleAddress ? (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-500/10 border border-purple-500/30 text-xs shadow-sm">
-              <span className="mono font-bold text-purple-700 dark:text-purple-300">
-                {circleAddress.slice(0, 6)}…{circleAddress.slice(-4)}
-              </span>
+          {/* Unified Web3 Identity & Wallet Pill */}
+          {activeAddress ? (
+            <div className="relative" ref={userMenuRef}>
               <button
                 type="button"
-                onClick={() => {
-                  void navigator.clipboard.writeText(circleAddress)
-                  setCopiedAddr(true)
-                  toast.success('Smart Account address copied')
-                  setTimeout(() => setCopiedAddr(false), 2000)
-                }}
-                title="Copy Smart Account address"
-                className="p-1 hover:text-purple-600 dark:hover:text-purple-300 transition-colors"
+                onClick={() => setUserMenuOpen((prev) => !prev)}
+                className={`flex items-center gap-2 p-1 pl-1.5 pr-2.5 rounded-2xl border transition-all duration-150 hover:scale-[1.02] ${
+                  currentRoute === 'profile' || userMenuOpen
+                    ? 'bg-purple-500/15 border-purple-500/40 text-purple-700 dark:text-purple-300 ring-2 ring-purple-500/30'
+                    : 'bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] dark:text-slate-200 border-slate-200 dark:border-white/[0.08]'
+                }`}
+                title="Account, Profile & Wallet Settings"
+                aria-label="User Account Menu"
+                aria-haspopup="true"
+                aria-expanded={userMenuOpen}
               >
-                {copiedAddr ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3 text-slate-400" />}
+                <div
+                  className={`w-7 h-7 rounded-xl bg-gradient-to-tr ${
+                    PRESET_AVATARS.find((p) => p.id === profile.avatar)?.gradient ?? 'from-purple-600 to-indigo-600'
+                  } flex items-center justify-center text-sm shadow-sm shrink-0`}
+                >
+                  {PRESET_AVATARS.find((p) => p.id === profile.avatar)?.icon ?? '👤'}
+                </div>
+                <div className="text-left leading-tight hidden sm:block">
+                  <div className="text-xs font-bold truncate max-w-[105px]">
+                    {profile.displayName || `${activeAddress.slice(0, 6)}…${activeAddress.slice(-4)}`}
+                  </div>
+                  <div className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1 font-mono">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>{activeAddress.slice(0, 6)}…{activeAddress.slice(-4)}</span>
+                  </div>
+                </div>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${
+                    userMenuOpen ? 'rotate-180' : ''
+                  }`}
+                />
               </button>
-              <button
-                type="button"
-                onClick={circleLogout}
-                title="Sign out from Smart Account"
-                className="p-1 text-slate-400 hover:text-rose-500 transition-colors"
-              >
-                <LogOut className="w-3 h-3" />
-              </button>
+
+              {/* Identity & Wallet Dropdown Menu */}
+              {userMenuOpen && (
+                <div className="absolute right-0 mt-2 w-72 rounded-3xl p-3 bg-white dark:bg-[#070c1e] border border-slate-200/90 dark:border-white/[0.1] shadow-2xl z-50 animate-in fade-in slide-in-from-top-1 duration-150 space-y-3">
+                  {/* Account Header */}
+                  <div className="p-3 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200/70 dark:border-white/[0.06] flex items-center gap-3">
+                    <div
+                      className={`w-10 h-10 rounded-xl bg-gradient-to-tr ${
+                        PRESET_AVATARS.find((p) => p.id === profile.avatar)?.gradient ?? 'from-purple-600 to-indigo-600'
+                      } flex items-center justify-center text-xl shadow-md shrink-0`}
+                    >
+                      {PRESET_AVATARS.find((p) => p.id === profile.avatar)?.icon ?? '👤'}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs font-black text-slate-900 dark:text-white truncate">
+                        {profile.displayName || 'Arc Operator'}
+                      </div>
+                      {profile.handle && (
+                        <div className="text-[11px] font-bold text-purple-600 dark:text-cyan-400 truncate">
+                          {profile.handle}
+                        </div>
+                      )}
+                      <div className="flex items-center gap-1.5 mt-0.5 text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                        <span className="truncate">{activeAddress.slice(0, 6)}…{activeAddress.slice(-4)}</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            void navigator.clipboard.writeText(activeAddress)
+                            setCopiedAddr(true)
+                            toast.success('Address copied!')
+                            setTimeout(() => setCopiedAddr(false), 2000)
+                          }}
+                          className="hover:text-purple-600 dark:hover:text-cyan-400 transition-colors"
+                          title="Copy Address"
+                        >
+                          {copiedAddr ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
+                        </button>
+                        <a
+                          href={`${EXPLORER_BASE}/address/${activeAddress}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="hover:text-cyan-400 transition-colors"
+                          title="View on Arc Explorer"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Network Telemetry */}
+                  <div className="px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-between text-[11px]">
+                    <span className="flex items-center gap-1.5 font-bold text-emerald-600 dark:text-emerald-400">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      Arc Testnet (5042002)
+                    </span>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">1.2s Finality</span>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="space-y-1">
+                    <button
+                      type="button"
+                      onClick={() => handleNavClick('profile')}
+                      className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold transition-colors ${
+                        currentRoute === 'profile'
+                          ? 'bg-purple-500/15 text-purple-700 dark:text-purple-300'
+                          : 'text-slate-700 dark:text-slate-200 hover:bg-purple-50 dark:hover:bg-purple-500/10 hover:text-purple-600 dark:hover:text-purple-300'
+                      }`}
+                    >
+                      <UserCog className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                      <span>My Profile & Settings</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => handleNavClick('dashboard')}
+                      className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold transition-colors ${
+                        currentRoute === 'dashboard'
+                          ? 'bg-purple-500/15 text-purple-700 dark:text-purple-300'
+                          : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.04]'
+                      }`}
+                    >
+                      <LayoutDashboard className="w-4 h-4 text-cyan-500" />
+                      <span>Workspace & Escrows</span>
+                    </button>
+
+                    {!circleAddress && (
+                      <ConnectKitButton.Custom>
+                        {({ show }) => (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setUserMenuOpen(false)
+                              show?.()
+                            }}
+                            className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.04] transition-colors"
+                          >
+                            <Wallet className="w-4 h-4 text-blue-500" />
+                            <span>Switch / Manage Wallet</span>
+                          </button>
+                        )}
+                      </ConnectKitButton.Custom>
+                    )}
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setUserMenuOpen(false)
+                        if (circleAddress) {
+                          circleLogout()
+                        } else {
+                          disconnect()
+                        }
+                        toast.info('Wallet disconnected')
+                      }}
+                      className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors border-t border-slate-200/80 dark:border-white/[0.06] pt-2 mt-1"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      <span>Disconnect Wallet</span>
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <ConnectKitButton />
@@ -538,19 +648,20 @@ export default function Navbar({
             </span>
           </button>
 
-          {isConnected && onOpenEditProfile && (
+          {isConnected && (
             <button
-              onClick={() => {
-                onOpenEditProfile()
-                setMobileMenuOpen(false)
-              }}
-              className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-800 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/[0.04]"
+              onClick={() => handleNavClick('profile')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold ${
+                currentRoute === 'profile'
+                  ? 'bg-purple-600 text-white'
+                  : 'text-slate-800 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/[0.04]'
+              }`}
             >
               <span className="flex items-center gap-2">
-                <UserCog className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                <span>Edit My Profile & Persona</span>
+                <UserCog className="w-4 h-4" />
+                <span>My Profile & Settings</span>
               </span>
-              <span className="text-[10px] font-bold text-purple-600 dark:text-purple-300">
+              <span className="text-[10px] font-bold opacity-80">
                 {profile.displayName || `${address?.slice(0, 6)}…`}
               </span>
             </button>
