@@ -352,6 +352,37 @@ html.light textarea::placeholder,
   color: #94a3b8 !important;
 }
 
+/* Light Mode High-Contrast Typography & Container Enforcement */
+html.light .text-slate-900,
+[data-theme='light'] .text-slate-900 {
+  color: #020617 !important;
+}
+
+html.light .text-slate-800,
+[data-theme='light'] .text-slate-800 {
+  color: #0f172a !important;
+}
+
+html.light .text-slate-700,
+[data-theme='light'] .text-slate-700 {
+  color: #1e293b !important;
+}
+
+html.light .text-slate-600,
+[data-theme='light'] .text-slate-600 {
+  color: #334155 !important;
+}
+
+html.light .text-slate-500,
+[data-theme='light'] .text-slate-500 {
+  color: #334155 !important;
+}
+
+html.light .text-slate-400,
+[data-theme='light'] .text-slate-400 {
+  color: #475569 !important;
+}
+
 /* Dark Mode Typography & Container Overrides */
 html.dark .text-slate-900,
 [data-theme='dark'] .text-slate-900 {

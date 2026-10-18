@@ -160,28 +160,28 @@ export default function Navbar({
             {/* Marketplace */}
             <button
               onClick={() => handleNavClick('marketplace')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                 currentRoute === 'marketplace'
-                  ? 'bg-purple-50 text-purple-700 border border-purple-200 dark:bg-white/[0.08] dark:text-white dark:border-white/[0.12] shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-white/[0.03]'
+                  ? 'bg-purple-100 text-purple-900 border border-purple-300 dark:bg-white/[0.08] dark:text-white dark:border-white/[0.12] shadow-sm'
+                  : 'text-slate-800 hover:text-slate-950 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/[0.04]'
               }`}
             >
-              <Store className="w-3.5 h-3.5 opacity-70" />
+              <Store className="w-3.5 h-3.5" />
               <span>Marketplace</span>
             </button>
 
             {/* Agent Registry */}
             <button
               onClick={() => handleNavClick('agents')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                 currentRoute === 'agents'
-                  ? 'bg-purple-50 text-purple-700 border border-purple-200 dark:bg-white/[0.08] dark:text-white dark:border-white/[0.12] shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-white/[0.03]'
+                  ? 'bg-purple-100 text-purple-900 border border-purple-300 dark:bg-white/[0.08] dark:text-white dark:border-white/[0.12] shadow-sm'
+                  : 'text-slate-800 hover:text-slate-950 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/[0.04]'
               }`}
             >
-              <Bot className="w-3.5 h-3.5 opacity-70" />
+              <Bot className="w-3.5 h-3.5" />
               <span>Agent Registry</span>
-              <span className="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+              <span className="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-cyan-500/15 text-cyan-800 dark:text-cyan-300 border border-cyan-500/30">
                 ERC-8004
               </span>
             </button>
@@ -191,18 +191,18 @@ export default function Navbar({
               <button
                 type="button"
                 onClick={() => setToolsDropdownOpen((prev) => !prev)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                   isToolsActive
-                    ? 'bg-purple-50 text-purple-700 border border-purple-200 dark:bg-white/[0.08] dark:text-white dark:border-white/[0.12] shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-white/[0.03]'
+                    ? 'bg-purple-100 text-purple-900 border border-purple-300 dark:bg-white/[0.08] dark:text-white dark:border-white/[0.12] shadow-sm'
+                    : 'text-slate-800 hover:text-slate-950 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/[0.04]'
                 }`}
                 aria-haspopup="true"
                 aria-expanded={toolsDropdownOpen}
               >
-                <Wrench className="w-3.5 h-3.5 opacity-70" />
+                <Wrench className="w-3.5 h-3.5" />
                 <span>Tools</span>
                 <ChevronDown
-                  className={`w-3 h-3 opacity-60 transition-transform duration-200 ${
+                  className={`w-3 h-3 transition-transform duration-200 ${
                     toolsDropdownOpen ? 'rotate-180' : ''
                   }`}
                 />
