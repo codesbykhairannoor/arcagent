@@ -36,7 +36,7 @@ const TICKER_ITEMS = [
 
 export default function NetworkTicker() {
   return (
-    <div className="relative w-full overflow-hidden bg-slate-100/95 dark:bg-[#030612]/95 backdrop-blur-md border-b border-slate-200/80 dark:border-white/[0.08] text-[11px] font-mono py-2 transition-colors duration-200 z-30 select-none">
+    <div className="relative w-full overflow-hidden bg-slate-100/95 dark:bg-[#030612]/95 backdrop-blur-md border-b border-slate-200/80 dark:border-white/[0.08] text-[11px] font-mono py-2 transition-colors duration-200 z-10 select-none">
       <div className="flex animate-marquee items-center gap-8 whitespace-nowrap">
         {/* First Loop */}
         {TICKER_ITEMS.map((item, idx) => (
