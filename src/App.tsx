@@ -124,20 +124,20 @@ export default function App() {
 
   return (
     <div className="min-h-screen text-slate-900 dark:text-slate-100 flex flex-col justify-between selection:bg-purple-500 selection:text-white transition-colors duration-200">
-      {/* ── Top Navigation Bar ────────────────────────────────────────── */}
-      <Navbar
-        currentRoute={currentRoute}
-        onRouteChange={handleNavigate}
-        onOpenCreateEscrow={handleOpenCreateEscrow}
-        onOpenCreateMilestone={() => setShowCreateMilestone(true)}
-        onOpenEditProfile={() => setShowEditProfile(true)}
-        address={address}
-        isConnected={!!(isConnected || circleAddress)}
-        totalUserContracts={totalUserContracts}
-      />
-
-      {/* ── Live Arc Network & Protocol Activity Marquee Ticker ──────── */}
-      <NetworkTicker />
+      {/* ── Sticky Top Header (Navbar + Live Telemetry Marquee) ──────── */}
+      <div className="sticky top-0 z-40 w-full shadow-sm">
+        <Navbar
+          currentRoute={currentRoute}
+          onRouteChange={handleNavigate}
+          onOpenCreateEscrow={handleOpenCreateEscrow}
+          onOpenCreateMilestone={() => setShowCreateMilestone(true)}
+          onOpenEditProfile={() => setShowEditProfile(true)}
+          address={address}
+          isConnected={!!(isConnected || circleAddress)}
+          totalUserContracts={totalUserContracts}
+        />
+        <NetworkTicker />
+      </div>
 
       {/* ── Page Routing Content ──────────────────────────────────────── */}
       {currentRoute === 'home' && (

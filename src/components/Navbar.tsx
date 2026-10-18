@@ -99,7 +99,7 @@ export default function Navbar({
   const isToolsActive = currentRoute === 'verifier' || currentRoute === 'developer'
 
   return (
-    <header className="sticky top-0 z-40 backdrop-blur-2xl bg-white/90 dark:bg-[#040714]/90 border-b border-slate-200/80 dark:border-white/[0.08] transition-colors duration-200 shadow-sm">
+    <header className="w-full backdrop-blur-2xl bg-white/95 dark:bg-[#040714]/95 border-b border-slate-200/80 dark:border-white/[0.08] transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         {/* ── Brand Logo ────────────────────────────────────────────── */}
         <div className="flex items-center gap-6">
