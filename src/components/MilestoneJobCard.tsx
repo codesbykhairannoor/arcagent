@@ -48,8 +48,7 @@ export default function MilestoneJobCard({ job, milestoneStatuses, onClick }: Pr
       role="button"
       tabIndex={0}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onClick() }}
-      className="group relative w-full text-left rounded-2xl p-4 sm:p-5 glass-card cursor-pointer outline-none transition-all duration-300 hover:border-cyan-500/30 hover:shadow-xl hover:shadow-cyan-950/20 active:scale-[0.99]"
-      style={{ border: '1px solid var(--border)' }}
+      className="group relative w-full text-left rounded-3xl p-5 spatial-bento cursor-pointer outline-none transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] border border-slate-200/80 dark:border-white/[0.08] shadow-sm hover:shadow-xl hover:shadow-cyan-950/20"
     >
       {/* Top Header */}
       <div className="flex items-center justify-between gap-3 mb-3">
@@ -124,21 +123,21 @@ export default function MilestoneJobCard({ job, milestoneStatuses, onClick }: Pr
       </div>
 
       {/* Segmented Milestone Progress Bars */}
-      <div className="space-y-1.5 my-3.5">
-        <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
+      <div className="p-3 rounded-2xl bg-slate-100/60 dark:bg-white/[0.02] border border-slate-200/70 dark:border-white/[0.05] my-3">
+        <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider mb-2">
           <span>Stages Breakdown</span>
-          <span className="font-semibold text-slate-700 dark:text-slate-300">{progressPct}% complete</span>
+          <span className="font-extrabold text-cyan-600 dark:text-cyan-400">{progressPct}% Complete</span>
         </div>
 
         {total > 0 ? (
-          <div className="flex gap-1.5 h-2 w-full p-0.5 bg-slate-200 dark:bg-slate-900/60 rounded-full border border-slate-200 dark:border-white/[0.06]">
+          <div className="flex gap-1.5 h-2 w-full p-0.5 bg-slate-200 dark:bg-slate-900/80 rounded-full border border-slate-200/80 dark:border-white/[0.06]">
             {milestoneStatuses.map((s, i) => (
               <div
                 key={i}
                 className="flex-1 h-full rounded-full transition-all duration-300 hover:brightness-125"
                 style={{
                   background: milestoneStatusColor(s),
-                  boxShadow: s === 3 ? '0 0 8px rgba(16, 185, 129, 0.4)' : undefined,
+                  boxShadow: s === 3 ? '0 0 10px rgba(16, 185, 129, 0.4)' : undefined,
                 }}
                 title={`Stage ${i + 1}`}
               />

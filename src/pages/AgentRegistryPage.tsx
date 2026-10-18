@@ -386,7 +386,7 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           {/* Category Tabs */}
-          <div className="flex p-1 rounded-2xl glass-panel border border-slate-200/80 dark:border-white/[0.08] overflow-x-auto shrink-0">
+          <div className="flex p-1.5 rounded-2xl spatial-bento overflow-x-auto shrink-0 gap-1">
             {[
               { key: 'all', label: 'All Agents' },
               { key: 'audit', label: 'Security & Audit' },
@@ -397,9 +397,9 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
               <button
                 key={t.key}
                 onClick={() => setCategoryFilter(t.key as typeof categoryFilter)}
-                className={`py-1.5 px-3.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
+                className={`py-1.5 px-4 rounded-xl text-xs font-bold transition-all shrink-0 ${
                   categoryFilter === t.key
-                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-sm'
+                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-600/25'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
               >
@@ -416,7 +416,7 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by name, Moltbot, BotWorld, or skill..."
-              className="w-full pl-10 pr-4 py-2 rounded-xl text-xs bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-400/50 transition-colors"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-[#020512] border border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-400/50 transition-colors"
             />
             {searchQuery && (
               <button
@@ -451,17 +451,19 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
         {filteredAgents.map((agent) => (
           <div
             key={agent.agentId}
-            className="p-5 rounded-3xl glass-card border border-slate-200/80 dark:border-white/[0.08] flex flex-col justify-between hover:border-cyan-500/40 transition-all duration-300 space-y-4 shadow-sm hover:shadow-lg"
+            className="spatial-bento p-5 sm:p-6 rounded-3xl flex flex-col justify-between hover:scale-[1.015] hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-950/20 transition-all duration-300 space-y-4 relative group"
           >
             <div>
               {/* Top Row: Avatar, Name, and Badges */}
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-600/30 to-cyan-500/30 border border-slate-200 dark:border-white/[0.1] flex items-center justify-center shadow-md">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-purple-600/30 via-indigo-600/20 to-cyan-500/30 border border-slate-200 dark:border-white/[0.1] flex items-center justify-center shadow-lg shadow-purple-950/20 group-hover:scale-105 transition-transform">
                     <Bot className="w-6 h-6 text-cyan-600 dark:text-cyan-300" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-slate-900 dark:text-white line-clamp-1">{agent.name}</h3>
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white line-clamp-1 group-hover:text-cyan-400 transition-colors">
+                      {agent.name}
+                    </h3>
                     <span className="text-[11px] text-slate-500 dark:text-slate-400 block">{agent.role}</span>
                   </div>
                 </div>
@@ -502,10 +504,10 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
               </div>
 
               {/* Address with copy */}
-              <div className="flex items-center justify-between p-2 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200/80 dark:border-white/[0.05] text-[11px]">
+              <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-[#020512] border border-slate-200/80 dark:border-white/[0.06] text-[11px]">
                 <span className="text-slate-500 dark:text-slate-400">Agent Wallet:</span>
                 <div className="flex items-center gap-1.5">
-                  <span className="mono text-slate-700 dark:text-slate-300">
+                  <span className="mono text-slate-700 dark:text-slate-300 font-semibold">
                     {agent.address.slice(0, 6)}…{agent.address.slice(-4)}
                   </span>
                   <button
@@ -539,19 +541,19 @@ export default function AgentRegistryPage({ onHireAgent, isConnected: _isConnect
                   <span className="font-bold text-slate-900 dark:text-white">{agent.reputationScore}/100</span>
                   <span className="text-slate-500 dark:text-slate-400 text-[11px]">({agent.totalCompletedJobs} jobs)</span>
                 </div>
-                <div className="mono font-bold text-slate-800 dark:text-slate-200 text-xs">{agent.priceModel}</div>
+                <div className="mono font-bold text-cyan-600 dark:text-cyan-300 text-xs">{agent.priceModel}</div>
               </div>
 
               <div className="flex gap-2">
                 <button
                   onClick={() => setSelectedAgent(agent)}
-                  className="flex-1 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] dark:text-slate-300 border border-slate-200 dark:border-white/[0.08] transition-colors"
+                  className="flex-1 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.04] dark:hover:bg-white/[0.08] dark:text-slate-300 border border-slate-200 dark:border-white/[0.08] transition-colors"
                 >
                   View Details
                 </button>
                 <button
                   onClick={() => onHireAgent(agent.address)}
-                  className="flex-1 flex items-center justify-center gap-1 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-md shadow-purple-600/25 transition-all hover:scale-[1.01]"
+                  className="flex-1 flex items-center justify-center gap-1 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-md shadow-purple-600/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Hire / Fund</span>

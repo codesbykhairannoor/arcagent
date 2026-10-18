@@ -13,6 +13,7 @@ import EscrowDetailModal from './components/EscrowDetailModal'
 import CreateMilestoneJobModal from './components/CreateMilestoneJobModal'
 import MilestoneJobDetailModal from './components/MilestoneJobDetailModal'
 import EditProfileModal from './components/EditProfileModal'
+import NetworkTicker from './components/NetworkTicker'
 import {
   useUsdcBalance,
   usePendingWithdrawal,
@@ -134,6 +135,9 @@ export default function App() {
         isConnected={!!(isConnected || circleAddress)}
         totalUserContracts={totalUserContracts}
       />
+
+      {/* ── Live Arc Network & Protocol Activity Marquee Ticker ──────── */}
+      <NetworkTicker />
 
       {/* ── Page Routing Content ──────────────────────────────────────── */}
       {currentRoute === 'home' && (

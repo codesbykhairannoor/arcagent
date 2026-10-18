@@ -184,7 +184,11 @@ html.light .glass-card:hover {
   box-shadow: 0 0 25px -4px rgba(16, 185, 129, 0.3);
 }
 
-/* ── Animations ─────────────────────────────────────────────────────────── */
+.glow-aurora {
+  box-shadow: 0 0 45px -8px rgba(6, 182, 212, 0.25), 0 0 35px -8px rgba(139, 92, 246, 0.2);
+}
+
+/* ── Web3 Cyber Animations ──────────────────────────────────────────────── */
 @keyframes pulseSubtle {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.7; transform: scale(0.97); }
@@ -202,6 +206,97 @@ html.light .glass-card:hover {
 
 .animate-beacon {
   animation: beacon 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: floatSlow 5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite linear;
+}
+
+@keyframes borderRotate {
+  0% { --angle: 0deg; }
+  100% { --angle: 360deg; }
+}
+
+/* Cyber Terminal & Spatial Bento Card */
+.spatial-bento {
+  position: relative;
+  border-radius: 1.5rem;
+  background: radial-gradient(120% 120% at 50% 0%, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.015) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.light .spatial-bento {
+  background: radial-gradient(120% 120% at 50% 0%, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.85) 100%);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.05);
+}
+
+.spatial-bento:hover {
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5), 0 0 25px -4px rgba(6, 182, 212, 0.18);
+  transform: translateY(-2px);
+}
+
+html.light .spatial-bento:hover {
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: 0 16px 32px -8px rgba(15, 23, 42, 0.08), 0 0 20px -4px rgba(6, 182, 212, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Glowing Border Beam on Active / Hero Elements */
+.border-beam-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.border-beam-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: conic-gradient(from 180deg at 50% 50%, #06b6d4 0deg, #8b5cf6 90deg, #38bdf8 180deg, #10b981 270deg, #06b6d4 360deg);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0.35;
+  transition: opacity 0.3s ease;
+}
+
+.border-beam-card:hover::before {
+  opacity: 0.75;
+}
+
+/* Live Marquee Ticker Keyframes */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
 /* ==========================================================================

@@ -170,7 +170,7 @@ export default function NanopaymentPanel() {
   }
 
   return (
-    <div className="rounded-3xl glass-panel border border-emerald-500/20 overflow-hidden shadow-2xl shadow-emerald-950/20 transition-colors duration-200">
+    <div className="spatial-bento rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 border-beam-card">
       {/* Header bar */}
       <button
         onClick={() => setOpen(!open)}

@@ -141,14 +141,14 @@ if res.status_code == 402:
     <div className="w-full max-w-7xl mx-auto py-8 px-4 sm:px-6 space-y-12 flex-1 transition-colors duration-200">
       {/* Page Header */}
       <div>
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 mb-2">
-          <Zap className="w-3.5 h-3.5" />
-          <span>HTTP 402 Payment Required Protocol</span>
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 mb-3 shadow-sm">
+          <Zap className="w-3.5 h-3.5 animate-pulse text-emerald-500" />
+          <span>HTTP 402 Payment Required Protocol Engine</span>
         </div>
         <h1 className="display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
           x402 Developer Studio
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-2xl mt-1">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-2xl mt-1.5 leading-relaxed">
           Integrate sub-cent pay-per-call AI endpoints powered by Circle Gateway Nanopayments. Gasless, instant settlement in native USDC on Arc Testnet.
         </p>
       </div>
@@ -156,11 +156,15 @@ if res.status_code == 402:
       {/* Main Interactive Playground */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="display text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <Terminal className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+          <h2 className="display text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center">
+              <Terminal className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            </div>
             <span>Interactive Endpoint Console</span>
           </h2>
-          <span className="text-xs text-slate-500 dark:text-slate-400">Live Backend Test</span>
+          <span className="mono text-[11px] px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-semibold">
+            Live Arc Gateway Sandbox
+          </span>
         </div>
 
         <NanopaymentPanel />
@@ -170,39 +174,41 @@ if res.status_code == 402:
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="display text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <Code2 className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+            <h2 className="display text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center">
+                <Code2 className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+              </div>
               <span>SDK Integration Snippets</span>
             </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Copy-paste code to protect your own AI endpoints with HTTP 402 micro-billing.
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              Drop-in code to protect your own autonomous AI agent endpoints with HTTP 402 micro-billing.
             </p>
           </div>
 
           <button
             onClick={handleCopyCode}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/[0.1] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/[0.08] transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/[0.1] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/[0.08] transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
             {copiedCode ? <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
             <span>{copiedCode ? 'Copied' : 'Copy Code'}</span>
           </button>
         </div>
 
-        <div className="rounded-3xl glass-panel border border-slate-200/80 dark:border-white/[0.08] overflow-hidden">
+        <div className="spatial-bento rounded-3xl overflow-hidden border border-slate-200/80 dark:border-white/[0.08] shadow-2xl">
           {/* Tabs */}
-          <div className="flex items-center justify-between px-5 py-3 border-b border-slate-200/80 dark:border-white/[0.08] bg-slate-50 dark:bg-white/[0.02]">
-            <div className="flex gap-1">
+          <div className="flex items-center justify-between px-5 py-3 border-b border-slate-200/80 dark:border-white/[0.08] bg-slate-50/70 dark:bg-[#030614]">
+            <div className="flex gap-1.5">
               {[
                 { key: 'ts', label: 'TypeScript / Viem' },
                 { key: 'curl', label: 'cURL' },
-                { key: 'python', label: 'Python' },
+                { key: 'python', label: 'Python 3' },
               ].map((t) => (
                 <button
                   key={t.key}
                   onClick={() => setActiveCodeTab(t.key as typeof activeCodeTab)}
-                  className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
                     activeCodeTab === t.key
-                      ? 'bg-purple-600 text-white shadow-sm'
+                      ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-600/20'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
@@ -211,10 +217,10 @@ if res.status_code == 402:
               ))}
             </div>
 
-            <span className="mono text-[11px] text-slate-500">Circle Gateway Batching v3.5</span>
+            <span className="mono text-[11px] text-slate-500 dark:text-slate-400">Circle Gateway Batching v3.5</span>
           </div>
 
-          <pre className="mono text-xs p-5 bg-slate-950 text-slate-200 overflow-x-auto leading-relaxed max-h-[380px]">
+          <pre className="mono text-xs p-6 bg-slate-950 text-cyan-200 overflow-x-auto leading-relaxed max-h-[420px] select-all">
             {codeSnippets[activeCodeTab]}
           </pre>
         </div>
@@ -222,8 +228,8 @@ if res.status_code == 402:
 
       {/* Register New Agent Endpoint Section */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <div className="lg:col-span-5 space-y-4">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20">
+        <div className="lg:col-span-5 spatial-bento p-6 sm:p-7 rounded-3xl space-y-5">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20">
             <Cpu className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
             <span>Monetize Autonomous AI</span>
           </div>
@@ -234,17 +240,17 @@ if res.status_code == 402:
             Expose your AI agent or model endpoint to the decentralized network. When other agents or human clients invoke your URL, payments settle directly into your worker wallet on Arc Testnet without any gas overhead for callers.
           </p>
 
-          <div className="space-y-2.5 pt-2 text-xs text-slate-500 dark:text-slate-400">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+          <div className="space-y-3 pt-2 text-xs text-slate-600 dark:text-slate-300">
+            <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-900/[0.03] dark:bg-[#020512] border border-slate-200 dark:border-white/[0.06]">
+              <CheckCircle2 className="w-4 h-4 text-emerald-500 dark:text-emerald-400 shrink-0" />
               <span>Micro-cent granularity down to $0.0001 USDC</span>
             </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+            <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-900/[0.03] dark:bg-[#020512] border border-slate-200 dark:border-white/[0.06]">
+              <CheckCircle2 className="w-4 h-4 text-emerald-500 dark:text-emerald-400 shrink-0" />
               <span>Circle Gateway handles off-chain batching and on-chain settlement</span>
             </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+            <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-900/[0.03] dark:bg-[#020512] border border-slate-200 dark:border-white/[0.06]">
+              <CheckCircle2 className="w-4 h-4 text-emerald-500 dark:text-emerald-400 shrink-0" />
               <span>Automatic integration with ERC-8004 Identity Registry</span>
             </div>
           </div>
@@ -253,7 +259,7 @@ if res.status_code == 402:
         <div className="lg:col-span-7">
           <form
             onSubmit={handleRegisterService}
-            className="p-6 sm:p-7 rounded-3xl glass-panel border border-slate-200/80 dark:border-white/[0.1] space-y-4 shadow-xl"
+            className="spatial-bento p-6 sm:p-7 rounded-3xl space-y-4 shadow-xl"
           >
             <h3 className="display text-base font-bold text-slate-900 dark:text-white">Endpoint Registration Form</h3>
 
@@ -267,7 +273,7 @@ if res.status_code == 402:
                 onChange={(e) => setRegName(e.target.value)}
                 placeholder="e.g. Code Review Agent v2"
                 required
-                className="w-full px-3.5 py-2 rounded-xl text-xs bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-white focus:outline-none focus:border-cyan-400/50"
+                className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-[#020512] border border-slate-200 dark:border-white/[0.1] text-slate-900 dark:text-white focus:outline-none focus:border-cyan-400/50"
               />
             </div>
 
@@ -282,7 +288,7 @@ if res.status_code == 402:
                   onChange={(e) => setRegEndpoint(e.target.value)}
                   placeholder="https://api.myagent.io/v1/run"
                   required
-                  className="w-full px-3.5 py-2 rounded-xl text-xs bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-white focus:outline-none focus:border-cyan-400/50"
+                  className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-[#020512] border border-slate-200 dark:border-white/[0.1] text-slate-900 dark:text-white focus:outline-none focus:border-cyan-400/50"
                 />
               </div>
 
@@ -296,7 +302,7 @@ if res.status_code == 402:
                   onChange={(e) => setRegPrice(e.target.value)}
                   placeholder="0.001"
                   required
-                  className="w-full px-3.5 py-2 rounded-xl text-xs bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-white focus:outline-none focus:border-cyan-400/50"
+                  className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-[#020512] border border-slate-200 dark:border-white/[0.1] text-slate-900 dark:text-white focus:outline-none focus:border-cyan-400/50"
                 />
               </div>
             </div>
@@ -311,7 +317,7 @@ if res.status_code == 402:
                 onChange={(e) => setRegWorker(e.target.value)}
                 placeholder="0x..."
                 required
-                className="w-full px-3.5 py-2 rounded-xl text-xs bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-white mono focus:outline-none focus:border-cyan-400/50"
+                className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-[#020512] border border-slate-200 dark:border-white/[0.1] text-slate-900 dark:text-white mono focus:outline-none focus:border-cyan-400/50"
               />
             </div>
 
@@ -324,20 +330,20 @@ if res.status_code == 402:
                 onChange={(e) => setRegDesc(e.target.value)}
                 rows={2}
                 placeholder="Describe what input your agent expects and what output it returns..."
-                className="w-full px-3.5 py-2 rounded-xl text-xs bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-white focus:outline-none focus:border-cyan-400/50 resize-none"
+                className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-[#020512] border border-slate-200 dark:border-white/[0.1] text-slate-900 dark:text-white focus:outline-none focus:border-cyan-400/50 resize-none"
               />
             </div>
 
             <button
               type="submit"
               disabled={regSubmitting}
-              className="w-full py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-md transition-all disabled:opacity-50"
+              className="w-full py-3 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-lg shadow-emerald-500/20 transition-all hover:scale-[1.01] active:scale-[0.98] disabled:opacity-50"
             >
               {regSubmitting ? 'Submitting to Registry...' : 'Register Endpoint in Directory'}
             </button>
 
             {regSuccess && (
-              <p className="text-xs text-emerald-600 dark:text-emerald-400 text-center">
+              <p className="text-xs text-emerald-600 dark:text-emerald-400 text-center font-semibold pt-1">
                 ✓ Endpoint registered. Callers can now pay {regPrice} USDC via Circle Gateway.
               </p>
             )}

@@ -224,34 +224,53 @@ export default function MarketplacePage({
         </div>
       </div>
 
-      {/* Protocol Telemetry Counter */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="p-4 rounded-2xl glass-panel border border-slate-200/80 dark:border-white/[0.08]">
-          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-1">
+      {/* Protocol Telemetry Counter Bento Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+        <div className="p-4 sm:p-5 rounded-2xl spatial-bento space-y-1 relative group overflow-hidden">
+          <div className="absolute top-0 right-0 w-16 h-16 bg-purple-500/10 rounded-full blur-xl pointer-events-none group-hover:bg-purple-500/20 transition-all" />
+          <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
             Active Single Escrows
           </span>
-          <div className="display text-2xl font-black text-slate-900 dark:text-white">{escrows.length}</div>
+          <div className="display text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">{escrows.length}</div>
+          <span className="text-[10px] text-purple-600 dark:text-purple-400 font-mono font-medium block">
+            ArcAgentEscrow v3
+          </span>
         </div>
-        <div className="p-4 rounded-2xl glass-panel border border-slate-200/80 dark:border-white/[0.08]">
-          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-1">
+
+        <div className="p-4 sm:p-5 rounded-2xl spatial-bento space-y-1 relative group overflow-hidden">
+          <div className="absolute top-0 right-0 w-16 h-16 bg-cyan-500/10 rounded-full blur-xl pointer-events-none group-hover:bg-cyan-500/20 transition-all" />
+          <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
             Milestone Projects
           </span>
-          <div className="display text-2xl font-black text-cyan-600 dark:text-cyan-300">{jobs.length}</div>
+          <div className="display text-2xl sm:text-3xl font-black text-cyan-600 dark:text-cyan-300">{jobs.length}</div>
+          <span className="text-[10px] text-cyan-600 dark:text-cyan-400 font-mono font-medium block">
+            ArcMilestone v1
+          </span>
         </div>
-        <div className="p-4 rounded-2xl glass-panel border border-slate-200/80 dark:border-white/[0.08]">
-          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-1">
+
+        <div className="p-4 sm:p-5 rounded-2xl spatial-bento space-y-1 relative group overflow-hidden">
+          <div className="absolute top-0 right-0 w-16 h-16 bg-emerald-500/10 rounded-full blur-xl pointer-events-none group-hover:bg-emerald-500/20 transition-all" />
+          <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
             Settlement Asset
           </span>
-          <div className="display text-2xl font-black text-emerald-600 dark:text-emerald-400">USDC</div>
+          <div className="display text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400">USDC</div>
+          <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono font-medium block">
+            Native Gas & Value
+          </span>
         </div>
-        <div className="p-4 rounded-2xl glass-panel border border-slate-200/80 dark:border-white/[0.08]">
-          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-1">
+
+        <div className="p-4 sm:p-5 rounded-2xl spatial-bento space-y-1 relative group overflow-hidden">
+          <div className="absolute top-0 right-0 w-16 h-16 bg-indigo-500/10 rounded-full blur-xl pointer-events-none group-hover:bg-indigo-500/20 transition-all" />
+          <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
             Arc Testnet Status
           </span>
-          <div className="flex items-center gap-1.5 display text-base font-bold text-slate-800 dark:text-slate-200 mt-1">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="flex items-center gap-2 display text-xl sm:text-2xl font-black text-slate-800 dark:text-slate-200">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-sm shadow-emerald-400/50" />
             <span>Online</span>
           </div>
+          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono font-medium block">
+            Chain ID 5042002
+          </span>
         </div>
       </div>
 
@@ -259,7 +278,7 @@ export default function MarketplacePage({
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           {/* Format Type Tabs */}
-          <div className="flex p-1 rounded-2xl glass-panel border border-slate-200/80 dark:border-white/[0.08] shrink-0">
+          <div className="flex p-1.5 rounded-2xl spatial-bento shrink-0 gap-1">
             {[
               { key: 'all', label: 'All Jobs' },
               { key: 'single', label: 'Single Escrows' },
@@ -268,9 +287,9 @@ export default function MarketplacePage({
               <button
                 key={t.key}
                 onClick={() => setTabType(t.key as typeof tabType)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                   tabType === t.key
-                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md'
+                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-600/25'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
@@ -287,7 +306,7 @@ export default function MarketplacePage({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by title, worker, or ID..."
-              className="w-full pl-10 pr-4 py-2 rounded-xl text-xs bg-slate-50 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-400/50 transition-colors"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-[#020512] border border-slate-200/80 dark:border-white/[0.08] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-400/50 transition-colors"
             />
             {searchQuery && (
               <button
@@ -316,10 +335,10 @@ export default function MarketplacePage({
             <button
               key={s.key}
               onClick={() => setStatusFilter(s.key as typeof statusFilter)}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors shrink-0 ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all shrink-0 ${
                 statusFilter === s.key
-                  ? 'bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/40'
-                  : 'bg-slate-100 dark:bg-white/[0.03] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 border border-slate-200 dark:border-white/[0.05]'
+                  ? 'bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/40 font-bold shadow-sm'
+                  : 'bg-slate-100 dark:bg-[#020512] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 border border-slate-200 dark:border-white/[0.06]'
               }`}
             >
               {s.label}

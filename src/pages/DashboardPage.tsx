@@ -241,14 +241,14 @@ export default function DashboardPage({
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6 w-full flex-1 transition-colors duration-200">
       {/* ── Top Workspace Header with User Profile Card ────────────────────── */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-3xl glass-panel border border-slate-200/80 dark:border-white/[0.08] shadow-sm">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 p-6 rounded-3xl spatial-bento border border-slate-200/90 dark:border-white/[0.1] shadow-xl">
         <div className="flex items-center gap-4">
-          {/* Avatar with preset gradient & icon */}
+          {/* Avatar with preset gradient & icon and glowing ring */}
           <div className="relative shrink-0">
             <div
-              className={`w-14 h-14 rounded-2xl bg-gradient-to-tr ${
+              className={`w-16 h-16 rounded-2xl bg-gradient-to-tr ${
                 PRESET_AVATARS.find((p) => p.id === profile.avatar)?.gradient ?? 'from-purple-600 to-indigo-600'
-              } flex items-center justify-center text-2xl shadow-md border-2 border-white dark:border-white/10`}
+              } flex items-center justify-center text-3xl shadow-xl border-2 border-white dark:border-white/10 glow-cyan`}
             >
               {PRESET_AVATARS.find((p) => p.id === profile.avatar)?.icon ?? '👤'}
             </div>
@@ -261,14 +261,14 @@ export default function DashboardPage({
                 {profile.displayName || `${address?.slice(0, 6)}…${address?.slice(-4)}`}
               </h1>
               {profile.handle && (
-                <span className="text-xs font-semibold text-purple-600 dark:text-purple-400">
+                <span className="text-xs font-bold text-purple-600 dark:text-cyan-400">
                   {profile.handle}
                 </span>
               )}
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/25">
                 {profile.primaryRole === 'client' ? '💼 Client Mode' : profile.primaryRole === 'worker' ? '⚡ Worker Mode' : '🔄 Dual Operator'}
               </span>
-              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 <span>Arc Testnet</span>
               </span>
@@ -278,15 +278,15 @@ export default function DashboardPage({
               {profile.bio || 'Web3 escrow & AI agent operator on Arc Testnet.'}
             </p>
 
-            <div className="flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400 flex-wrap pt-0.5">
+            <div className="flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400 flex-wrap pt-0.5 font-mono">
               <span>Address:</span>
-              <span className="mono bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200 dark:border-white/[0.08]">
+              <span className="bg-slate-100 dark:bg-white/[0.06] px-2 py-0.5 rounded-md border border-slate-200 dark:border-white/[0.08] text-slate-800 dark:text-slate-200 font-semibold">
                 {address}
               </span>
               <button
                 onClick={copyAddress}
                 title="Copy wallet address"
-                className="p-1 hover:text-purple-600 dark:hover:text-purple-400 text-slate-400 transition-colors"
+                className="p-1 hover:text-purple-600 dark:hover:text-cyan-400 text-slate-400 transition-colors"
               >
                 {copiedAddr ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
               </button>
@@ -310,9 +310,9 @@ export default function DashboardPage({
         <div className="flex items-center gap-2 shrink-0 self-start md:self-center">
           <button
             onClick={handleOpenEdit}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] dark:text-slate-200 border border-slate-200 dark:border-white/[0.08] transition-all hover:scale-[1.02]"
+            className="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl text-xs font-black bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] dark:text-slate-200 border border-slate-200 dark:border-white/[0.08] transition-all hover:scale-[1.02]"
           >
-            <UserCog className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+            <UserCog className="w-3.5 h-3.5 text-purple-600 dark:text-cyan-400" />
             <span>Edit Profile</span>
           </button>
 
@@ -320,9 +320,9 @@ export default function DashboardPage({
             onClick={refetchAll}
             disabled={isSyncing}
             title="Synchronize on-chain data"
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-white/[0.05] dark:hover:bg-white/[0.1] dark:text-slate-300 border border-slate-200 dark:border-white/[0.08] transition-all disabled:opacity-50"
+            className="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-white/[0.05] dark:hover:bg-white/[0.1] dark:text-slate-300 border border-slate-200 dark:border-white/[0.08] transition-all disabled:opacity-50"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin text-purple-600' : ''}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin text-cyan-500' : ''}`} />
             <span>{isSyncing ? 'Syncing...' : 'Sync'}</span>
           </button>
         </div>
@@ -331,13 +331,13 @@ export default function DashboardPage({
       {/* ── Command Center Hero Row (3 Financial & Network Cards) ─────── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
         {/* Card 1: USDC Balance & Direct Action Shortcuts */}
-        <div className="relative rounded-3xl p-5 sm:p-6 glass-panel border border-purple-500/20 overflow-hidden flex flex-col justify-between">
+        <div className="relative rounded-3xl p-6 spatial-bento border border-purple-500/25 overflow-hidden flex flex-col justify-between hover:scale-[1.01] transition-all shadow-md">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-300">
+              <span className="text-xs font-black uppercase tracking-wider text-purple-600 dark:text-purple-300">
                 USDC Balance
               </span>
-              <span className="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-500/10 px-2 py-0.5 rounded-full border border-cyan-500/20">
+              <span className="text-[11px] font-bold text-cyan-700 dark:text-cyan-300 bg-cyan-500/10 px-2.5 py-0.5 rounded-full border border-cyan-500/20">
                 Settlement Currency
               </span>
             </div>
@@ -346,7 +346,7 @@ export default function DashboardPage({
               <span className="display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tabular-nums tracking-tight">
                 {balanceFmt ?? '0.00'}
               </span>
-              <span className="text-sm font-bold text-slate-500 dark:text-slate-400">USDC</span>
+              <span className="text-sm font-bold text-slate-500 dark:text-slate-400 font-mono">USDC</span>
             </div>
 
             <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
@@ -357,14 +357,14 @@ export default function DashboardPage({
           <div className="flex items-center gap-2 mt-5 pt-4 border-t border-slate-200/80 dark:border-white/[0.08]">
             <button
               onClick={onOpenCreateEscrow}
-              className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white transition-all shadow-md shadow-purple-600/20"
+              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-2xl text-xs font-black bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white transition-all shadow-lg shadow-purple-600/20 hover:scale-[1.01]"
             >
               <Zap className="w-3.5 h-3.5" />
               <span>+ Escrow</span>
             </button>
             <button
               onClick={onOpenCreateMilestone}
-              className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] dark:text-cyan-300 border border-slate-200 dark:border-cyan-500/20 transition-all"
+              className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-2xl text-xs font-black bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] dark:text-cyan-300 border border-slate-200 dark:border-cyan-500/25 transition-all hover:scale-[1.01]"
             >
               <Layers className="w-3.5 h-3.5" />
               <span>+ Milestone</span>
@@ -374,20 +374,20 @@ export default function DashboardPage({
 
         {/* Card 2: Pending Claimable Vault */}
         <div
-          className={`relative rounded-3xl p-5 sm:p-6 glass-panel flex flex-col justify-between transition-all duration-300 ${
+          className={`relative rounded-3xl p-6 spatial-bento flex flex-col justify-between transition-all duration-300 hover:scale-[1.01] ${
             pendingRaw > 0n
-              ? 'border-emerald-500/40 bg-emerald-50 dark:bg-emerald-950/15 shadow-xl shadow-emerald-500/10 dark:shadow-emerald-950/30'
+              ? 'border-emerald-500/50 bg-emerald-50 dark:bg-emerald-950/20 shadow-xl shadow-emerald-500/15 glow-emerald'
               : 'border-slate-200/80 dark:border-white/[0.08]'
           }`}
         >
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+              <span className="text-xs font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
                 <ArrowDownCircle className="w-4 h-4" />
                 Claimable Vault
               </span>
               {pendingRaw > 0n && (
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/40 animate-pulse">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/40 animate-pulse">
                   Funds Available
                 </span>
               )}
@@ -397,7 +397,7 @@ export default function DashboardPage({
               <span className="display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tabular-nums tracking-tight">
                 {pendingFmt ?? '0.00'}
               </span>
-              <span className="text-sm font-bold text-slate-500 dark:text-slate-400">USDC</span>
+              <span className="text-sm font-bold text-slate-500 dark:text-slate-400 font-mono">USDC</span>
             </div>
 
             <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
@@ -412,7 +412,7 @@ export default function DashboardPage({
               <button
                 onClick={handleQuickWithdraw}
                 disabled={withdrawPending || withdrawConfirming}
-                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-extrabold bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-lg shadow-emerald-500/25 transition-all hover:scale-[1.01] active:scale-[0.98] disabled:opacity-50"
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl text-xs font-black bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-xl shadow-emerald-500/30 transition-all hover:scale-[1.01] active:scale-[0.98] disabled:opacity-50"
               >
                 <ArrowDownCircle className="w-4 h-4" />
                 <span>
@@ -434,13 +434,13 @@ export default function DashboardPage({
         </div>
 
         {/* Card 3: Network Telemetry */}
-        <div className="relative rounded-3xl p-5 sm:p-6 glass-panel border border-slate-200/80 dark:border-white/[0.08] flex flex-col justify-between">
+        <div className="relative rounded-3xl p-6 spatial-bento border border-slate-200/80 dark:border-white/[0.08] flex flex-col justify-between hover:scale-[1.01] transition-all shadow-md">
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+              <span className="text-xs font-black uppercase tracking-wider text-slate-600 dark:text-slate-300">
                 Network Telemetry
               </span>
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
             </div>
 
             <div className="space-y-2">
@@ -488,12 +488,12 @@ export default function DashboardPage({
       <div className="space-y-3 pt-2">
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           {/* Tabs */}
-          <div className="flex gap-1 p-1 rounded-2xl glass-panel border border-slate-200/80 dark:border-white/[0.08] overflow-x-auto">
+          <div className="flex gap-1.5 p-1.5 rounded-2xl spatial-bento overflow-x-auto">
             {tabs.map(({ key, label, count, icon }) => (
               <button
                 key={key}
                 onClick={() => setTab(key)}
-                className={`flex items-center gap-2 py-2 px-3.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
+                className={`flex items-center gap-2 py-2 px-4 rounded-xl text-xs font-bold transition-all shrink-0 ${
                   tab === key
                     ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-600/30'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100/60 dark:hover:bg-white/[0.03]'
