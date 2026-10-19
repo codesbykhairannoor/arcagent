@@ -15,8 +15,10 @@ A decentralized micro-escrow and milestone payout platform for human-to-AI and a
 | Contract | Chain | Address | Explorer |
 |---|---|---|---|
 | ArcAgentEscrow v1 | Arc Testnet | 0xf693b3906ac760e3011634e8d1e43ad1a8226fe2 | https://explorer.testnet.arc.io/address/0xf693b3906ac760e3011634e8d1e43ad1a8226fe2 |
-| ArcAgentEscrow v3 (active) | Arc Testnet | 0x761e00783fd733332a0506208413983e1e729493 | https://explorer.testnet.arc.io/address/0x761e00783fd733332a0506208413983e1e729493 |
-| ArcMilestoneEscrow v1 (active) | Arc Testnet | 0x6475145721074298d0b3cbcd79417988dc893d2d | https://explorer.testnet.arc.io/address/0x6475145721074298d0b3cbcd79417988dc893d2d |
+| ArcAgentEscrow v3 | Arc Testnet | 0x761e00783fd733332a0506208413983e1e729493 | https://explorer.testnet.arc.io/address/0x761e00783fd733332a0506208413983e1e729493 |
+| ArcMilestoneEscrow v1 | Arc Testnet | 0x6475145721074298d0b3cbcd79417988dc893d2d | https://explorer.testnet.arc.io/address/0x6475145721074298d0b3cbcd79417988dc893d2d |
+| ArcAgentEscrow (active) | Arc Mainnet | 0x65152f15482856ca9cf279e65696fa5e430ba9ac | https://explorer.arc.io/address/0x65152f15482856ca9cf279e65696fa5e430ba9ac |
+| ArcMilestoneEscrow (active) | Arc Mainnet | 0x873af0e8ca7922709636346d07aa19421bfbe0f0 | https://explorer.arc.io/address/0x873af0e8ca7922709636346d07aa19421bfbe0f0 |
 
 ## Tech Stack
 
@@ -24,8 +26,8 @@ A decentralized micro-escrow and milestone payout platform for human-to-AI and a
 - Web3: wagmi v2, viem v2, ConnectKit
 - Contracts: Solidity 0.8.28 + Foundry. Sources in `contracts/`, unit tests in `contracts/test/*.t.sol`. Build with `bun run contracts:build` (`forge build`), test with `bun run contracts:test` (`forge test`).
 - Wallet: injected (MetaMask, etc.)
-- Chain: Arc Testnet (Chain ID: 5042002, imported from `viem/chains`)
-- Token: USDC (6 decimals) (Address: 0x3600000000000000000000000000000000000000, Chain: Arc Testnet)
+- Chain: Arc Mainnet (Chain ID: 5042) & Arc Testnet (Chain ID: 5042002)
+- Token: USDC (6 decimals) (Address: 0x3600000000000000000000000000000000000000, Native on Arc)
 - Toasts: Sonner
 
 ## Key Files

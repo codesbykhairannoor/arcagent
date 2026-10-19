@@ -1,6 +1,6 @@
 // ArcAgentEscrow ABI — v3 ERC-8183 evaluator/arbiter model, pull-payments
 // Deployed: 0x761e00783fd733332a0506208413983e1e729493 (Arc Testnet)
-export const ESCROW_ADDRESS = '0x761e00783fd733332a0506208413983e1e729493' as `0x${string}`
+export const ESCROW_ADDRESS = '0x65152f15482856ca9cf279e65696fa5e430ba9ac' as `0x${string}`
 
 export const ESCROW_ABI = [
   // ── Events ────────────────────────────────────────────────────────────────

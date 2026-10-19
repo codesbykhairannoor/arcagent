@@ -1,4 +1,4 @@
-export const MILESTONE_ADDRESS = '0x6475145721074298d0b3cbcd79417988dc893d2d' as const
+export const MILESTONE_ADDRESS = '0x873af0e8ca7922709636346d07aa19421bfbe0f0' as const
 
 export const MILESTONE_ABI = [
   { type: 'function', name: 'createJob', stateMutability: 'nonpayable',
