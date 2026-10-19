@@ -120,6 +120,10 @@ function ThemedConnectKitApp() {
       mode={resolvedTheme}
       theme={resolvedTheme === 'dark' ? 'midnight' : 'soft'}
       customTheme={customTheme}
+      options={{
+        initialChainId: 5042002,
+        walletConnectName: 'WalletConnect',
+      }}
     >
       <CircleWalletProvider>
         <App />

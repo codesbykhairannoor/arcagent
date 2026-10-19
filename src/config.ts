@@ -13,34 +13,28 @@
 import { http, createConfig } from 'wagmi'
 import { mainnet } from 'wagmi/chains'
 import { arcTestnet } from 'viem/chains'
-import { injected, coinbaseWallet, walletConnect } from 'wagmi/connectors'
+import { getDefaultConfig } from 'connectkit'
 import { registerChain } from './tracing'
 
 // Pre-register chain RPC URLs so trace events show correct chain names immediately
 registerChain(arcTestnet.id, arcTestnet.rpcUrls.default.http[0])
 
-const wcProjectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID as string | undefined
+// Default WalletConnect Project ID fallback ensures QR modal works on Vercel even if env var was not redeployed yet
+const DEFAULT_WC_PROJECT_ID = 'c0891d12d1bca7289e089af886e1945b'
+const wcProjectId =
+  (import.meta.env.VITE_WALLETCONNECT_PROJECT_ID as string | undefined) || DEFAULT_WC_PROJECT_ID
 
-export const config = createConfig({
-  chains: [arcTestnet, mainnet], // mainnet needed for ENS resolution
-  connectors: [
-    injected(),                                       // MetaMask, Brave, Frame, etc.
-    coinbaseWallet({ appName: 'ArcPact Escrow' }),   // Coinbase Wallet
-    ...(wcProjectId
-      ? [walletConnect({
-          projectId: wcProjectId,
-          showQrModal: false,
-          metadata: {
-            name: 'ArcPact Escrow',
-            description: 'Autonomous micro-escrow and milestone payouts for human and AI work on Arc',
-            url: 'https://i3cv3uqqwcz9ctkturkah.preview.studio.arc.io',
-            icons: ['https://studio.arc.io/favicon.ico'],
-          },
-        })]
-      : []),
-  ],
-  transports: {
-    [arcTestnet.id]: http(),
-    [mainnet.id]: http(), // ENS resolution uses mainnet
-  },
-})
+export const config = createConfig(
+  getDefaultConfig({
+    appName: 'ArcPact Escrow',
+    appDescription: 'Autonomous micro-escrow and milestone payouts for human and AI work on Arc',
+    appUrl: typeof window !== 'undefined' ? window.location.origin : 'https://arcagent.vercel.app',
+    appIcon: 'https://arcagent.vercel.app/favicon.ico',
+    walletConnectProjectId: wcProjectId,
+    chains: [arcTestnet, mainnet], // mainnet needed for ENS resolution
+    transports: {
+      [arcTestnet.id]: http(),
+      [mainnet.id]: http(), // ENS resolution uses mainnet
+    },
+  })
+)
