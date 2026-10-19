@@ -13,11 +13,26 @@
 import { http, createConfig } from 'wagmi'
 import { mainnet } from 'wagmi/chains'
 import { arcTestnet } from 'viem/chains'
+import { defineChain } from 'viem'
 import { getDefaultConfig } from 'connectkit'
 import { registerChain } from './tracing'
 
+// Define official Arc Mainnet
+export const arcMainnet = defineChain({
+  id: 5042,
+  name: 'Arc Mainnet',
+  nativeCurrency: { name: 'USDC', symbol: 'USDC', decimals: 18 },
+  rpcUrls: {
+    default: { http: ['https://rpc.mainnet.arc.io'] },
+  },
+  blockExplorers: {
+    default: { name: 'Arc Explorer', url: 'https://explorer.arc.io' },
+  },
+})
+
 // Pre-register chain RPC URLs so trace events show correct chain names immediately
 registerChain(arcTestnet.id, arcTestnet.rpcUrls.default.http[0])
+registerChain(arcMainnet.id, arcMainnet.rpcUrls.default.http[0])
 
 // Default WalletConnect Project ID fallback ensures QR modal works on Vercel even if env var was not redeployed yet
 const DEFAULT_WC_PROJECT_ID = 'c0891d12d1bca7289e089af886e1945b'
@@ -31,8 +46,9 @@ export const config = createConfig(
     appUrl: typeof window !== 'undefined' ? window.location.origin : 'https://arcagent.vercel.app',
     appIcon: 'https://arcagent.vercel.app/favicon.ico',
     walletConnectProjectId: wcProjectId,
-    chains: [arcTestnet, mainnet], // mainnet needed for ENS resolution
+    chains: [arcMainnet, arcTestnet, mainnet], // Arc Mainnet priority, fallback testnet & mainnet for ENS
     transports: {
+      [arcMainnet.id]: http(),
       [arcTestnet.id]: http(),
       [mainnet.id]: http(), // ENS resolution uses mainnet
     },
