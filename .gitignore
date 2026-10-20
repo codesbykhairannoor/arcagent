@@ -17,6 +17,7 @@ pnpm-debug.log*
 bun.lockb
 *.jsonl
 .system_generated/
+qa-results/
 
 # Environment
 .env
