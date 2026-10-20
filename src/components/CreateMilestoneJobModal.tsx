@@ -92,19 +92,37 @@ export default function CreateMilestoneJobModal({ onClose, onCreated }: Props) {
     new Date(m.deadline).getTime() > nowMs
   )
 
+  const cleanWorker = worker.trim()
+  const cleanEvaluator = evaluatorMode === 'self'
+    ? (address ?? '0x0000000000000000000000000000000000000000')
+    : evaluatorAddr.trim()
+
+  const isWorkerValid = isAddress(cleanWorker, { strict: false })
+  const isEvaluatorValid = evaluatorMode === 'self' || isAddress(cleanEvaluator, { strict: false })
+
+  const targetMilestoneAddress = (chainId === 5042
+    ? '0x873af0e8ca7922709636346d07aa19421bfbe0f0'
+    : '0x6475145721074298d0b3cbcd79417988dc893d2d') as `0x${string}`
+
   const formValid =
-    isAddress(worker) &&
+    isWorkerValid &&
     jobTitle.trim().length > 0 &&
     milestones.length >= 1 &&
     milestonesValid && !overBalance &&
-    (evaluatorMode === 'self' || (isAddress(evaluatorAddr) && evaluatorAddr.toLowerCase() !== worker.toLowerCase()))
+    (evaluatorMode === 'self' || (isEvaluatorValid && cleanEvaluator.toLowerCase() !== cleanWorker.toLowerCase()))
 
   const needsApprove = (milestoneAllowance ?? 0n) < totalAmount
 
   function handleApprove() {
     if (wrongChain) { switchChain({ chainId: ARC_TESTNET_CHAIN_ID }); return }
     if (totalAmount === 0n) return
-    approve({ address: USDC_ADDRESS, abi: erc20Abi, functionName: 'approve', args: [MILESTONE_ADDRESS, totalAmount] })
+    try {
+      approve({ address: USDC_ADDRESS, abi: erc20Abi, functionName: 'approve', args: [targetMilestoneAddress, totalAmount] }, {
+        onError: (err) => { toast.error(err.message?.slice(0, 80) ?? 'Approval failed in wallet') }
+      })
+    } catch (e: any) {
+      toast.error(e?.message ?? 'Approval error')
+    }
   }
 
   function handleCreate() {
@@ -112,22 +130,28 @@ export default function CreateMilestoneJobModal({ onClose, onCreated }: Props) {
     if (!formValid) return
     const evalAddr = evaluatorMode === 'self'
       ? '0x0000000000000000000000000000000000000000' as `0x${string}`
-      : evaluatorAddr as `0x${string}`
+      : cleanEvaluator as `0x${string}`
 
     const milestoneInputs = milestones.map((m) => ({
       amount: parseMilestoneAmount(m.amount)!,
-      title: m.title,
-      description: m.description,
+      title: m.title.trim(),
+      description: m.description.trim(),
       deadline: BigInt(Math.floor(new Date(m.deadline).getTime() / 1000)),
     }))
 
-    create({
-      address: MILESTONE_ADDRESS, abi: MILESTONE_ABI, functionName: 'createJob',
-      args: [
-        { worker: worker, evaluator: evalAddr, jobTitle, splitEnabled },
-        milestoneInputs,
-      ],
-    })
+    try {
+      create({
+        address: targetMilestoneAddress, abi: MILESTONE_ABI, functionName: 'createJob',
+        args: [
+          { worker: cleanWorker as `0x${string}`, evaluator: evalAddr, jobTitle: jobTitle.trim(), splitEnabled },
+          milestoneInputs,
+        ],
+      }, {
+        onError: (err) => { toast.error(err.message?.slice(0, 80) ?? 'Creation failed in wallet') }
+      })
+    } catch (e: any) {
+      toast.error(e?.message ?? 'Creation error')
+    }
   }
 
   function addMilestone() {
@@ -315,8 +339,8 @@ export default function CreateMilestoneJobModal({ onClose, onCreated }: Props) {
                   border: `1px solid ${splitEnabled ? 'var(--violet)' : 'var(--border)'}`,
                 }}>
                 <div className="text-left">
-                  <p className="text-sm font-semibold" style={{ color: splitEnabled ? 'var(--violet)' : 'var(--ink)' }}>Protocol Split</p>
-                  <p className="text-xs" style={{ color: 'var(--subtle)' }}>90% Worker · 10% Treasury per milestone</p>
+                  <p className="text-sm font-semibold" style={{ color: splitEnabled ? 'var(--violet)' : 'var(--ink)' }}>Protocol Protection</p>
+                  <p className="text-xs" style={{ color: 'var(--subtle)' }}>Automated on-chain escrow & arbitration coverage</p>
                 </div>
                 <div className="w-10 h-5 rounded-full relative transition-all"
                   style={{ background: splitEnabled ? 'var(--violet)' : 'var(--surface-muted)' }}>

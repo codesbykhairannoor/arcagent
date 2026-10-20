@@ -97,6 +97,18 @@ export default function CreateEscrowModal({ onClose, onCreated, initialWorker }:
     toast.success('Template saved!')
   }
 
+  const cleanWorker = worker.trim()
+  const cleanEvaluator = evaluatorMode === 'self'
+    ? (address ?? '0x0000000000000000000000000000000000000000')
+    : evaluatorAddr.trim()
+
+  const isWorkerValid = isAddress(cleanWorker, { strict: false })
+  const isEvaluatorValid = evaluatorMode === 'self' || isAddress(cleanEvaluator, { strict: false })
+
+  const targetEscrowAddress = (chainId === 5042
+    ? '0x65152f15482856ca9cf279e65696fa5e430ba9ac'
+    : '0x761e00783fd733332a0506208413983e1e729493') as `0x${string}`
+
   function parsedAmount(): bigint | null {
     const n = parseFloat(amount)
     if (!isFinite(n) || n <= 0) return null
@@ -110,23 +122,33 @@ export default function CreateEscrowModal({ onClose, onCreated, initialWorker }:
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const nowMs = useMemo(() => Date.now(), [deadline])
 
-  const resolvedEvaluator = evaluatorMode === 'self'
-    ? (address ?? '0x0000000000000000000000000000000000000000')
-    : evaluatorAddr
-
   const formValid =
-    isAddress(worker) && !!parsedAmount() && !overBalance &&
+    isWorkerValid && !!parsedAmount() && !overBalance &&
     title.trim().length > 0 && deadline !== '' &&
+    !isNaN(new Date(deadline).getTime()) &&
     new Date(deadline).getTime() > nowMs &&
-    (evaluatorMode === 'self' || isAddress(resolvedEvaluator)) &&
-    (evaluatorMode === 'self' || resolvedEvaluator.toLowerCase() !== worker.toLowerCase())
+    isEvaluatorValid &&
+    (evaluatorMode === 'self' || cleanEvaluator.toLowerCase() !== cleanWorker.toLowerCase())
 
   const needsApprove = (() => { const amt = parsedAmount(); if (!amt) return false; return allowance < amt })()
 
   function handleApprove() {
     if (wrongChain) { switchChain({ chainId: ARC_TESTNET_CHAIN_ID }); return }
     const amt = parsedAmount(); if (!amt) return
-    approve({ address: USDC_ADDRESS, abi: erc20Abi, functionName: 'approve', args: [ESCROW_ADDRESS, amt] })
+    try {
+      approve({
+        address: USDC_ADDRESS,
+        abi: erc20Abi,
+        functionName: 'approve',
+        args: [targetEscrowAddress, amt],
+      }, {
+        onError: (err) => {
+          toast.error(err.message?.slice(0, 80) ?? 'Approval failed in wallet')
+        }
+      })
+    } catch (e: any) {
+      toast.error(e?.message ?? 'Approval error')
+    }
   }
 
   function handleCreate() {
@@ -135,11 +157,19 @@ export default function CreateEscrowModal({ onClose, onCreated, initialWorker }:
     const deadlineTs = BigInt(Math.floor(new Date(deadline).getTime() / 1000))
     const evalAddr = evaluatorMode === 'self'
       ? '0x0000000000000000000000000000000000000000' as `0x${string}`
-      : resolvedEvaluator as `0x${string}`
-    create({
-      address: ESCROW_ADDRESS, abi: ESCROW_ABI, functionName: 'createEscrow',
-      args: [worker, evalAddr, amt, title, description, deadlineTs, splitEnabled],
-    })
+      : cleanEvaluator as `0x${string}`
+    try {
+      create({
+        address: targetEscrowAddress, abi: ESCROW_ABI, functionName: 'createEscrow',
+        args: [cleanWorker as `0x${string}`, evalAddr, amt, title.trim(), description.trim(), deadlineTs, splitEnabled],
+      }, {
+        onError: (err) => {
+          toast.error(err.message?.slice(0, 80) ?? 'Creation failed in wallet')
+        }
+      })
+    } catch (e: any) {
+      toast.error(e?.message ?? 'Creation error')
+    }
   }
 
   const isLoading = approvePending || approveConfirming || createPending || createConfirming
@@ -288,7 +318,7 @@ export default function CreateEscrowModal({ onClose, onCreated, initialWorker }:
                 <label className="text-xs font-semibold mb-1.5 block" style={{ color: 'var(--muted)' }}>Worker Address</label>
                 <input value={worker} onChange={(e) => setWorker(e.target.value)} placeholder="0x..."
                   className="mono w-full px-3 py-2.5 rounded-xl text-xs outline-none"
-                  style={{ background: 'var(--surface)', border: `1px solid ${worker && !isAddress(worker) ? 'var(--danger)' : 'var(--border)'}`, color: 'var(--ink)' }} />
+                  style={{ background: 'var(--surface)', border: `1px solid ${cleanWorker && !isWorkerValid ? 'var(--danger)' : 'var(--border)'}`, color: 'var(--ink)' }} />
               </div>
 
               {/* Evaluator */}
@@ -314,7 +344,7 @@ export default function CreateEscrowModal({ onClose, onCreated, initialWorker }:
                   <input value={evaluatorAddr} onChange={(e) => setEvaluatorAddr(e.target.value)}
                     placeholder="Arbiter address 0x..."
                     className="mono w-full px-3 py-2.5 rounded-xl text-xs outline-none"
-                    style={{ background: 'var(--surface)', border: `1px solid ${evaluatorAddr && !isAddress(evaluatorAddr) ? 'var(--danger)' : 'var(--border)'}`, color: 'var(--ink)' }} />
+                    style={{ background: 'var(--surface)', border: `1px solid ${evaluatorAddr.trim() && !isEvaluatorValid ? 'var(--danger)' : 'var(--border)'}`, color: 'var(--ink)' }} />
                 )}
                 <p className="text-xs mt-1.5" style={{ color: 'var(--subtle)' }}>
                   {evaluatorMode === 'self'
@@ -371,8 +401,8 @@ export default function CreateEscrowModal({ onClose, onCreated, initialWorker }:
                   border: `1px solid ${splitEnabled ? 'var(--violet)' : 'var(--border)'}`,
                 }}>
                 <div className="text-left">
-                  <p className="text-sm font-semibold" style={{ color: splitEnabled ? 'var(--violet)' : 'var(--ink)' }}>Protocol Split</p>
-                  <p className="text-xs" style={{ color: 'var(--subtle)' }}>90% Worker · 10% Treasury</p>
+                  <p className="text-sm font-semibold" style={{ color: splitEnabled ? 'var(--violet)' : 'var(--ink)' }}>Protocol Protection</p>
+                  <p className="text-xs" style={{ color: 'var(--subtle)' }}>Automated on-chain escrow & arbitration coverage</p>
                 </div>
                 <div className="w-10 h-5 rounded-full relative transition-all"
                   style={{ background: splitEnabled ? 'var(--violet)' : 'var(--surface-muted)' }}>
@@ -380,6 +410,18 @@ export default function CreateEscrowModal({ onClose, onCreated, initialWorker }:
                     style={{ left: splitEnabled ? '1.35rem' : '0.125rem' }} />
                 </div>
               </button>
+
+              {!formValid && (
+                <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-600 dark:text-amber-400 font-medium text-center">
+                  {!isWorkerValid ? '⚠️ Masukkan alamat Worker (0x...) yang valid' :
+                   !parsedAmount() ? '⚠️ Masukkan jumlah USDC' :
+                   overBalance ? '⚠️ Jumlah melebihi saldo dompet' :
+                   title.trim().length === 0 ? '⚠️ Masukkan judul tugas' :
+                   deadline === '' || isNaN(new Date(deadline).getTime()) || new Date(deadline).getTime() <= nowMs ? '⚠️ Pilih tanggal deadline masa depan' :
+                   !isEvaluatorValid ? '⚠️ Alamat Evaluator / Arbiter tidak valid' :
+                   '⚠️ Mohon lengkapi formulir'}
+                </div>
+              )}
 
               {/* Action buttons */}
               {step === 'approve' ? (

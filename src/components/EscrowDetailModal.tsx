@@ -201,7 +201,7 @@ export default function EscrowDetailModal({ escrow, onClose, onAction }: Props) 
                 {amountFormatted} <span className="text-lg" style={{ color: 'var(--subtle)' }}>USDC</span>
               </p>
               {escrow.splitEnabled && (
-                <p className="text-xs mt-1" style={{ color: 'var(--violet)' }}>Protocol split enabled · 90% worker / 10% treasury</p>
+                <p className="text-xs mt-1" style={{ color: 'var(--violet)' }}>Protocol protection active</p>
               )}
             </div>
 
