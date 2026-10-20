@@ -411,18 +411,6 @@ export default function CreateEscrowModal({ onClose, onCreated, initialWorker }:
                 </div>
               </button>
 
-              {!formValid && (
-                <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-600 dark:text-amber-400 font-medium text-center">
-                  {!isWorkerValid ? '⚠️ Masukkan alamat Worker (0x...) yang valid' :
-                   !parsedAmount() ? '⚠️ Masukkan jumlah USDC' :
-                   overBalance ? '⚠️ Jumlah melebihi saldo dompet' :
-                   title.trim().length === 0 ? '⚠️ Masukkan judul tugas' :
-                   deadline === '' || isNaN(new Date(deadline).getTime()) || new Date(deadline).getTime() <= nowMs ? '⚠️ Pilih tanggal deadline masa depan' :
-                   !isEvaluatorValid ? '⚠️ Alamat Evaluator / Arbiter tidak valid' :
-                   '⚠️ Mohon lengkapi formulir'}
-                </div>
-              )}
-
               {/* Action buttons */}
               {step === 'approve' ? (
                 needsApprove ? (
