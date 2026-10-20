@@ -327,7 +327,7 @@ export default function CreateEscrowModal({ onClose, onCreated, initialWorker }:
                 <label className="text-xs font-semibold mb-1.5 block" style={{ color: 'var(--muted)' }}>Worker Address</label>
                 <input value={worker} onChange={(e) => setWorker(e.target.value)} placeholder="0x..."
                   className="mono w-full px-3 py-2.5 rounded-xl text-xs outline-none"
-                  style={{ background: 'var(--surface)', border: `1px solid ${cleanWorker && !isWorkerValid ? 'var(--danger)' : 'var(--border)'}`, color: 'var(--ink)' }} />
+                  style={{ background: 'var(--surface)', border: `1px solid ${worker.trim() && !isWorkerValid ? 'var(--danger)' : 'var(--border)'}`, color: 'var(--ink)' }} />
               </div>
 
               {/* Evaluator */}
