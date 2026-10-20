@@ -1,10 +1,17 @@
-import { useReadContract, useReadContracts } from 'wagmi'
+import { useReadContract, useReadContracts, useAccount } from 'wagmi'
 import { erc20Abi } from 'viem'
-import { ESCROW_ADDRESS, ESCROW_ABI } from './EscrowABI'
+import { ESCROW_ADDRESS, ESCROW_ABI, getEscrowAddress, ARC_TESTNET_CHAIN_ID, ARC_MAINNET_CHAIN_ID } from './EscrowABI'
 import { getUsdc } from '@/onchain-facts'
 
-export const ARC_TESTNET_CHAIN_ID = 5042002
-const USDC_ADDRESS = getUsdc(ARC_TESTNET_CHAIN_ID)!.address as `0x${string}`
+export { ARC_TESTNET_CHAIN_ID, ARC_MAINNET_CHAIN_ID }
+
+const DEFAULT_USDC_ADDRESS = getUsdc(ARC_TESTNET_CHAIN_ID)!.address as `0x${string}`
+
+export function useActiveChainId() {
+  const { chainId } = useAccount()
+  if (chainId === ARC_MAINNET_CHAIN_ID) return ARC_MAINNET_CHAIN_ID
+  return ARC_TESTNET_CHAIN_ID
+}
 
 // ── Status helpers ─────────────────────────────────────────────────────────────
 // Funded=0 Submitted=1 Disputed=2 Completed=3 Refunded=4 Expired=5
@@ -49,13 +56,15 @@ export interface EscrowData {
 
 // ── Hooks ──────────────────────────────────────────────────────────────────────
 export function useUsdcBalance(address: `0x${string}` | undefined) {
+  const activeChainId = useActiveChainId()
+  const usdcAddress = (getUsdc(activeChainId)?.address as `0x${string}` | undefined) ?? DEFAULT_USDC_ADDRESS
   const { data, isLoading, refetch } = useReadContract({
-    address: USDC_ADDRESS,
+    address: usdcAddress,
     abi: erc20Abi,
     functionName: 'balanceOf',
     args: address ? [address] : undefined,
     query: { enabled: !!address },
-    chainId: ARC_TESTNET_CHAIN_ID,
+    chainId: activeChainId,
   })
   return {
     raw: data ?? 0n,
@@ -66,13 +75,15 @@ export function useUsdcBalance(address: `0x${string}` | undefined) {
 }
 
 export function usePendingWithdrawal(address: `0x${string}` | undefined) {
+  const activeChainId = useActiveChainId()
+  const escrowAddr = getEscrowAddress(activeChainId)
   const { data, isLoading, refetch } = useReadContract({
-    address: ESCROW_ADDRESS,
+    address: escrowAddr,
     abi: ESCROW_ABI,
     functionName: 'pendingWithdrawals',
     args: address ? [address] : undefined,
     query: { enabled: !!address },
-    chainId: ARC_TESTNET_CHAIN_ID,
+    chainId: activeChainId,
   })
   return {
     raw: data ?? 0n,
@@ -83,48 +94,56 @@ export function usePendingWithdrawal(address: `0x${string}` | undefined) {
 }
 
 export function useClientEscrows(address: `0x${string}` | undefined) {
+  const activeChainId = useActiveChainId()
+  const escrowAddr = getEscrowAddress(activeChainId)
   const { data, refetch } = useReadContract({
-    address: ESCROW_ADDRESS,
+    address: escrowAddr,
     abi: ESCROW_ABI,
     functionName: 'getClientEscrows',
     args: address ? [address] : undefined,
     query: { enabled: !!address },
-    chainId: ARC_TESTNET_CHAIN_ID,
+    chainId: activeChainId,
   })
   return { ids: (data ?? []), refetch }
 }
 
 export function useWorkerEscrows(address: `0x${string}` | undefined) {
+  const activeChainId = useActiveChainId()
+  const escrowAddr = getEscrowAddress(activeChainId)
   const { data, refetch } = useReadContract({
-    address: ESCROW_ADDRESS,
+    address: escrowAddr,
     abi: ESCROW_ABI,
     functionName: 'getWorkerEscrows',
     args: address ? [address] : undefined,
     query: { enabled: !!address },
-    chainId: ARC_TESTNET_CHAIN_ID,
+    chainId: activeChainId,
   })
   return { ids: (data ?? []), refetch }
 }
 
 export function useEvaluatorEscrows(address: `0x${string}` | undefined) {
+  const activeChainId = useActiveChainId()
+  const escrowAddr = getEscrowAddress(activeChainId)
   const { data, refetch } = useReadContract({
-    address: ESCROW_ADDRESS,
+    address: escrowAddr,
     abi: ESCROW_ABI,
     functionName: 'getEvaluatorEscrows',
     args: address ? [address] : undefined,
     query: { enabled: !!address },
-    chainId: ARC_TESTNET_CHAIN_ID,
+    chainId: activeChainId,
   })
   return { ids: (data ?? []), refetch }
 }
 
 export function useEscrows(ids: readonly bigint[]) {
+  const activeChainId = useActiveChainId()
+  const escrowAddr = getEscrowAddress(activeChainId)
   const contracts = ids.map((id) => ({
-    address: ESCROW_ADDRESS,
+    address: escrowAddr,
     abi: ESCROW_ABI,
     functionName: 'getEscrow' as const,
     args: [id] as const,
-    chainId: ARC_TESTNET_CHAIN_ID,
+    chainId: activeChainId,
   }))
 
   const { data, isLoading, refetch } = useReadContracts({
@@ -145,13 +164,16 @@ export function useEscrows(ids: readonly bigint[]) {
 }
 
 export function useUsdcAllowance(owner: `0x${string}` | undefined) {
+  const activeChainId = useActiveChainId()
+  const escrowAddr = getEscrowAddress(activeChainId)
+  const usdcAddress = (getUsdc(activeChainId)?.address as `0x${string}` | undefined) ?? DEFAULT_USDC_ADDRESS
   const { data, refetch } = useReadContract({
-    address: USDC_ADDRESS,
+    address: usdcAddress,
     abi: erc20Abi,
     functionName: 'allowance',
-    args: owner ? [owner, ESCROW_ADDRESS] : undefined,
+    args: owner ? [owner, escrowAddr] : undefined,
     query: { enabled: !!owner },
-    chainId: ARC_TESTNET_CHAIN_ID,
+    chainId: activeChainId,
   })
   return { allowance: data ?? 0n, refetch }
 }

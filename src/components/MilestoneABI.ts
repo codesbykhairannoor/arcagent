@@ -1,4 +1,14 @@
-export const MILESTONE_ADDRESS = '0x873af0e8ca7922709636346d07aa19421bfbe0f0' as const
+export const MILESTONE_ADDRESSES: Record<number, `0x${string}`> = {
+  5042: '0x873af0e8ca7922709636346d07aa19421bfbe0f0', // Arc Mainnet
+  5042002: '0x6475145721074298d0b3cbcd79417988dc893d2d', // Arc Testnet
+}
+
+export function getMilestoneAddress(chainId?: number): `0x${string}` {
+  if (chainId && MILESTONE_ADDRESSES[chainId]) return MILESTONE_ADDRESSES[chainId]
+  return '0x6475145721074298d0b3cbcd79417988dc893d2d'
+}
+
+export const MILESTONE_ADDRESS = '0x6475145721074298d0b3cbcd79417988dc893d2d' as const
 
 export const MILESTONE_ABI = [
   { type: 'function', name: 'createJob', stateMutability: 'nonpayable',

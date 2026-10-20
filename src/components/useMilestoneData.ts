@@ -1,6 +1,6 @@
 import { useReadContract, useReadContracts } from 'wagmi'
-import { MILESTONE_ADDRESS, MILESTONE_ABI } from './MilestoneABI'
-import { ARC_TESTNET_CHAIN_ID } from './useEscrowData'
+import { MILESTONE_ADDRESS, MILESTONE_ABI, getMilestoneAddress } from './MilestoneABI'
+import { useActiveChainId } from './useEscrowData'
 
 export interface JobData {
   jobId: bigint
@@ -44,29 +44,35 @@ export function milestoneStatusColor(n: number): string {
 }
 
 export function useClientJobs(address: `0x${string}` | undefined) {
+  const activeChainId = useActiveChainId()
+  const milestoneAddr = getMilestoneAddress(activeChainId)
   const { data, refetch } = useReadContract({
-    address: MILESTONE_ADDRESS, abi: MILESTONE_ABI, functionName: 'getClientJobs',
+    address: milestoneAddr, abi: MILESTONE_ABI, functionName: 'getClientJobs',
     args: address ? [address] : undefined,
-    query: { enabled: !!address }, chainId: ARC_TESTNET_CHAIN_ID,
+    query: { enabled: !!address }, chainId: activeChainId,
   })
   return { ids: data ?? [], refetch }
 }
 
 export function useWorkerJobs(address: `0x${string}` | undefined) {
+  const activeChainId = useActiveChainId()
+  const milestoneAddr = getMilestoneAddress(activeChainId)
   const { data, refetch } = useReadContract({
-    address: MILESTONE_ADDRESS, abi: MILESTONE_ABI, functionName: 'getWorkerJobs',
+    address: milestoneAddr, abi: MILESTONE_ABI, functionName: 'getWorkerJobs',
     args: address ? [address] : undefined,
-    query: { enabled: !!address }, chainId: ARC_TESTNET_CHAIN_ID,
+    query: { enabled: !!address }, chainId: activeChainId,
   })
   return { ids: data ?? [], refetch }
 }
 
 export function useJobs(ids: readonly bigint[]) {
+  const activeChainId = useActiveChainId()
+  const milestoneAddr = getMilestoneAddress(activeChainId)
   const { data, isLoading, refetch } = useReadContracts({
     contracts: ids.map((id) => ({
-      address: MILESTONE_ADDRESS, abi: MILESTONE_ABI,
+      address: milestoneAddr, abi: MILESTONE_ABI,
       functionName: 'getJob' as const, args: [id] as const,
-      chainId: ARC_TESTNET_CHAIN_ID,
+      chainId: activeChainId,
     })),
     query: { enabled: ids.length > 0 },
   })
@@ -78,19 +84,23 @@ export function useJobs(ids: readonly bigint[]) {
 }
 
 export function useMilestones(jobId: bigint | undefined) {
+  const activeChainId = useActiveChainId()
+  const milestoneAddr = getMilestoneAddress(activeChainId)
   const { data, isLoading, refetch } = useReadContract({
-    address: MILESTONE_ADDRESS, abi: MILESTONE_ABI, functionName: 'getMilestones',
+    address: milestoneAddr, abi: MILESTONE_ABI, functionName: 'getMilestones',
     args: jobId !== undefined ? [jobId] : undefined,
-    query: { enabled: jobId !== undefined }, chainId: ARC_TESTNET_CHAIN_ID,
+    query: { enabled: jobId !== undefined }, chainId: activeChainId,
   })
   return { milestones: (data ?? []) as MilestoneData[], isLoading, refetch }
 }
 
 export function useMilestonePendingWithdrawal(address: `0x${string}` | undefined) {
+  const activeChainId = useActiveChainId()
+  const milestoneAddr = getMilestoneAddress(activeChainId)
   const { data, refetch } = useReadContract({
-    address: MILESTONE_ADDRESS, abi: MILESTONE_ABI, functionName: 'pendingWithdrawals',
+    address: milestoneAddr, abi: MILESTONE_ABI, functionName: 'pendingWithdrawals',
     args: address ? [address] : undefined,
-    query: { enabled: !!address }, chainId: ARC_TESTNET_CHAIN_ID,
+    query: { enabled: !!address }, chainId: activeChainId,
   })
   return { raw: data ?? 0n, refetch }
 }
