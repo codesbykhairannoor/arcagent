@@ -7,11 +7,22 @@ import { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Plus, Trash2, Loader2, CheckCircle, ExternalLink, Shield, ChevronDown, ChevronUp } from 'lucide-react'
 import { useAccount, useWriteContract, useWaitForTransactionReceipt, useSwitchChain, useReadContract } from 'wagmi'
-import { erc20Abi, isAddress } from 'viem'
+import { erc20Abi, isAddress, getAddress } from 'viem'
 import { toast } from 'sonner'
 import { MILESTONE_ADDRESS, MILESTONE_ABI } from './MilestoneABI'
 import { useUsdcBalance, ARC_TESTNET_CHAIN_ID } from './useEscrowData'
 import { getUsdc, buildTxExplorerUrl } from '@/onchain-facts'
+
+function safeAddress(addr: string | undefined): `0x${string}` | null {
+  if (!addr) return null
+  try {
+    const clean = addr.trim().toLowerCase()
+    if (!isAddress(clean)) return null
+    return getAddress(clean)
+  } catch {
+    return null
+  }
+}
 
 const USDC_ADDRESS = getUsdc(ARC_TESTNET_CHAIN_ID)!.address as `0x${string}`
 const MAX_MILESTONES = 20
@@ -92,13 +103,13 @@ export default function CreateMilestoneJobModal({ onClose, onCreated }: Props) {
     new Date(m.deadline).getTime() > nowMs
   )
 
-  const cleanWorker = worker.trim()
-  const cleanEvaluator = evaluatorMode === 'self'
-    ? (address ?? '0x0000000000000000000000000000000000000000')
-    : evaluatorAddr.trim()
+  const safeWorker = safeAddress(worker)
+  const isWorkerValid = !!safeWorker
 
-  const isWorkerValid = isAddress(cleanWorker, { strict: false })
-  const isEvaluatorValid = evaluatorMode === 'self' || isAddress(cleanEvaluator, { strict: false })
+  const safeEvaluator = evaluatorMode === 'self'
+    ? ('0x0000000000000000000000000000000000000000' as `0x${string}`)
+    : safeAddress(evaluatorAddr)
+  const isEvaluatorValid = evaluatorMode === 'self' || !!safeEvaluator
 
   const targetMilestoneAddress = (chainId === 5042
     ? '0x873af0e8ca7922709636346d07aa19421bfbe0f0'
@@ -109,7 +120,7 @@ export default function CreateMilestoneJobModal({ onClose, onCreated }: Props) {
     jobTitle.trim().length > 0 &&
     milestones.length >= 1 &&
     milestonesValid && !overBalance &&
-    (evaluatorMode === 'self' || (isEvaluatorValid && cleanEvaluator.toLowerCase() !== cleanWorker.toLowerCase()))
+    (evaluatorMode === 'self' || (safeEvaluator !== null && safeWorker !== null && safeEvaluator.toLowerCase() !== safeWorker.toLowerCase()))
 
   const needsApprove = (milestoneAllowance ?? 0n) < totalAmount
 
@@ -127,10 +138,8 @@ export default function CreateMilestoneJobModal({ onClose, onCreated }: Props) {
 
   function handleCreate() {
     if (wrongChain) { switchChain({ chainId: ARC_TESTNET_CHAIN_ID }); return }
-    if (!formValid) return
-    const evalAddr = evaluatorMode === 'self'
-      ? '0x0000000000000000000000000000000000000000' as `0x${string}`
-      : cleanEvaluator as `0x${string}`
+    if (!formValid || !safeWorker) return
+    const evalAddr = safeEvaluator ?? ('0x0000000000000000000000000000000000000000' as `0x${string}`)
 
     const milestoneInputs = milestones.map((m) => ({
       amount: parseMilestoneAmount(m.amount)!,
@@ -143,7 +152,7 @@ export default function CreateMilestoneJobModal({ onClose, onCreated }: Props) {
       create({
         address: targetMilestoneAddress, abi: MILESTONE_ABI, functionName: 'createJob',
         args: [
-          { worker: cleanWorker as `0x${string}`, evaluator: evalAddr, jobTitle: jobTitle.trim(), splitEnabled },
+          { worker: safeWorker, evaluator: evalAddr, jobTitle: jobTitle.trim(), splitEnabled },
           milestoneInputs,
         ],
       }, {

@@ -45,7 +45,7 @@ export const REGISTERED_AGENTS: AgentEntry[] = [
     framework: 'ElizaOS',
     category: 'audit',
     role: 'Autonomous Smart Contract Auditor',
-    address: '0x3A9F5e98B82eD3301B27b1652fDE3E45277182a1',
+    address: '0x3A9F5e98B82eD3301b27b1652FdE3e45277182A1',
     description:
       'Continuous bytecode and AST security analysis. Automated invariant testing and reentrancy vulnerability detection.',
     capabilities: ['Solidity 0.8+', 'Foundry Fuzzing', 'Slither Rules', 'Reentrancy Guard'],
@@ -62,7 +62,7 @@ export const REGISTERED_AGENTS: AgentEntry[] = [
     framework: 'AutoGen',
     category: 'data',
     role: 'On-Chain DEX & Liquidity Telemetry',
-    address: '0x71BC392b45070A678e227d8D105D172A253694e2',
+    address: '0x71bc392b45070a678E227D8d105d172A253694e2',
     description:
       'High-frequency pool liquidity tracker across EVM rollups. Provides structured JSON data commits directly to IPFS.',
     capabilities: ['GraphQL Subgraphs', 'IPFS CID Export', 'Real-time Gas Feed'],
@@ -79,7 +79,7 @@ export const REGISTERED_AGENTS: AgentEntry[] = [
     framework: 'CrewAI',
     category: 'translation',
     role: 'Technical Docs Localization Engine',
-    address: '0x5D4A220914948F89A5A43c8d4512D157A3A690bF',
+    address: '0x5D4a220914948F89a5a43C8d4512D157a3A690bf',
     description:
       'Preserves code snippets and markdown AST while accurately localizing crypto docs into 14 languages.',
     capabilities: ['AST Markdown Preserving', 'Glossary Locking', 'Git Commit Integration'],
@@ -94,7 +94,7 @@ export const REGISTERED_AGENTS: AgentEntry[] = [
     name: 'OracleWatch Synthesizer',
     category: 'data',
     role: 'Cross-Chain Price Drift Detector',
-    address: '0x992b8C2a188f4B04C52A200028e214150b077a19',
+    address: '0x992B8c2A188F4b04c52a200028e214150b077a19',
     description:
       'Detects Pyth and Chainlink round discrepancies. Generates proof-of-drift hash packages for escrow evaluation.',
     capabilities: ['Pyth Network', 'Chainlink Feeds', 'Uniswap v3 TWAP'],
@@ -110,7 +110,7 @@ export const REGISTERED_AGENTS: AgentEntry[] = [
     name: 'EVM Gas Optimizer Bot',
     category: 'audit',
     role: 'Assembly & Storage Layout Refactorer',
-    address: '0xb563DeB02Bca96C75373a08c02B21008C39D80f4',
+    address: '0xb563dEb02BcA96C75373a08C02b21008c39d80F4',
     description:
       'Analyzes Yul representations and packed storage slots to reduce deployment and execution gas costs.',
     capabilities: ['Yul Inlining', 'Slot Packing', 'Transient Storage EIP-1153'],
@@ -125,7 +125,7 @@ export const REGISTERED_AGENTS: AgentEntry[] = [
     name: 'ZkProof Verifier Agent',
     category: 'general',
     role: 'SNARK/STARK Proof Evaluation Service',
-    address: '0x17A208573BCf1244C3c5453eA6094A5590bC3981',
+    address: '0x17a208573Bcf1244c3C5453ea6094A5590BC3981',
     description:
       'Off-chain Groth16 and Plonk proof verification with succinct deliverable receipt committed to escrow.',
     capabilities: ['Circom / SnarkJS', 'Halo2 Proofs', 'Verification Key Diffing'],
@@ -142,7 +142,7 @@ export const REGISTERED_AGENTS: AgentEntry[] = [
     framework: 'Moltbot',
     category: 'general',
     role: 'Local-First Code & Terminal Automation Agent',
-    address: '0x8B750e5015b6bCc51778c18751411D467dF65C01',
+    address: '0x8B750e5015B6bcc51778c18751411D467DF65c01',
     description:
       'Powered by the Moltbot open-source personal AI agent engine. Executes shell scripts, code refactoring, and automated Git pull requests with SHA-256 deliverable attestation.',
     capabilities: ['Moltbot v2 Agent', 'Multi-Channel Inbox', 'GitHub PR Committer', 'Automated Bash/Docker Tasks'],
@@ -159,7 +159,7 @@ export const REGISTERED_AGENTS: AgentEntry[] = [
     framework: 'BotWorld',
     category: 'data',
     role: 'Autonomous Social & On-Chain Market Intelligence Swarm',
-    address: '0x3E90a98D203405781a7FeB2bA11928374d924152',
+    address: '0x3E90a98d203405781a7feB2bA11928374d924152',
     description:
       'Connected to the BotWorld autonomous agent network. Scans agent sentiment, whale liquidity shifts, and social signals, generating cryptographic research digests for escrow release.',
     capabilities: ['BotWorld Swarm API', 'Agent Social Sentiment', 'Whale Tracking', 'IPFS SHA-256 Attestation'],

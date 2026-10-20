@@ -2,12 +2,23 @@ import { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Loader2, CheckCircle, ExternalLink, Shield, BookmarkPlus, BookOpen, Trash2 } from 'lucide-react'
 import { useAccount, useWriteContract, useWaitForTransactionReceipt, useSwitchChain } from 'wagmi'
-import { erc20Abi, isAddress } from 'viem'
+import { erc20Abi, isAddress, getAddress } from 'viem'
 import { toast } from 'sonner'
 import { ESCROW_ADDRESS, ESCROW_ABI } from './EscrowABI'
 import { useUsdcBalance, useUsdcAllowance, ARC_TESTNET_CHAIN_ID, formatAmount } from './useEscrowData'
 import { getUsdc, buildTxExplorerUrl } from '@/onchain-facts'
 import { useEscrowTemplates } from './useEscrowTemplates'
+
+function safeAddress(addr: string | undefined): `0x${string}` | null {
+  if (!addr) return null
+  try {
+    const clean = addr.trim().toLowerCase()
+    if (!isAddress(clean)) return null
+    return getAddress(clean)
+  } catch {
+    return null
+  }
+}
 
 const USDC_ADDRESS = getUsdc(ARC_TESTNET_CHAIN_ID)!.address as `0x${string}`
 
@@ -97,13 +108,13 @@ export default function CreateEscrowModal({ onClose, onCreated, initialWorker }:
     toast.success('Template saved!')
   }
 
-  const cleanWorker = worker.trim()
-  const cleanEvaluator = evaluatorMode === 'self'
-    ? (address ?? '0x0000000000000000000000000000000000000000')
-    : evaluatorAddr.trim()
+  const safeWorker = safeAddress(worker)
+  const isWorkerValid = !!safeWorker
 
-  const isWorkerValid = isAddress(cleanWorker, { strict: false })
-  const isEvaluatorValid = evaluatorMode === 'self' || isAddress(cleanEvaluator, { strict: false })
+  const safeEvaluator = evaluatorMode === 'self'
+    ? ('0x0000000000000000000000000000000000000000' as `0x${string}`)
+    : safeAddress(evaluatorAddr)
+  const isEvaluatorValid = evaluatorMode === 'self' || !!safeEvaluator
 
   const targetEscrowAddress = (chainId === 5042
     ? '0x65152f15482856ca9cf279e65696fa5e430ba9ac'
@@ -128,7 +139,7 @@ export default function CreateEscrowModal({ onClose, onCreated, initialWorker }:
     !isNaN(new Date(deadline).getTime()) &&
     new Date(deadline).getTime() > nowMs &&
     isEvaluatorValid &&
-    (evaluatorMode === 'self' || cleanEvaluator.toLowerCase() !== cleanWorker.toLowerCase())
+    (evaluatorMode === 'self' || (safeEvaluator !== null && safeWorker !== null && safeEvaluator.toLowerCase() !== safeWorker.toLowerCase()))
 
   const needsApprove = (() => { const amt = parsedAmount(); if (!amt) return false; return allowance < amt })()
 
@@ -153,15 +164,13 @@ export default function CreateEscrowModal({ onClose, onCreated, initialWorker }:
 
   function handleCreate() {
     if (wrongChain) { switchChain({ chainId: ARC_TESTNET_CHAIN_ID }); return }
-    const amt = parsedAmount(); if (!amt || !formValid) return
+    const amt = parsedAmount(); if (!amt || !formValid || !safeWorker) return
     const deadlineTs = BigInt(Math.floor(new Date(deadline).getTime() / 1000))
-    const evalAddr = evaluatorMode === 'self'
-      ? '0x0000000000000000000000000000000000000000' as `0x${string}`
-      : cleanEvaluator as `0x${string}`
+    const evalAddr = safeEvaluator ?? ('0x0000000000000000000000000000000000000000' as `0x${string}`)
     try {
       create({
         address: targetEscrowAddress, abi: ESCROW_ABI, functionName: 'createEscrow',
-        args: [cleanWorker as `0x${string}`, evalAddr, amt, title.trim(), description.trim(), deadlineTs, splitEnabled],
+        args: [safeWorker, evalAddr, amt, title.trim(), description.trim(), deadlineTs, splitEnabled],
       }, {
         onError: (err) => {
           toast.error(err.message?.slice(0, 80) ?? 'Creation failed in wallet')
